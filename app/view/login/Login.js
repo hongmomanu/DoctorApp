@@ -1,73 +1,120 @@
-Ext.define('DoctorApp.view.Login', {
-    extend: 'Ext.form.Panel ',
+Ext.define('DoctorApp.view.login.Login', {
+
+    extend: 'Ext.form.Panel',
     xtype: 'loginform',
+    fullscreen: true,
+    itemId: 'loginpanel',
+    requires: [
+        'Ext.form.Panel',
+        'Ext.form.FieldSet',
+        'Ext.field.Text'
+    ],
 
+    config: {
 
-    scrollable:'vertical',
-    width:'700px',
-    height:'400px',
-    centered:true,
-    style:{
-        'padding':'1px'
-    },
-    items:[{
-        xtype:'fieldset',
-        title:'用户信息',
-        instructions:'请填写用户信息',
-
-        width:'640px',
-        height:'180px',
-        defaults:{
-            // 主要设置了textfield的label长度，这里固定了150px，也可以设置百分比
-            labelWidth:'150px'
+        scrollable:'vertical',
+        style:{
+            'padding':'1px'
         },
         items:[{
-            xtype:'textfield',
-            id:'txt_name',
-            namle:'name',
-            label:'用户名',
-            placeHolder:'请输入用户名',
-            // required=true label旁边有个* false则没有
-            required:true,
-            // 输入框中右侧的X按钮
-            clearIcon:true,
-            // 显示的label位置，有上下左右四种，默认是left（top， bottom，right）
-            labelAlign:'left'
-        },
-            {
-                xtype:'passwordfield',
-                id:'txt_password',
-                name:'password',
-                label:'密码',
-                placeHolder:'请输入密码',
-                required:true,
-                clearIcon:true
-            }]
-    },
-        {
-            xtype:'container',
-            layout:{
-                type:'vbox'
+            xtype:'fieldset',
+            title:'用户注册',
+            instructions:'请填写用户信息',
+            defaults:{
+                labelWidth:'150px'
             },
-            items:[
+            items:[{
+                xtype:'textfield',
+                id:'txt_username',
+                name:'username',
+                label:'用户名',
+                placeHolder:'请输入名',
+                required:true,
+                clearIcon:true,
+                labelAlign:'left'
+            },
                 {
-                    xtype:'button',
-                    text:'注册',
-                    width:'600px',
-                    style:{
-                        'margin-left':'30px'
-                    }
+                    xtype:'passwordfield',
+                    id:'txt_password',
+                    name:'password',
+                    label:'密码',
+                    placeHolder:'请输入密码',
+                    required:true,
+                    clearIcon:true
                 },
                 {
-                    xtype:'button',
-                    text:'登陆',
-                    width:'600px',
-                    style:{
-                        'margin-left':'30px',
-                        'margin-top':'10px'
-                    }
+                    xtype:'spinnerfield',
+                    id:'spn_age',
+                    name:'age',
+                    type:'int',
+                    label:'年龄',
+                    placeHolder:'请输入年龄',
+                    minValue:1,
+                    maxValue:100,
+                    defaultValue:NaN,
+                    stepValue:1,
+                    required:true,
+                    clearIcon:true
+                },
+                /*{
+                    xtype:'datepickerfield',
+                    name:'birthday',
+                    placeHolder:'请输入生日',
+                    label:'生日'
+                },*/
+                {
+                    xtype:'selectfield',
+                    label:'性别',
+                    name:'sex',
+                    options:[{
+                        text:'男性',
+                        value:'0'
+                    },{
+                        text:'女性',
+                        value:'1'
+                    }]
+
+                },
+                {
+                    xtype:'emailfield',
+                    id:'txt_email',
+                    name:'email',
+                    label:'E-mail',
+                    placeHolder:'请输入E-mail地址',
+                    clearIcon:true
+                },
+                {
+                    xtype:'urlfield',
+                    id:'txt_url',
+                    name:'homepage',
+                    label:'Home Page',
+                    placeHolder:'请输入个人主页地址',
+                    clearIcon:true
+                },
+                {
+                    xtype:'textareafield',
+                    id:'txt_textarea',
+                    name:'textarea',
+                    label:'个人介绍',
+                    placeHolder:'请输入个人简单介绍，在100字以内',
+                    maxlength:100,
+                    clearIcon:true
                 }
             ]
-        }]
+        },
+            {
+                xtype:'container',
+                layout:{
+                    type:'vbox'
+                },
+                items:[
+                    {
+                        xtype:'button',
+                        text:'注册',
+                        itemId:'doctorlogin'
+                    }
+                ]
+            }]
 
+    }
 });
