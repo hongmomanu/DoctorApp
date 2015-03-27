@@ -261,7 +261,11 @@ Ext.define('DoctorApp.controller.Main', {
     },
     doDoctorLogin:function(btn){
         testobj=btn;
-        console.log(btn);
+        var me = btn.up('LoginPanel');
+
+        var formObj = me;
+        var formData = formObj.getValues();
+        console.log(formData);
     },
     doMsgCLick: function () {
 

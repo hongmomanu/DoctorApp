@@ -2,7 +2,8 @@ Ext.define('DoctorApp.view.login.Login', {
 
     extend: 'Ext.form.Panel',
     xtype: 'loginform',
-    fullscreen: true,
+
+    alias: 'widget.LoginPanel',
     itemId: 'loginpanel',
     requires: [
         'Ext.form.Panel',
@@ -12,14 +13,21 @@ Ext.define('DoctorApp.view.login.Login', {
 
     config: {
 
+
+        fullscreen: true,
         scrollable:'vertical',
+
+        height:'100%',
+        width:'100%',
         style:{
             'padding':'1px'
         },
-        items:[{
+        centered:true,
+        items:[
+            {
             xtype:'fieldset',
-            title:'用户注册',
-            instructions:'请填写用户信息',
+            title:'医生注册',
+            instructions:'请填写信息',
             defaults:{
                 labelWidth:'150px'
             },
@@ -27,7 +35,7 @@ Ext.define('DoctorApp.view.login.Login', {
                 xtype:'textfield',
                 id:'txt_username',
                 name:'username',
-                label:'用户名',
+                label:'姓名',
                 placeHolder:'请输入名',
                 required:true,
                 clearIcon:true,

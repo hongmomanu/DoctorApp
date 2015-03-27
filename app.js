@@ -21,7 +21,7 @@ Ext.application({
     views: [
         'Main',
         'Contacts',
-        'login.Login',
+        'register.Register',
         'contact.Show'
     ],
     models: ['Contact'],
@@ -53,7 +53,7 @@ Ext.application({
         // Initialize the main view
 
         //Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
-        Ext.Viewport.add(Ext.create('DoctorApp.view.login.Login'));
+        Ext.Viewport.add(Ext.create('DoctorApp.view.register.Register'));
     },
 
     onUpdated: function() {
