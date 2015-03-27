@@ -44,6 +44,7 @@ Ext.application({
         Ext.fly('appLoadingIndicator').destroy();
 
         // Initialize the main view
+        //alert(11);
         Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
     },
 
