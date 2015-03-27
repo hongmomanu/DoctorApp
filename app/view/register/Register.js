@@ -12,10 +12,8 @@ Ext.define('DoctorApp.view.register.Register', {
 
     config: {
 
-
         fullscreen: true,
         scrollable:'vertical',
-
         height:'100%',
         width:'100%',
         style:{
