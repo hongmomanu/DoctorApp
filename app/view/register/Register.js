@@ -82,7 +82,7 @@ Ext.define('DoctorApp.view.register.Register', {
                     },
                     {
                         xtype:'emailfield',
-                        id:'txt_email',
+                        //id:'txt_email',
                         name:'email',
                         label:'E-mail',
                         placeHolder:'请输入E-mail地址',
@@ -90,7 +90,7 @@ Ext.define('DoctorApp.view.register.Register', {
                     },
                     {
                         xtype:'urlfield',
-                        id:'txt_url',
+                        //id:'txt_url',
                         name:'homepage',
                         label:'Home Page',
                         placeHolder:'请输入个人主页地址',
