@@ -26,9 +26,16 @@ Ext.define('DoctorApp.controller.Register', {
         var formData = formObj.getValues();
         console.log(formData);*/
         //alert(111);
-        testobj=btn.up('panel');
+        formpanel=btn.up('panel');
         CommonUtil.addMessage();
-        var valid = CommonUtil.valid('DoctorApp.model.register.Register', btn.up('panel'));
-        console.log(valid);
+        var valid = CommonUtil.valid('DoctorApp.model.register.Register', formpanel);
+
+        if(valid){
+
+            Ext.Viewport.removeAll();
+            Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
+
+        }
+
     }
 });

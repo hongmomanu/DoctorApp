@@ -49,7 +49,8 @@ Ext.define('DoctorApp.view.register.Register', {
                         xtype: 'textfield',
                         label:'手机号码',
                         required:true,
-                        name: 'mobile'
+                        name: 'mobile',
+                        clearIcon:true
                     },
                     {
                         xtype:'spinnerfield',
@@ -59,7 +60,6 @@ Ext.define('DoctorApp.view.register.Register', {
                         placeHolder:'请输入年龄',
                         minValue:1,
                         maxValue:100,
-                        defaultValue:NaN,
                         stepValue:1,
                         required:true,
                         clearIcon:true
