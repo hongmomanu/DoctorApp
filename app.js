@@ -24,9 +24,9 @@ Ext.application({
         'register.Register',
         'contact.Show'
     ],
-    models: ['Contact'],
+    models: ['Contact','register.Register'],
     stores: ['Contacts'],
-    controllers: ['Main'],
+    controllers: ['Main','Register'],
 
     icon: {
         '57': 'resources/icons/Icon.png',

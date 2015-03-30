@@ -30,8 +30,7 @@ Ext.define('DoctorApp.view.register.Register', {
                 },
                 items:[{
                     xtype:'textfield',
-                    id:'txt_username',
-                    name:'username',
+                    name:'name',
                     label:'姓名',
                     placeHolder:'请输入名',
                     required:true,
@@ -40,7 +39,6 @@ Ext.define('DoctorApp.view.register.Register', {
                 },
                     {
                         xtype:'passwordfield',
-                        id:'txt_password',
                         name:'password',
                         label:'密码',
                         placeHolder:'请输入密码',
@@ -48,8 +46,13 @@ Ext.define('DoctorApp.view.register.Register', {
                         clearIcon:true
                     },
                     {
+                        xtype: 'textfield',
+                        label:'手机号码',
+                        required:true,
+                        name: 'mobile'
+                    },
+                    {
                         xtype:'spinnerfield',
-                        id:'spn_age',
                         name:'age',
                         type:'int',
                         label:'年龄',
@@ -98,7 +101,7 @@ Ext.define('DoctorApp.view.register.Register', {
                     },
                     {
                         xtype:'textareafield',
-                        id:'txt_textarea',
+                        //id:'txt_textarea',
                         name:'textarea',
                         label:'个人介绍',
                         placeHolder:'请输入个人简单介绍，在100字以内',

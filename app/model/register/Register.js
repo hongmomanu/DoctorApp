@@ -7,10 +7,7 @@ Ext.define('DoctorApp.model.register.Register', {
                 name: 'mobile',
                 type: 'int'
             },
-            {
-                name: 'verifycode',
-                type: 'int'
-            },
+
             {
                 name: 'email',
                 type: 'string'
@@ -19,18 +16,12 @@ Ext.define('DoctorApp.model.register.Register', {
                 name: 'password',
                 type: 'string'
             },
-            {
-                name: 'passwordTwo',
-                type: 'string'
-            },
+
             {
                 name: 'name',
                 type: 'string'
             },
-            {
-                name: 'cityid',
-                type: 'int'
-            },
+
             {
                 name: 'address',
                 type: 'string'
@@ -58,11 +49,7 @@ Ext.define('DoctorApp.model.register.Register', {
                 type: 'email',
                 message: '请输入正确的邮箱地址!'
             },
-            {
-                field: 'verifycode',
-                type: 'presence',
-                message: '请输入验证码!'
-            },
+
             {
                 field: 'mobile',
                 type: 'format',
@@ -77,7 +64,7 @@ Ext.define('DoctorApp.model.register.Register', {
             tService = this.get('tService'),
             password = this.get('password'),
             passwordConfirm = this.get('passwordTwo');
-        if (password != passwordConfirm) {
+        /*if (password != passwordConfirm) {
             errors.add({
                 field: 'passwordConfirm',
                 message: '两次密码输入不一致!'
@@ -90,7 +77,7 @@ Ext.define('DoctorApp.model.register.Register', {
                     message: '请输入地址!'
                 })
             }
-        }
+        }*/
         return errors;
     }
 });
