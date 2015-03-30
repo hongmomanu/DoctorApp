@@ -55,7 +55,12 @@
         {
             "path": "CommonUtil.js",
             "update": "delta"
+        },
+        {
+            "path": "leaflet.js",
+            "update": "delta"
         }
+
     ],
 
     /**
@@ -76,9 +81,14 @@
      */
     "css": [
         {
+            "path": "resources/css/leaflet.css",
+            "update": "delta"
+        },
+        {
             "path": "resources/css/app.css",
             "update": "delta"
         }
+
     ],
 
     /**
