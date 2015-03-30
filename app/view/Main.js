@@ -9,7 +9,87 @@ Ext.define('DoctorApp.view.Main', {
     config: {
         tabBarPosition: 'bottom',
         items: [
+
             {
+                title:'医生圈',
+                iconCls: 'home',
+                styleHtmlContent: true,
+                scrollable: true,
+                layout: 'vbox',
+                items:[
+                    {
+                        docked: 'top',
+                        xtype: 'titlebar',
+                        title: '欢迎使用'
+                    },
+                    {
+                        xtype: 'panel',
+                        html:'hello kitty'
+                    }
+                ]
+
+            },
+            {
+                title:'我的患者',
+                iconCls: 'action',
+                styleHtmlContent: true,
+                scrollable: true,
+                layout: 'vbox',
+                items:[
+                    {
+                        docked: 'top',
+                        xtype: 'titlebar',
+                        title: '欢迎使用'
+                    },
+                    {
+                        xtype: 'panel',
+                        html:'hello kitty'
+                    }
+                ]
+
+            },
+            {
+                title:'医学咨询',
+                iconCls: 'search',
+                styleHtmlContent: true,
+                scrollable: true,
+                layout: 'vbox',
+                items:[
+                    {
+                        docked: 'top',
+                        xtype: 'titlebar',
+                        title: '欢迎使用'
+                    },
+                    {
+                        xtype: 'panel',
+                        html:'hello kitty'
+                    }
+                ]
+
+            }
+            ,
+            {
+                title:'我的设置',
+                iconCls: 'setting',
+                styleHtmlContent: true,
+                scrollable: true,
+                layout: 'vbox',
+                items:[
+                    {
+                        docked: 'top',
+                        xtype: 'titlebar',
+                        title: '欢迎使用'
+                    },
+                    {
+                        xtype: 'panel',
+                        html:'hello kitty'
+                    }
+                ]
+
+            }
+
+
+            /*{
                 title: '首页',
                 iconCls: 'home',
                 styleHtmlContent: true,
@@ -71,13 +151,13 @@ Ext.define('DoctorApp.view.Main', {
                         src: 'resources/icons/snow.jpg'
                     }
                 ]
-                /*,
+                /!*,
 
                  html: [
                  "You've just generated a new Sencha Touch 2 project. What you're looking at right now is the ",
                  "contents of <a target='_blank' href=\"app/view/Main.js\">app/view/Main.js</a> - edit that file ",
                  "and refresh to change what's rendered here."
-                 ].join("")*/
+                 ].join("")*!/
             },
             {
                 title: '地图',
@@ -100,7 +180,7 @@ Ext.define('DoctorApp.view.Main', {
                                 main.fireEvent('mapinit', this);
                             }
                         }
-                        /*initialize: function(obj) {
+                        /!*initialize: function(obj) {
                          var me = this;
                          alert(33);
                          //main.fireEvent('mapinit', ele);
@@ -112,7 +192,7 @@ Ext.define('DoctorApp.view.Main', {
                          });
 
 
-                         }*/,
+                         }*!/,
 
                         html: '<div id="map"></div>'
                     }
@@ -129,11 +209,11 @@ Ext.define('DoctorApp.view.Main', {
                         xtype: 'titlebar',
                         title: '列表'
                     },
-                    /*{
+                    /!*{
                      xtype: 'video',
                      url: 'http://av.vimeo.com/64284/137/87347327.mp4?token=1330978144_f9b698fea38cd408d52a2393240c896c',
                      posterUrl: 'http://b.vimeocdn.com/ts/261/062/261062119_640.jpg'
-                     }*/
+                     }*!/
                     {
                         xtype: 'navigationview',
                         autoDestroy: false,
@@ -241,7 +321,7 @@ Ext.define('DoctorApp.view.Main', {
                                 },
                                 items: [
                                     // Lets add a load button which will load the formpanel with a User model
-                                    /* {
+                                    /!* {
                                      text: 'Load Model',
                                      ui: 'round',
                                      scope: this,
@@ -298,7 +378,7 @@ Ext.define('DoctorApp.view.Main', {
                                      });
                                      }
                                      },
-                                     */
+                                     *!/
                                     { xtype: 'spacer' },
 
                                     // Here we add a reset button which will reset all fields within the form panel back to their original value
@@ -361,7 +441,7 @@ Ext.define('DoctorApp.view.Main', {
                         ]
                     }
                 ]
-            }
+            }*/
         ]
     }
 });

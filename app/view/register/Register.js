@@ -33,6 +33,7 @@ Ext.define('DoctorApp.view.register.Register', {
                     name:'name',
                     label:'姓名',
                     placeHolder:'请输入名',
+                    value:1,
                     required:true,
                     clearIcon:true,
                     labelAlign:'left'
@@ -42,12 +43,14 @@ Ext.define('DoctorApp.view.register.Register', {
                         name:'password',
                         label:'密码',
                         placeHolder:'请输入密码',
+                        value:1,
                         required:true,
                         clearIcon:true
                     },
                     {
                         xtype: 'textfield',
                         label:'手机号码',
+                        value:13421269744,
                         required:true,
                         name: 'mobile',
                         clearIcon:true
@@ -87,6 +90,8 @@ Ext.define('DoctorApp.view.register.Register', {
                         xtype:'emailfield',
                         //id:'txt_email',
                         name:'email',
+                        value:'12@1.com',
+
                         label:'E-mail',
                         placeHolder:'请输入E-mail地址',
                         clearIcon:true
