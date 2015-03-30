@@ -70,7 +70,7 @@ Ext.define('DoctorApp.view.Main', {
             ,
             {
                 title:'我的设置',
-                iconCls: 'setting',
+                iconCls: 'settings',
                 styleHtmlContent: true,
                 scrollable: true,
                 layout: 'vbox',
