@@ -31,10 +31,8 @@ Ext.define('DoctorApp.controller.Register', {
         var valid = CommonUtil.valid('DoctorApp.model.register.Register', formpanel);
 
         if(valid){
-
-            Ext.Viewport.removeAll();
+            Ext.Viewport.removeAt(0);
             Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
-
         }
 
     }
