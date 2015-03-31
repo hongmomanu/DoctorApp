@@ -20,10 +20,7 @@ Ext.define('DoctorApp.controller.Main', {
             msgbtn: {
                 tap: 'doMsgCLick'
             },
-            doctorloginbtn:{
 
-                tap:'doDoctorLogin'
-            },
             locationbtn: {
                 tap: 'doLocCLick'
             },
@@ -43,7 +40,7 @@ Ext.define('DoctorApp.controller.Main', {
             loadmorelistbtn: 'contacts #loadmorelist',
             imgbtn: 'main #imagebtn',
             msgbtn: 'main #msgbtn',
-            doctorloginbtn: 'loginform #doctorlogin',
+            //doctorloginbtn: 'loginform #doctorlogin',
             navigationview: 'main #navigationview',
             locationbtn: 'main #locationbtn',
             imgpanel: 'main #imagerc'
@@ -259,14 +256,7 @@ Ext.define('DoctorApp.controller.Main', {
 
 
     },
-    doDoctorLogin:function(btn){
-        testobj=btn;
-        var me = btn.up('LoginPanel');
 
-        var formObj = me;
-        var formData = formObj.getValues();
-        console.log(formData);
-    },
     doMsgCLick: function () {
 
         Ext.device.Notification.show({

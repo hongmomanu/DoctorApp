@@ -10,30 +10,36 @@ Ext.define('DoctorApp.controller.Login', {
             doctorloginbtn:{
 
                 tap:'doDoctorLogin'
+            },
+            newdoctorbtn:{
+
+                tap:'doNewDoctor'
             }
 
         },
         refs: {
 
-            doctorloginbtn: 'loginform #doctorlogin'
+            doctorloginbtn: 'loginform #doctorlogin',
+            newdoctorbtn: 'loginform #newdoctor',
+            loginformcontent:'loginform #loginformcontent',
+            loginformview: 'loginform'
         }
     },
 
     doDoctorLogin:function(btn){
-        /*testobj=btn;
-        var me = btn.up('panel');
-        var formObj = me;
-        var formData = formObj.getValues();
-        console.log(formData);*/
-        //alert(111);
-        formpanel=btn.up('panel');
+
+        var formpanel=this.getLoginformcontent();
         CommonUtil.addMessage();
         var valid = CommonUtil.valid('DoctorApp.model.login.Login', formpanel);
-
         if(valid){
             Ext.Viewport.removeAt(0);
             Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
         }
 
+    },
+    doNewDoctor:function(btn){
+        var view=this.getLoginformview();
+        var registerView=Ext.create('DoctorApp.view.register.Register');
+        view.push(registerView);
     }
 });

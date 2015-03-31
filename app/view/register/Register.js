@@ -2,8 +2,8 @@ Ext.define('DoctorApp.view.register.Register', {
 
     extend: 'Ext.form.Panel',
     xtype: 'registerform',
-    alias: 'widget.LoginPanel',
-    itemId: 'registerpanel',
+    alias: 'widget.RegisterPanel',
+    //itemId: 'registerpanel',
     requires: [
         'Ext.form.Panel',
         'Ext.form.FieldSet',
@@ -12,18 +12,14 @@ Ext.define('DoctorApp.view.register.Register', {
 
     config: {
 
-        fullscreen: true,
-        scrollable:'vertical',
-        height:'100%',
-        width:'100%',
+        title:'医生注册',
         style:{
             'padding':'1px'
         },
-        centered:true,
+        fullscreen: true,
         items:[
             {
                 xtype:'fieldset',
-                title:'医生注册',
                 instructions:'请填写信息',
                 defaults:{
                     labelWidth:'150px'
@@ -128,6 +124,7 @@ Ext.define('DoctorApp.view.register.Register', {
                     }
                 ]
             }]
+
 
     }
 });
