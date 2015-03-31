@@ -65,18 +65,16 @@ Ext.define('DoctorApp.view.Main', {
             {
                 title:'医学咨询',
                 iconCls: 'search',
-                styleHtmlContent: true,
-                scrollable: true,
-                layout: 'vbox',
+                layout: 'fit',
                 items:[
-                    {
+                    /*{
                         docked: 'top',
                         xtype: 'titlebar',
                         title: '欢迎使用'
-                    },
+                    },*/
                     {
-                        xtype: 'panel',
-                        html:'hello kitty'
+                        title:'医学咨询',
+                        xtype: 'materialmain'
                     }
                 ]
 
