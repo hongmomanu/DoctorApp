@@ -11,24 +11,34 @@ Ext.define('DoctorApp.view.Main', {
         items: [
 
             {
-                title:'医生圈',
-                iconCls: 'home',
-                styleHtmlContent: true,
-                scrollable: true,
-                layout: 'vbox',
-                items:[
+                title: '列表',
+                iconCls: 'action',
+                layout: 'fit',
+                items: [
                     {
                         docked: 'top',
                         xtype: 'titlebar',
-                        title: '欢迎使用'
+                        title: '列表'
                     },
-                    {
-                        xtype: 'panel',
-                        html:'hello kitty'
-                    }
-                ]
 
-            },
+                {
+                    xtype: 'navigationview',
+                    autoDestroy: false,
+                    //fullscreen: true,
+                    //itemId: 'navigationview',
+                    //inside this first item we are going to add a button
+                    items: [
+                        {
+                            xtype: 'doctors'
+
+                        }
+                    ]
+
+
+                }
+
+        ]
+    },
             {
                 title:'我的患者',
                 iconCls: 'action',

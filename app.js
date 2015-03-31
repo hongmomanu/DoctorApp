@@ -23,11 +23,18 @@ Ext.application({
         'Contacts',
         'register.Register',
         'login.Login',
+        'doctors.Doctors',
         'contact.Show'
     ],
-    models: ['Contact','register.Register','login.Login'],
-    stores: ['Contacts'],
-    controllers: ['Main','Register','Login'],
+    models: [
+        'Contact','register.Register','login.Login',
+        'doctors.Doctor'
+
+    ],
+    stores: [
+        'doctors.Doctors','Contacts'
+    ],
+    controllers: ['Main','Register','Login','Doctors'],
 
     icon: {
         '57': 'resources/icons/Icon.png',
