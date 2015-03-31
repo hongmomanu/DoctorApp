@@ -26,6 +26,7 @@ Ext.application({
         'doctors.Doctors',
         'patients.Patients',
         'material.Material',
+        'settings.Settings',
         'contact.Show'
     ],
     models: [

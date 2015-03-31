@@ -31,7 +31,6 @@ Ext.define('DoctorApp.view.Main', {
                         {
                             xtype: 'doctors',
                             title: '医生圈'
-
                         }
                     ]
 
@@ -43,7 +42,6 @@ Ext.define('DoctorApp.view.Main', {
             {
                 title:'我的患者',
                 iconCls: 'action',
-
                 layout: 'fit',
                 items:[
                     /*{
@@ -83,19 +81,21 @@ Ext.define('DoctorApp.view.Main', {
             {
                 title:'我的设置',
                 iconCls: 'settings',
-                styleHtmlContent: true,
-                scrollable: true,
-                layout: 'vbox',
+                layout: 'fit',
                 items:[
-                    {
+                   /* {
                         docked: 'top',
                         xtype: 'titlebar',
                         title: '欢迎使用'
-                    },
+                    },*/
                     {
-                        xtype: 'panel',
-                        html:'hello kitty'
+                        xtype: 'navigationview',
+                        autoDestroy: false,
+                        items:[{
+                            xtype:'settingsform'
+                        }]
                     }
+
                 ]
 
             }

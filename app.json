@@ -59,6 +59,18 @@
         {
             "path": "leaflet.js",
             "update": "delta"
+        },
+        {
+            "path": "jquery-1.10.2.js",
+            "update": "delta"
+        },
+        {
+            "path": "jquery.qrcode.js",
+            "update": "delta"
+        },
+        {
+            "path": "qrcode.js",
+            "update": "delta"
         }
 
     ],
