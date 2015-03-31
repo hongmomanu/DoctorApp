@@ -42,7 +42,6 @@ Ext.define('DoctorApp.view.login.Login', {
                         clearIcon: true,
                         labelAlign: 'left'
                     },
-
                     {
                         xtype: 'passwordfield',
                         name: 'password',

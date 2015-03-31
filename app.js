@@ -22,11 +22,12 @@ Ext.application({
         'Main',
         'Contacts',
         'register.Register',
+        'login.Login',
         'contact.Show'
     ],
-    models: ['Contact','register.Register'],
+    models: ['Contact','register.Register','login.Login'],
     stores: ['Contacts'],
-    controllers: ['Main','Register'],
+    controllers: ['Main','Register','Login'],
 
     icon: {
         '57': 'resources/icons/Icon.png',
@@ -53,7 +54,8 @@ Ext.application({
         // Initialize the main view
 
         //Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
-        Ext.Viewport.add(Ext.create('DoctorApp.view.register.Register'));
+        //Ext.Viewport.add(Ext.create('DoctorApp.view.register.Register'));
+        Ext.Viewport.add(Ext.create('DoctorApp.view.login.Login'));
     },
 
     onUpdated: function() {
