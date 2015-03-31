@@ -43,18 +43,21 @@ Ext.define('DoctorApp.view.Main', {
             {
                 title:'我的患者',
                 iconCls: 'action',
-                styleHtmlContent: true,
-                scrollable: true,
-                layout: 'vbox',
+
+                layout: 'fit',
                 items:[
-                    {
+                    /*{
                         docked: 'top',
                         xtype: 'titlebar',
                         title: '欢迎使用'
-                    },
+                    },*/
                     {
-                        xtype: 'panel',
-                        html:'hello kitty'
+                        xtype: 'navigationview',
+                        autoDestroy: false,
+                        items:[{
+                            xtype:'patients',
+                            title:'我的患者'
+                        }]
                     }
                 ]
 

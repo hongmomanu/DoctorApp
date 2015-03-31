@@ -1,6 +1,6 @@
-Ext.define('DoctorApp.view.doctors.Doctors', {
+Ext.define('DoctorApp.view.patients.Patients', {
     extend: 'Ext.List',
-    xtype: 'doctors',
+    xtype: 'patients',
     cls: 'x-contacts',
     config: {
         //title: '医生圈',
@@ -10,7 +10,7 @@ Ext.define('DoctorApp.view.doctors.Doctors', {
         scrollToTopOnRefresh :false,
         grouped:true,
         //indexBar:true,
-        store: 'Doctors',
+        store: 'Patients',
         items: [{
             xtype: 'button',
             scrollDock: 'bottom',
@@ -20,7 +20,7 @@ Ext.define('DoctorApp.view.doctors.Doctors', {
         }],
         itemTpl: [
             '<div class="headshot">',
-            '{section} {name}',
+            ' {name}',
             '</div>'
         ].join('')
     }

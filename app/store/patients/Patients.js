@@ -1,8 +1,8 @@
-Ext.define('DoctorApp.store.doctors.Doctors', {
+Ext.define('DoctorApp.store.patients.Patients', {
     extend: 'Ext.data.Store',
 
     config: {
-        model: 'DoctorApp.model.doctors.Doctor',
+        model: 'DoctorApp.model.patients.Patient',
         autoLoad: true,
         sorters: 'name',
         grouper: {
@@ -12,7 +12,7 @@ Ext.define('DoctorApp.store.doctors.Doctors', {
         },
         proxy: {
             type: 'ajax',
-            url: 'resources/data/doctors.json'
+            url: 'resources/data/patients.json'
         }
     }
 });
