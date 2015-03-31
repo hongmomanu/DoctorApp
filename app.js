@@ -37,7 +37,7 @@ Ext.application({
     stores: [
         'doctors.Doctors','patients.Patients','Contacts'
     ],
-    controllers: ['Main','Register','Login','Doctors','Patients'],
+    controllers: ['Main','Register','Login','Doctors','Patients','Settings'],
 
     icon: {
         '57': 'resources/icons/Icon.png',

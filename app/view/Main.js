@@ -24,6 +24,7 @@ Ext.define('DoctorApp.view.Main', {
                 {
                     xtype: 'navigationview',
                     autoDestroy: false,
+
                     //fullscreen: true,
                     //itemId: 'navigationview',
                     //inside this first item we are going to add a button
@@ -86,6 +87,7 @@ Ext.define('DoctorApp.view.Main', {
                    /* {
                         docked: 'top',
                         xtype: 'titlebar',
+                        name:'12',
                         title: '欢迎使用'
                     },*/
                     {

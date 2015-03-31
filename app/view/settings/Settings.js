@@ -1,6 +1,6 @@
 Ext.define('DoctorApp.view.settings.Settings', {
 
-    extend: 'Ext.form.Panel',
+    extend: 'Ext.Container',
     xtype: 'settingsform',
     //alias: 'widget.RegisterPanel',
     //itemId: 'registerpanel',
@@ -16,7 +16,41 @@ Ext.define('DoctorApp.view.settings.Settings', {
         style:{
             'padding':'1px'
         },
+        listeners: {
+            painted: function(){
+                //alert('hey!');
+                //var main = this.up('main');
+                //testobj=this;
+                this.fireEvent('viewshow', this);
+            }
+        },
         items:[
+
+            {
+                xtype:'fieldset',
+                defaults:{
+                    labelWidth:'35%',
+                    labelAlign:'top'
+                },
+                layout: 'hbox',
+                items:[
+                    {
+                        html:'<div>hello jack</div>',
+                        flex:5
+                    },
+                    {
+                        flex:1,
+                        xtype:'image',
+                        itemId:'doctorCodepicSmall',
+                        id:'doctorCodepicSmall',
+                        height: 64,
+                        width : 64
+                    }
+
+                ],
+                label:'我的账户'
+
+            },
             {
                 xtype:'fieldset',
                 defaults:{
@@ -25,11 +59,8 @@ Ext.define('DoctorApp.view.settings.Settings', {
                 },
                 items:[
                     {
-                        xtype:'sliderfield',
-                        name:'test1',
-                        value:20,
-                        label:'settings test1'
-
+                        xtype:'textfield',
+                        label:'我的账户'
                     },
                     {
                         xtype:'sliderfield',
