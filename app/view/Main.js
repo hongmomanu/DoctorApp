@@ -11,15 +11,15 @@ Ext.define('DoctorApp.view.Main', {
         items: [
 
             {
-                title: '列表',
+                title: '医生圈',
                 iconCls: 'action',
                 layout: 'fit',
                 items: [
-                    {
+                   /* {
                         docked: 'top',
                         xtype: 'titlebar',
-                        title: '列表'
-                    },
+                        title: '医生圈'
+                    },*/
 
                 {
                     xtype: 'navigationview',
@@ -29,7 +29,8 @@ Ext.define('DoctorApp.view.Main', {
                     //inside this first item we are going to add a button
                     items: [
                         {
-                            xtype: 'doctors'
+                            xtype: 'doctors',
+                            title: '医生圈'
 
                         }
                     ]

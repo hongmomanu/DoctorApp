@@ -4,6 +4,7 @@ Ext.define('DoctorApp.model.doctors.Doctor', {
         fields: [
             'firstName',
             'lastName',
+            'section',
             'headshot',
             'title',
             'telephone',

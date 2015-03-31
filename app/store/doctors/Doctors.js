@@ -4,12 +4,12 @@ Ext.define('DoctorApp.store.doctors.Doctors', {
     config: {
         model: 'DoctorApp.model.doctors.Doctor',
         autoLoad: true,
-        //sorters: 'firstName',
-        /*grouper: {
+        sorters: 'firstName',
+        grouper: {
             groupFn: function(record) {
-                return record.get('lastName')[0];
+                return record.get('section');
             }
-        },*/
+        },
         proxy: {
             type: 'ajax',
             url: 'resources/data/contacts.json'

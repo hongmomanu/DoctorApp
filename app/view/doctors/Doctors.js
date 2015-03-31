@@ -3,12 +3,13 @@ Ext.define('DoctorApp.view.doctors.Doctors', {
     xtype: 'doctors',
     cls: 'x-contacts',
     config: {
-        title: '1212',
+        //title: '医生圈',
         //cls: 'x-contacts',
         variableHeights: true,
         //refreshHeightOnUpdate :false,
         scrollToTopOnRefresh :false,
-
+        grouped:true,
+        //indexBar:true,
         store: 'Doctors',
         items: [{
             xtype: 'button',
