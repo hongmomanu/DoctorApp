@@ -52,6 +52,9 @@ Ext.define('DoctorApp.controller.Doctors', {
             var myinfo= this.messageView.mydata;
             var message=Ext.apply({message:content}, myinfo);
             Ext.getStore('DoctorMessages').add(Ext.apply({local: true}, message));
+            var loadingObj = new htmlloading(document.getElementById('canvas'),{radius:8,circleLineWidth:3});
+            loadingObj.show();
+
 
         }else{
             CommonUtil.showMessage("no content",true);

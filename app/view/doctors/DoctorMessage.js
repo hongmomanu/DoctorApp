@@ -11,7 +11,7 @@ Ext.define('DoctorApp.view.doctors.DoctorMessage', {
             '<tpl if="local">',
             '	<div class="nick local">{userinfo.realname}</div>',
             '	<div class="x-button x-button-confirm local"">',
-            '		<p class="x-button-label message">{message}</p>',
+            '		 <canvas id="canvas" width="50" height="50"></canvas><p class="x-button-label message">{message}</p>',
             '	</div>',
             '<tpl else>',
             '	<div class="nick remote">{userinfo.realname}</div>',
