@@ -104,6 +104,11 @@
             "path": "resources/css/app.css",
             "update": "delta"
         }
+        ,
+        {
+            "path": "resources/css/chat.css",
+            "update": "delta"
+        }
 
     ],
 

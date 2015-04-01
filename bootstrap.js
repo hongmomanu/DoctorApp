@@ -44,16 +44,19 @@ Ext.ClassManager.addNameAlternateMappings({
   "DoctorApp.controller.Settings": [],
   "DoctorApp.model.Contact": [],
   "DoctorApp.model.doctors.Doctor": [],
+  "DoctorApp.model.doctors.DoctorMessage": [],
   "DoctorApp.model.login.Login": [],
   "DoctorApp.model.patients.Patient": [],
   "DoctorApp.model.register.Register": [],
   "DoctorApp.store.Contacts": [],
+  "DoctorApp.store.doctors.DoctorMessages": [],
   "DoctorApp.store.doctors.Doctors": [],
   "DoctorApp.store.patients.Patients": [],
   "DoctorApp.view.Contacts": [],
   "DoctorApp.view.Main": [],
   "DoctorApp.view.contact.Edit": [],
   "DoctorApp.view.contact.Show": [],
+  "DoctorApp.view.doctors.DoctorMessage": [],
   "DoctorApp.view.doctors.Doctors": [],
   "DoctorApp.view.login.Login": [],
   "DoctorApp.view.material.Material": [],
@@ -691,10 +694,12 @@ Ext.ClassManager.addNameAliasMappings({
   "DoctorApp.controller.Settings": [],
   "DoctorApp.model.Contact": [],
   "DoctorApp.model.doctors.Doctor": [],
+  "DoctorApp.model.doctors.DoctorMessage": [],
   "DoctorApp.model.login.Login": [],
   "DoctorApp.model.patients.Patient": [],
   "DoctorApp.model.register.Register": [],
   "DoctorApp.store.Contacts": [],
+  "DoctorApp.store.doctors.DoctorMessages": [],
   "DoctorApp.store.doctors.Doctors": [],
   "DoctorApp.store.patients.Patients": [],
   "DoctorApp.view.Contacts": [
@@ -708,6 +713,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "DoctorApp.view.contact.Show": [
     "widget.contact-show"
+  ],
+  "DoctorApp.view.doctors.DoctorMessage": [
+    "widget.doctormessagelist"
   ],
   "DoctorApp.view.doctors.Doctors": [
     "widget.doctors"
