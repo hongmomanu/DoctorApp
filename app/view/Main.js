@@ -26,7 +26,7 @@ Ext.define('DoctorApp.view.Main', {
                     autoDestroy: false,
 
                     //fullscreen: true,
-                    //itemId: 'navigationview',
+                    itemId: 'doctorsnavigationview',
                     //inside this first item we are going to add a button
                     items: [
                         {

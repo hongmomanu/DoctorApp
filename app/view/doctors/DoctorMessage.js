@@ -25,18 +25,24 @@ Ext.define('DoctorApp.view.doctors.DoctorMessage', {
             xtype: 'toolbar',
             docked: 'bottom',
             items: [
-                {
-                    xtype: 'textareafield',
-                    height: 60,
-                    flex: 5,
-                    name: 'message'
-                }, {
-                    xtype: 'button',
-                    itemId: 'send',
-                    ui: 'action',
-                    flex: 1,
-                    text: 'Send'
-                }
+
+
+
+                        {
+                            xtype: 'textfield',
+                            //maxRows: 2,
+                            height: 60,
+                            flex: 5,
+                            name: 'message'
+                        }, {
+                            xtype: 'button',
+                            itemId: 'sendmessage',
+                            ui: 'action',
+                            flex: 1,
+                            text: '发送'
+                        }
+
+
             ]
         }]
     }

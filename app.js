@@ -38,7 +38,7 @@ Ext.application({
 
     ],
     stores: [
-        'doctors.Doctors','doctors.DoctorMessage',
+        'doctors.Doctors','doctors.DoctorMessages',
         'patients.Patients','Contacts'
     ],
     controllers: ['Main','Register','Login','Doctors','Patients','Settings'],

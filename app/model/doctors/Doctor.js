@@ -3,6 +3,7 @@ Ext.define('DoctorApp.model.doctors.Doctor', {
     config: {
         fields: [
             'loc',
+            '_id',
             'userinfo'
         ]
     }
