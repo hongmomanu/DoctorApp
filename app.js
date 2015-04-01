@@ -14,7 +14,8 @@ Ext.application({
     name: 'DoctorApp',
 
     requires: [
-        'Ext.MessageBox'
+        'Ext.MessageBox',
+        'Ext.util.DelayedTask'
     ],
 
 

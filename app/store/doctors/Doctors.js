@@ -1,18 +1,17 @@
 Ext.define('DoctorApp.store.doctors.Doctors', {
     extend: 'Ext.data.Store',
-
     config: {
         model: 'DoctorApp.model.doctors.Doctor',
         autoLoad: true,
-        sorters: 'name',
+        //sorters: '_id',
         grouper: {
             groupFn: function(record) {
-                return record.get('section');
+                return record.get('userinfo').sectionname;
             }
         },
         proxy: {
             type: 'ajax',
-            url: 'resources/data/doctors.json'
+            url: serverurl+"user/getdoctors"
         }
     }
 });

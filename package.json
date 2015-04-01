@@ -1,0 +1,9 @@
+{
+  "name": "nw-DoctorApp",
+  "main": "index.html",
+  "window": {
+    "title": "DoctorApp",
+    "toolbar": true
+
+  }
+}

@@ -86,9 +86,43 @@ Ext.define('DoctorApp.controller.Main', {
     initRender: function () {
         // console.log(document.getElementById('map'));
         //alert(1);
-        this.makeLonlat();
-        testobj = this;
+        //this.makeLonlat();
+        this.websocketInit();
+        //testobj = this;
     },
+
+    websocketInit:function(){
+        var url=serverurl;
+        //url=url?"ws://"+url.split("://")[1].split(":")[0]+":3001/":"ws://localhost:3001/";
+        url=url.replace(/(:\d+)/g,":3001");
+        url=url.replace("http","ws");
+        var socket = new WebSocket(url);
+        var me=this;
+
+
+
+        socket.onmessage = function(event) {
+            var data=event.data;
+            data=JSON.parse(data);
+            console.log(data);
+
+        };
+        socket.onclose = function(event) {
+
+            var d = new Ext.util.DelayedTask(function(){
+                me.websocketInit();
+            });
+            d.delay(5000);
+        };
+        socket.onopen = function() {
+            socket.send(JSON.stringify({
+                type:"connect",
+                content: "551b4cb83b83719a9aba9c01"
+            }));
+        };
+
+    },
+
     initMap: function (obj) {
         //alert(1111);
         //console.log(document.getElementById('map'));

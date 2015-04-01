@@ -28,9 +28,18 @@ Ext.define('DoctorApp.view.settings.Settings', {
 
             {
                 xtype:'fieldset',
+                title: 'About You',
                 defaults:{
                     labelWidth:'35%',
                     labelAlign:'top'
+                },
+                listeners: {
+                    tap: function(){
+                        alert('hey!');
+                        //var main = this.up('main');
+                        //testobj=this;
+                        //this.fireEvent('viewshow', this);
+                    }
                 },
                 layout: 'hbox',
                 items:[

@@ -36,17 +36,30 @@ Ext.Loader.addClassPathMappings({
 });
 
 Ext.ClassManager.addNameAlternateMappings({
+  "DoctorApp.controller.Doctors": [],
+  "DoctorApp.controller.Login": [],
   "DoctorApp.controller.Main": [],
+  "DoctorApp.controller.Patients": [],
   "DoctorApp.controller.Register": [],
+  "DoctorApp.controller.Settings": [],
   "DoctorApp.model.Contact": [],
+  "DoctorApp.model.doctors.Doctor": [],
+  "DoctorApp.model.login.Login": [],
+  "DoctorApp.model.patients.Patient": [],
   "DoctorApp.model.register.Register": [],
   "DoctorApp.store.Contacts": [],
+  "DoctorApp.store.doctors.Doctors": [],
+  "DoctorApp.store.patients.Patients": [],
   "DoctorApp.view.Contacts": [],
   "DoctorApp.view.Main": [],
   "DoctorApp.view.contact.Edit": [],
   "DoctorApp.view.contact.Show": [],
+  "DoctorApp.view.doctors.Doctors": [],
   "DoctorApp.view.login.Login": [],
+  "DoctorApp.view.material.Material": [],
+  "DoctorApp.view.patients.Patients": [],
   "DoctorApp.view.register.Register": [],
+  "DoctorApp.view.settings.Settings": [],
   "Ext.AbstractComponent": [],
   "Ext.AbstractManager": [],
   "Ext.AbstractPlugin": [],
@@ -670,11 +683,20 @@ Ext.ClassManager.addNameAlternateMappings({
 });
 
 Ext.ClassManager.addNameAliasMappings({
+  "DoctorApp.controller.Doctors": [],
+  "DoctorApp.controller.Login": [],
   "DoctorApp.controller.Main": [],
+  "DoctorApp.controller.Patients": [],
   "DoctorApp.controller.Register": [],
+  "DoctorApp.controller.Settings": [],
   "DoctorApp.model.Contact": [],
+  "DoctorApp.model.doctors.Doctor": [],
+  "DoctorApp.model.login.Login": [],
+  "DoctorApp.model.patients.Patient": [],
   "DoctorApp.model.register.Register": [],
   "DoctorApp.store.Contacts": [],
+  "DoctorApp.store.doctors.Doctors": [],
+  "DoctorApp.store.patients.Patients": [],
   "DoctorApp.view.Contacts": [
     "widget.contacts"
   ],
@@ -687,13 +709,25 @@ Ext.ClassManager.addNameAliasMappings({
   "DoctorApp.view.contact.Show": [
     "widget.contact-show"
   ],
+  "DoctorApp.view.doctors.Doctors": [
+    "widget.doctors"
+  ],
   "DoctorApp.view.login.Login": [
     "widget.LoginPanel",
     "widget.loginform"
   ],
+  "DoctorApp.view.material.Material": [
+    "widget.materialmain"
+  ],
+  "DoctorApp.view.patients.Patients": [
+    "widget.patients"
+  ],
   "DoctorApp.view.register.Register": [
-    "widget.LoginPanel",
+    "widget.RegisterPanel",
     "widget.registerform"
+  ],
+  "DoctorApp.view.settings.Settings": [
+    "widget.settingsform"
   ],
   "Ext.AbstractComponent": [],
   "Ext.AbstractManager": [],

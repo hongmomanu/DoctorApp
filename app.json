@@ -71,6 +71,10 @@
         {
             "path": "qrcode.js",
             "update": "delta"
+        },
+        {
+            "path": "config.js",
+            "update": "delta"
         }
 
     ],
