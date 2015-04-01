@@ -26,6 +26,7 @@ Ext.define('DoctorApp.controller.Doctors', {
 
     },
     onDoctorSelect: function (list, index, node, record) {
+
         alert(1);
        /* if (!this.showContact)this.showContact = Ext.create('DoctorApp.view.contact.Show');
 

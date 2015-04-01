@@ -25,6 +25,7 @@ Ext.application({
         'register.Register',
         'login.Login',
         'doctors.Doctors',
+        'doctors.DoctorMessage',
         'patients.Patients',
         'material.Material',
         'settings.Settings',
@@ -32,11 +33,13 @@ Ext.application({
     ],
     models: [
         'Contact','register.Register','login.Login',
-        'doctors.Doctor','patients.Patient'
+        'doctors.Doctor','doctors.DoctorMessage',
+        'patients.Patient'
 
     ],
     stores: [
-        'doctors.Doctors','patients.Patients','Contacts'
+        'doctors.Doctors','doctors.DoctorMessage',
+        'patients.Patients','Contacts'
     ],
     controllers: ['Main','Register','Login','Doctors','Patients','Settings'],
 
