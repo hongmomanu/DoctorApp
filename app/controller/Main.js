@@ -92,7 +92,7 @@ Ext.define('DoctorApp.controller.Main', {
     },
 
     websocketInit:function(){
-        var url=serverurl;
+        var url=Globle_Variable.serverurl;
         //url=url?"ws://"+url.split("://")[1].split(":")[0]+":3001/":"ws://localhost:3001/";
         url=url.replace(/(:\d+)/g,":3001");
         url=url.replace("http","ws");
@@ -100,9 +100,12 @@ Ext.define('DoctorApp.controller.Main', {
         var me=this;
 
         this.socket.onmessage = function(event) {
+            //alert(1111);
+            var doctorController=me.getApplication().getController('Doctors');
             var data=event.data;
-            data=JSON.parse(data);
-            console.log(data);
+            doctorController.receiveMessageProcess(JSON.parse(data));
+
+
 
         };
         this.socket.onclose = function(event) {
@@ -115,7 +118,7 @@ Ext.define('DoctorApp.controller.Main', {
         this.socket.onopen = function() {
             me.socket.send(JSON.stringify({
                 type:"connect",
-                content: "551b4cb83b83719a9aba9c01"
+                content: Globle_Variable.user._id
             }));
         };
 

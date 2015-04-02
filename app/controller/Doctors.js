@@ -44,12 +44,34 @@ Ext.define('DoctorApp.controller.Doctors', {
         //this.getDoctorsnavview().deselectAll();
 
     },
+    receiveMessageProcess:function(data){
+        var listView=this.getDoctorsview();
+        var store=listView.getStore();
+        var index =this.filterReceiveIndex(data,store);
+
+        listView.select(index);
+        listView.fireEvent('itemtap',listView,index,listView.getActiveItem(),store.getAt(index),Ext.emptyFn);
+        //listView.select(1);
+
+    },
+    filterReceiveIndex:function(data,store){
+        var listdata=store.data.items;
+        var index=0;
+        for(var i=0;i<listdata.length;i++){
+            if(listdata[i].get("_id")==data.fromid){
+                index=i;
+                break;
+            }
+        }
+        return index;
+    },
     sendMessage:function(btn){
         var content=Ext.String.trim(this.getMessagecontent().getValue());
 
         if(content&&content!=''){
             //alert(conten);
             var myinfo= this.messageView.mydata;
+
             var toinfo=this.messageView.data;
             var message=Ext.apply({message:content}, myinfo);
             Ext.getStore('DoctorMessages').add(Ext.apply({local: true}, message));
@@ -77,12 +99,12 @@ Ext.define('DoctorApp.controller.Doctors', {
     onDoctorSelect: function (list, index, node, record) {
         if (!this.messageView)this.messageView = Ext.create('DoctorApp.view.doctors.DoctorMessage');
         //var messageView=Ext.create('DoctorApp.view.doctors.DoctorMessage');
-        //console.log(record);
+
+
+
         this.messageView.setTitle(record.get('userinfo').realname);
         this.messageView.data=record;
-        this.messageView.mydata={_id:'551b4cb83b83719a9aba9c01',userinfo:
-            { "username" : "jack", "password" : "1", "realname" : "赵医生", "sex" : "男", "sectionname" : "内科" }
-        };
+        this.messageView.mydata=Globle_Variable.user;
 
         this.getDoctorsnavview().push(this.messageView);
 

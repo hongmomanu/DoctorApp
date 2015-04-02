@@ -11,7 +11,7 @@ Ext.define('DoctorApp.store.doctors.Doctors', {
         },
         proxy: {
             type: 'ajax',
-            url: serverurl+"user/getdoctors"
+            url: Globle_Variable.serverurl+"user/getdoctors"
         }
     }
 });
