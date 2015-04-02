@@ -50,10 +50,22 @@ Ext.define('DoctorApp.controller.Doctors', {
         if(content&&content!=''){
             //alert(conten);
             var myinfo= this.messageView.mydata;
+            var toinfo=this.messageView.data;
             var message=Ext.apply({message:content}, myinfo);
             Ext.getStore('DoctorMessages').add(Ext.apply({local: true}, message));
-            var loadingObj = new htmlloading(document.getElementById('canvas'),{radius:8,circleLineWidth:3});
-            loadingObj.show();
+
+            var mainController=this.getApplication().getController('Main');
+
+            var socket=mainController.socket;
+            socket.send(JSON.stringify({
+                type:"chatdoctor",
+                from:myinfo._id,
+                to :toinfo.get("_id"),
+                content: content
+            }));
+
+            //var loadingObj = new htmlloading(document.getElementById('canvas'),{radius:8,circleLineWidth:3});
+            //loadingObj.show();
 
 
         }else{

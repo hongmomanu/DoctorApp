@@ -96,26 +96,24 @@ Ext.define('DoctorApp.controller.Main', {
         //url=url?"ws://"+url.split("://")[1].split(":")[0]+":3001/":"ws://localhost:3001/";
         url=url.replace(/(:\d+)/g,":3001");
         url=url.replace("http","ws");
-        var socket = new WebSocket(url);
+        this.socket = new WebSocket(url);
         var me=this;
 
-
-
-        socket.onmessage = function(event) {
+        this.socket.onmessage = function(event) {
             var data=event.data;
             data=JSON.parse(data);
             console.log(data);
 
         };
-        socket.onclose = function(event) {
+        this.socket.onclose = function(event) {
 
             var d = new Ext.util.DelayedTask(function(){
                 me.websocketInit();
             });
             d.delay(5000);
         };
-        socket.onopen = function() {
-            socket.send(JSON.stringify({
+        this.socket.onopen = function() {
+            me.socket.send(JSON.stringify({
                 type:"connect",
                 content: "551b4cb83b83719a9aba9c01"
             }));
