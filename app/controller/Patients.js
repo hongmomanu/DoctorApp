@@ -100,9 +100,7 @@ Ext.define('DoctorApp.controller.Patients', {
             params:{
                 id : Globle_Variable.user._id
             },
-
             scope: this,
-
             callback : function(records, operation, success) {
 
             }});
