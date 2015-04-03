@@ -3,7 +3,9 @@ Ext.define('DoctorApp.model.patients.Patient', {
     config: {
         fields: [
 
-            'name'
+            'realname',
+            '_id',
+            'username'
         ]
     }
 });

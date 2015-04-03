@@ -20,7 +20,7 @@ Ext.define('DoctorApp.view.patients.Patients', {
         }],
         itemTpl: [
             '<div class="headshot">',
-            ' {name}',
+            ' {realname}',
             '</div>'
         ].join('')
     }

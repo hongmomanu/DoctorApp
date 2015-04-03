@@ -65,8 +65,9 @@ Ext.define('DoctorApp.controller.Login', {
                     localStorage.user=JSON.stringify(res.user);
                     Globle_Variable.user=res.user;
                     var doctorCotroller=me.getApplication().getController('Doctors');
+                    var patientCotroller=me.getApplication().getController('Patients');
                     doctorCotroller.initDoctorList();
-                    doctorCotroller.initPatientList();
+                    patientCotroller.initPatientList();
 
                 }else{
                     Ext.Msg.alert('登录失败', '用户名密码错误', Ext.emptyFn);
