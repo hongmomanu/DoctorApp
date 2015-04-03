@@ -9,6 +9,7 @@ Ext.define('DoctorApp.controller.Patients', {
 
 
             'patients.Patients',
+            'patients.PatientsMessage'
 
 
 
@@ -16,12 +17,14 @@ Ext.define('DoctorApp.controller.Patients', {
         models: [
 
 
-            'patients.Patient'
+            'patients.Patient',
+            'patients.PatientMessage'
 
         ],
         stores: [
 
-            'patients.Patients'
+            'patients.Patients',
+            'patients.PatientMessages'
 
         ],
         control: {
@@ -76,6 +79,16 @@ Ext.define('DoctorApp.controller.Patients', {
 
         this.showContact.setRecord(record);
         this.getDoctorsnavview().push(this.showContact);*/
+
+
+        if (!this.messageView)this.messageView = Ext.create('DoctorApp.view.patients.PatientsMessage');
+        //var messageView=Ext.create('DoctorApp.view.doctors.DoctorMessage');
+
+        this.messageView.setTitle(record.get('realname'));
+        this.messageView.data=record;
+        this.messageView.mydata=Globle_Variable.user;
+
+        this.getPatientssview().push(this.messageView);
 
         // Push the show contact view into the navigation view
 
