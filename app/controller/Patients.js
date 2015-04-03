@@ -31,6 +31,7 @@ Ext.define('DoctorApp.controller.Patients', {
             },
             patientssview: {
                 itemtap: 'onPatientSelect',
+                itemtaphold:'onPatientHold',
                 viewshow:'listShow'
             }
 
@@ -41,10 +42,28 @@ Ext.define('DoctorApp.controller.Patients', {
         }
     },
 
-    onMainPush: function (view, item) {
-        alert(2);
-        this.getPatientssview().deselectAll();
+    onPatientHold:function(list) {
+        //long patient hold
+        alert("hold");
+        var actionSheet = Ext.create('Ext.ActionSheet', {
+            items: [
+                {
+                    text: '添加黑名单',
+                    ui  : 'decline'
+                },
+                {
+                    text: '取消',
+                    ui  : 'confirm'
+                }
+            ]
+        });
 
+        Ext.Viewport.add(actionSheet);
+        actionSheet.show();
+
+    },
+    onMainPush: function (view, item) {
+        this.getPatientssview().deselectAll();
     },
     listShow:function(){
         //this.initPatientList();
