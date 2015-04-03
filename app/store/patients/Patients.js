@@ -3,7 +3,7 @@ Ext.define('DoctorApp.store.patients.Patients', {
 
     config: {
         model: 'DoctorApp.model.patients.Patient',
-        autoLoad: true,
+        autoLoad: false,
         sorters: 'name',
         grouper: {
             groupFn: function(record) {
@@ -13,7 +13,7 @@ Ext.define('DoctorApp.store.patients.Patients', {
         proxy: {
             type: 'ajax',
             //url: 'resources/data/patients.json'
-            url: Globle_Variable.serverurl+"user/getdoctorsbyid"
+            url: Globle_Variable.serverurl+"user/getpatientsbyid"
         }
     }
 });

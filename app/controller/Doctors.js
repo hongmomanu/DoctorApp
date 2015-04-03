@@ -50,7 +50,7 @@ Ext.define('DoctorApp.controller.Doctors', {
        store.load({
                 //define the parameters of the store:
                 params:{
-                    id : Globle_Variable.user._id,
+                    id : Globle_Variable.user._id
                 },
                 scope: this,
                 callback : function(records, operation, success) {

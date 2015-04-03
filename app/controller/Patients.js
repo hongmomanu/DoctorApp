@@ -53,6 +53,20 @@ Ext.define('DoctorApp.controller.Patients', {
 
         // Push the show contact view into the navigation view
 
+    },
+    initPatientList:function(){
+
+        var store=Ext.getStore('Patients');
+        store.load({
+            //define the parameters of the store:
+            params:{
+                id : Globle_Variable.user._id
+            },
+            scope: this,
+            callback : function(records, operation, success) {
+
+            }});
+
     }
 
 

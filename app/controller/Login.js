@@ -61,13 +61,12 @@ Ext.define('DoctorApp.controller.Login', {
                 var res=JSON.parse(response.responseText);
                 if(res.success){
                     Ext.Viewport.removeAt(0);
-                   // var mainController = me.getApplication().getController('Main');
-                    //mainController.init(me);
                     Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
                     localStorage.user=JSON.stringify(res.user);
                     Globle_Variable.user=res.user;
                     var doctorCotroller=me.getApplication().getController('Doctors');
                     doctorCotroller.initDoctorList();
+                    doctorCotroller.initPatientList();
 
                 }else{
                     Ext.Msg.alert('登录失败', '用户名密码错误', Ext.emptyFn);
