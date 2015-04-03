@@ -44,7 +44,7 @@ Ext.define('DoctorApp.controller.Patients', {
 
     onPatientHold:function(list) {
         //long patient hold
-        alert("hold");
+        //alert("hold");
         var actionSheet = Ext.create('Ext.ActionSheet', {
             items: [
                 {
@@ -53,6 +53,9 @@ Ext.define('DoctorApp.controller.Patients', {
                 },
                 {
                     text: '取消',
+                    handler : function() {
+                        actionSheet.hide();
+                    },
                     ui  : 'confirm'
                 }
             ]
@@ -69,7 +72,7 @@ Ext.define('DoctorApp.controller.Patients', {
         //this.initPatientList();
     },
     onPatientSelect: function (list, index, node, record) {
-        alert(1);
+        //alert(1);
        /* if (!this.showContact)this.showContact = Ext.create('DoctorApp.view.contact.Show');
 
         this.showContact.setRecord(record);
