@@ -11,6 +11,14 @@ Ext.define('DoctorApp.view.doctors.Doctors', {
         grouped:true,
         //indexBar:true,
         store: 'Doctors',
+
+        listeners: {
+            painted: function(){
+
+                this.fireEvent('viewshow', this);
+            }
+        },
+
         items: [{
             xtype: 'button',
             scrollDock: 'bottom',

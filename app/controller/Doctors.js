@@ -27,7 +27,8 @@ Ext.define('DoctorApp.controller.Doctors', {
                 tap:'sendMessage'
             },
             doctorsview: {
-                itemtap: 'onDoctorSelect'
+                itemtap: 'onDoctorSelect',
+                viewshow:'listShow'
             }
 
         },
@@ -42,6 +43,10 @@ Ext.define('DoctorApp.controller.Doctors', {
     onMainPush: function (view, item) {
         //alert(2);
         //this.getDoctorsnavview().deselectAll();
+
+    },
+    listShow:function(event){
+        // init list data
 
     },
     initDoctorList:function(){
