@@ -1,4 +1,4 @@
-Ext.define('DoctorApp.model.doctors.PatientMessage', {
+Ext.define('DoctorApp.model.patients.PatientMessage', {
     extend: 'Ext.data.Model',
     config: {
         fields: [

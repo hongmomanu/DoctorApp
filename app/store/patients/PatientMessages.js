@@ -1,7 +1,7 @@
 
-Ext.define('DoctorApp.store.doctors.PatientMessages', {
+Ext.define('DoctorApp.store.patients.PatientMessages', {
     extend: 'Ext.data.Store',
     config: {
-        model: 'DoctorApp.model.doctors.PatientMessage'
+        model: 'DoctorApp.model.patients.PatientMessage'
     }
 });
