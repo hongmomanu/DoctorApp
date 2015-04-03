@@ -96,6 +96,29 @@ Ext.define('DoctorApp.controller.Doctors', {
 
 
     },
+    sendMsgByAjax:function(data){
+        var successFunc = function (response, action) {
+
+            /*var res=JSON.parse(response.responseText);
+            if(res.success){
+                Ext.Viewport.removeAt(0);
+                Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
+                localStorage.user=JSON.stringify(res.user);
+                Globle_Variable.user=res.user;
+
+            }else{
+                Ext.Msg.alert('登录失败', '用户名密码错误', Ext.emptyFn);
+            }*/
+
+        };
+        var failFunc=function(response, action){
+            Ext.Msg.alert('登录失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
+
+        }
+        var url="doctor/sendmessage";
+        var params=data;
+        CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
+    },
     onDoctorSelect: function (list, index, node, record) {
         if (!this.messageView)this.messageView = Ext.create('DoctorApp.view.doctors.DoctorMessage');
         //var messageView=Ext.create('DoctorApp.view.doctors.DoctorMessage');
