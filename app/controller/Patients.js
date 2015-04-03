@@ -44,7 +44,6 @@ Ext.define('DoctorApp.controller.Patients', {
 
     onPatientHold:function(list) {
         //long patient hold
-        //alert("hold");
         var actionSheet = Ext.create('Ext.ActionSheet', {
             items: [
                 {
