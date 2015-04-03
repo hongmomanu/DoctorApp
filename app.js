@@ -19,28 +19,21 @@ Ext.application({
     ],
 
 
-    views: [
+
+    controllers: [
+
         'Main',
-        'Contacts',
-        'register.Register',
-        'login.Login',
 
-        'patients.Patients',
-        'material.Material',
-        'settings.Settings',
-        'contact.Show'
+        'Register',
+
+        'Login',
+
+        'Doctors',
+
+        'Patients',
+
+        'Settings'
     ],
-    models: [
-        'Contact','register.Register','login.Login',
-
-        'patients.Patient'
-
-    ],
-    stores: [
-
-        'patients.Patients','Contacts'
-    ],
-    controllers: ['Main','Register','Login','Doctors','Patients','Settings'],
 
     icon: {
         '57': 'resources/icons/Icon.png',

@@ -12,7 +12,8 @@ Ext.define('DoctorApp.store.patients.Patients', {
         },
         proxy: {
             type: 'ajax',
-            url: 'resources/data/patients.json'
+            //url: 'resources/data/patients.json'
+            url: Globle_Variable.serverurl+"user/getdoctorsbyid"
         }
     }
 });
