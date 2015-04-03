@@ -5,6 +5,23 @@
 Ext.define('DoctorApp.controller.Register', {
     extend: 'Ext.app.Controller',
     config: {
+        views: [
+
+
+            'register.Register'
+
+
+        ],
+        models: [
+            'register.Register',
+
+        ],
+        stores: [
+
+            //'patients.Patients',
+
+            //'Contacts'
+        ],
         control: {
 
             doctorregisterbtn:{

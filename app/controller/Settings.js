@@ -5,6 +5,16 @@
 Ext.define('DoctorApp.controller.Settings', {
     extend: 'Ext.app.Controller',
     config: {
+        views: [
+            'settings.Settings'
+        ],
+        models: [
+
+
+        ],
+        stores: [
+
+        ],
         control: {
             settingsformview: {
                 viewshow: 'viewactived'

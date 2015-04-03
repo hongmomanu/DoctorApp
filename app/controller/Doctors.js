@@ -44,6 +44,20 @@ Ext.define('DoctorApp.controller.Doctors', {
         //this.getDoctorsnavview().deselectAll();
 
     },
+    initDoctorList:function(){
+
+       var store=Ext.getStore('Doctors');
+       store.load({
+                //define the parameters of the store:
+                params:{
+                    id : Globle_Variable.user._id,
+                },
+                scope: this,
+                callback : function(records, operation, success) {
+
+                }});
+
+    },
     receiveMessageProcess:function(data,e){
         for(var i=0;i<data.length;i++){
             var message=data[i];

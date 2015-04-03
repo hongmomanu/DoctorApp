@@ -4,7 +4,29 @@
  */
 Ext.define('DoctorApp.controller.Main', {
     extend: 'Ext.app.Controller',
+
     config: {
+        views: [
+            'Main',
+             'Contacts',
+             'contact.Show'
+
+
+
+
+        ],
+        models: [
+            'Contact',
+
+
+
+        ],
+        stores: [
+
+
+
+            'Contacts'
+        ],
         control: {
             nav: {
                 initialize: 'initRender',

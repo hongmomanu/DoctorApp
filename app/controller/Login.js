@@ -4,7 +4,31 @@
  */
 Ext.define('DoctorApp.controller.Login', {
     extend: 'Ext.app.Controller',
+
+
     config: {
+
+        views: [
+
+
+        'login.Login'
+
+
+
+        ],
+        models: [
+
+
+            'login.Login'
+
+
+        ],
+        stores: [
+
+            //'patients.Patients',
+
+            //'Contacts'
+        ],
         control: {
 
             doctorloginbtn:{
@@ -30,15 +54,20 @@ Ext.define('DoctorApp.controller.Login', {
 
         var formpanel=this.getLoginformcontent();
         CommonUtil.addMessage();
+        var me=this;
         var valid = CommonUtil.valid('DoctorApp.model.login.Login', formpanel);
         if(valid){
             var successFunc = function (response, action) {
                 var res=JSON.parse(response.responseText);
                 if(res.success){
                     Ext.Viewport.removeAt(0);
+                   // var mainController = me.getApplication().getController('Main');
+                    //mainController.init(me);
                     Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
                     localStorage.user=JSON.stringify(res.user);
                     Globle_Variable.user=res.user;
+                    var doctorCotroller=me.getApplication().getController('Doctors');
+                    doctorCotroller.initDoctorList();
 
                 }else{
                     Ext.Msg.alert('登录失败', '用户名密码错误', Ext.emptyFn);
@@ -59,6 +88,7 @@ Ext.define('DoctorApp.controller.Login', {
     doNewDoctor:function(btn){
         var view=this.getLoginformview();
         var registerView=Ext.create('DoctorApp.view.register.Register');
+
         view.push(registerView);
     }
 });

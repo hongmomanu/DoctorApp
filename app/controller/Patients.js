@@ -5,6 +5,25 @@
 Ext.define('DoctorApp.controller.Patients', {
     extend: 'Ext.app.Controller',
     config: {
+        views: [
+
+
+            'patients.Patients',
+
+
+
+        ],
+        models: [
+
+
+            'patients.Patient'
+
+        ],
+        stores: [
+
+            'patients.Patients'
+
+        ],
         control: {
             patientsnavview: {
                 push: 'onMainPush'
