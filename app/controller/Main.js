@@ -101,9 +101,12 @@ Ext.define('DoctorApp.controller.Main', {
 
         this.socket.onmessage = function(event) {
             //alert(1111);
-            var doctorController=me.getApplication().getController('Doctors');
-            var data=event.data;
-            doctorController.receiveMessageProcess(JSON.parse(data));
+            var data=JSON.parse(event.data);
+            if(data.type=='doctorchat'){
+                var doctorController=me.getApplication().getController('Doctors');
+                doctorController.receiveMessageProcess(data.data,event);
+            }
+
 
 
 

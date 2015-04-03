@@ -44,16 +44,33 @@ Ext.define('DoctorApp.controller.Doctors', {
         //this.getDoctorsnavview().deselectAll();
 
     },
-    receiveMessageProcess:function(data){
-        var listView=this.getDoctorsview();
-        var store=listView.getStore();
-        var index =this.filterReceiveIndex(data,store);
+    receiveMessageProcess:function(data,e){
+        for(var i=0;i<data.length;i++){
+            var message=data[i];
+            message.message=message.content;
+            try{
+                var listView=this.getDoctorsview();
+                var store=listView.getStore();
+                var index =this.filterReceiveIndex(data[i],store);
 
-        listView.select(index);
-        listView.fireEvent('itemtap',listView,index,listView.getActiveItem(),store.getAt(index),Ext.emptyFn);
+                console.log(message);
+                testobj=message;
+                listView.select(index);
+
+                listView.fireEvent('itemtap',listView,index,listView.getActiveItem(),store.getAt(index),e);
+            }catch(err) {
+
+            }finally{
+
+                Ext.getStore('DoctorMessages').add(Ext.apply({local: false}, message));
+            }
+
+
+        }
         //listView.select(1);
 
     },
+
     filterReceiveIndex:function(data,store){
         var listdata=store.data.items;
         var index=0;
