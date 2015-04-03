@@ -27,9 +27,11 @@ Ext.define('DoctorApp.controller.Patients', {
         control: {
             patientsnavview: {
                 push: 'onMainPush'
+
             },
             patientssview: {
-                itemtap: 'onPatientSelect'
+                itemtap: 'onPatientSelect',
+                viewshow:'listShow'
             }
 
         },
@@ -43,6 +45,9 @@ Ext.define('DoctorApp.controller.Patients', {
         alert(2);
         this.getPatientssview().deselectAll();
 
+    },
+    listShow:function(){
+        //this.initPatientList();
     },
     onPatientSelect: function (list, index, node, record) {
         alert(1);

@@ -64,6 +64,7 @@ Ext.define('DoctorApp.controller.Login', {
                     Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
                     localStorage.user=JSON.stringify(res.user);
                     Globle_Variable.user=res.user;
+
                     var doctorCotroller=me.getApplication().getController('Doctors');
                     var patientCotroller=me.getApplication().getController('Patients');
                     doctorCotroller.initDoctorList();

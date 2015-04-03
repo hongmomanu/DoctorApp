@@ -10,6 +10,12 @@ Ext.define('DoctorApp.view.patients.Patients', {
         scrollToTopOnRefresh :false,
         grouped:true,
         //indexBar:true,
+        listeners: {
+            painted: function(){
+
+                this.fireEvent('viewshow', this);
+            }
+        },
         store: 'Patients',
         items: [{
             xtype: 'button',

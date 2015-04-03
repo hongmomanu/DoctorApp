@@ -47,6 +47,7 @@ Ext.define('DoctorApp.controller.Doctors', {
     },
     listShow:function(event){
         // init list data
+        //this.initDoctorList();
 
     },
     initDoctorList:function(){
@@ -71,11 +72,7 @@ Ext.define('DoctorApp.controller.Doctors', {
                 var listView=this.getDoctorsview();
                 var store=listView.getStore();
                 var index =this.filterReceiveIndex(data[i],store);
-
-                console.log(message);
-                testobj=message;
                 listView.select(index);
-
                 listView.fireEvent('itemtap',listView,index,listView.getActiveItem(),store.getAt(index),e);
             }catch(err) {
 
