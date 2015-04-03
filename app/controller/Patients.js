@@ -87,8 +87,7 @@ Ext.define('DoctorApp.controller.Patients', {
         this.messageView.setTitle(record.get('realname'));
         this.messageView.data=record;
         this.messageView.mydata=Globle_Variable.user;
-
-        this.getPatientssview().push(this.messageView);
+        this.getPatientsnavview().push(this.messageView);
 
         // Push the show contact view into the navigation view
 
@@ -101,7 +100,9 @@ Ext.define('DoctorApp.controller.Patients', {
             params:{
                 id : Globle_Variable.user._id
             },
+
             scope: this,
+
             callback : function(records, operation, success) {
 
             }});

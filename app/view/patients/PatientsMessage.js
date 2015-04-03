@@ -1,4 +1,4 @@
-Ext.define('DoctorApp.view.doctors.PatientsMessage', {
+Ext.define('DoctorApp.view.patients.PatientsMessage', {
     extend: 'Ext.List',
     xtype: 'patientmessagelist',
 

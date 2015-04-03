@@ -52,6 +52,7 @@ Ext.define('DoctorApp.view.Main', {
                     },*/
                     {
                         xtype: 'navigationview',
+                        itemId:'patientsnavigationview',
                         autoDestroy: false,
                         items:[{
                             xtype:'patients',
