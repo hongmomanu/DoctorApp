@@ -4,6 +4,7 @@
  */
 Ext.define('DoctorApp.controller.Doctors', {
     extend: 'Ext.app.Controller',
+
     config: {
 
         models: [
@@ -43,8 +44,49 @@ Ext.define('DoctorApp.controller.Doctors', {
             doctorsnavview:'main #doctorsnavigationview'
         }
     },
-    onPatientSelect:function(){
-        Ext.Msg.alert('2323', '2323', Ext.emptyFn);
+    onPatientSelect:function(list, index, node, record){
+        var me=this;
+        //Ext.Msg.alert('2323', '2323', Ext.emptyFn);
+        Ext.Msg.confirm('title','message',function(buttonId){
+
+            console.log(buttonId);
+            if(buttonId=='yes'){
+
+
+                var successFunc = function (response, action) {
+
+                    /*var res=JSON.parse(response.responseText);
+                     if(res.success){
+                     Ext.Viewport.removeAt(0);
+                     Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
+                     localStorage.user=JSON.stringify(res.user);
+                     Globle_Variable.user=res.user;
+
+                     }else{
+                     Ext.Msg.alert('登录失败', '用户名密码错误', Ext.emptyFn);
+                     }*/
+
+                };
+                var failFunc=function(response, action){
+                    Ext.Msg.alert('登录失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
+
+
+                }
+                var url="doctor/sendmypatientToDoctor";
+                var params={
+                    patientid:record.get('_id') ,
+                    doctorid:me.selectDoctor.get('_id')
+
+                };
+                CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
+            }else{
+                var view=me.getDoctorsnavview();
+                view.pop();
+            }
+
+
+        })
+
     },
     onMainPush: function (view, item) {
         //alert(2);
@@ -204,7 +246,11 @@ Ext.define('DoctorApp.controller.Doctors', {
         CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
     },
 
-    showPatientList:function(){
+    showPatientList:function(record){
+
+        //console.log(record);
+        this.selectDoctor=record;
+
         Ext.Msg.alert('test', 'test', Ext.emptyFn);
 
         var view=this.getDoctorsnavview();
@@ -224,7 +270,7 @@ Ext.define('DoctorApp.controller.Doctors', {
                 {
                     text: '推荐患者',
                     handler:function(){
-                       me.showPatientList();
+                       me.showPatientList(record);
                        actionSheet.hide();
                     }
                 },
@@ -241,9 +287,11 @@ Ext.define('DoctorApp.controller.Doctors', {
         Ext.Viewport.add(actionSheet);
         actionSheet.show();
 
+        /**
         console.log(e);
         e.preventDefault();
         e.stopEvent();
+         **/
 
     },
     onDoctorSelect: function (list, index, node, record) {
