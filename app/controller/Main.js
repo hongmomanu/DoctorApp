@@ -130,8 +130,6 @@ Ext.define('DoctorApp.controller.Main', {
             }
 
 
-
-
         };
         this.socket.onclose = function(event) {
 

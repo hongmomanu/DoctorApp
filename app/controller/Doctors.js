@@ -36,6 +36,7 @@ Ext.define('DoctorApp.controller.Doctors', {
             doctorsview: 'doctors',
             sendmessagebtn: 'doctormessagelist #sendmessage',
             messagecontent: 'doctormessagelist #messagecontent',
+            mainview: 'main',
             doctorsnavview:'main #doctorsnavigationview'
         }
     },
@@ -64,22 +65,67 @@ Ext.define('DoctorApp.controller.Doctors', {
                 }});
 
     },
+
+    receiveMessageNotification:function(message,e){
+
+        var me=this;
+        try {
+
+            cordova.plugins.notification.local.schedule({
+                id: 1,
+                title: message.userinfo.realname,
+                text: message.message,
+                //firstAt: monday_9_am,
+                //every: "week",
+                sound: "file://sounds/reminder.mp3",
+                icon: "http://icons.com/?cal_id=1",
+                data: { meetingId:"123#fg8" }
+            });
+
+            cordova.plugins.notification.local.on("click", function (notification) {
+                //joinMeeting(notification.data.meetingId);
+                Ext.Msg.alert('Title', notification.data.meetingId, Ext.emptyFn);
+                me.receiveMessageShow(message,e);
+
+            });
+
+        }catch (err){
+            console.log(message) ;
+            me.receiveMessageShow(message,e);
+
+        } finally{
+
+
+        }
+
+
+    },
+    receiveMessageShow:function(message,e){
+        try{
+            var mainView=this.getMainview();
+            console.log(message) ;
+            mainView.setActiveItem(0);
+            var listView=this.getDoctorsview();
+            var store=listView.getStore();
+            var index =this.filterReceiveIndex(message,store);
+            listView.select(index);
+            listView.fireEvent('itemtap',listView,index,listView.getActiveItem(),store.getAt(index),e);
+        }catch(err) {
+
+        }finally{
+
+            Ext.getStore('DoctorMessages').add(Ext.apply({local: false}, message));
+        }
+    },
     receiveMessageProcess:function(data,e){
+
+
+
+
         for(var i=0;i<data.length;i++){
             var message=data[i];
             message.message=message.content;
-            try{
-                var listView=this.getDoctorsview();
-                var store=listView.getStore();
-                var index =this.filterReceiveIndex(data[i],store);
-                listView.select(index);
-                listView.fireEvent('itemtap',listView,index,listView.getActiveItem(),store.getAt(index),e);
-            }catch(err) {
-
-            }finally{
-
-                Ext.getStore('DoctorMessages').add(Ext.apply({local: false}, message));
-            }
+            this.receiveMessageNotification(message,e);
 
 
         }
