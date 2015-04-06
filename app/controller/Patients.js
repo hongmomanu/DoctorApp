@@ -50,6 +50,9 @@ Ext.define('DoctorApp.controller.Patients', {
         var actionSheet = Ext.create('Ext.ActionSheet', {
             items: [
                 {
+                    text: '推荐医生'
+                },
+                {
                     text: '添加黑名单',
                     ui  : 'decline'
                 },
