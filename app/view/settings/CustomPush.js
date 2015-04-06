@@ -39,6 +39,16 @@ Ext.define('DoctorApp.view.settings.CustomPush', {
                         label: '推送开始日期',
                         name: 'sendtime',
                         value: new Date()
+                    },
+                    {
+                        xtype: 'selectfield',
+                        label: '推送频率',
+                        options: [
+                            {text: '仅一次',  value: 'once'},
+                            {text: '每天', value: 'day'},
+                            {text: '每周',  value: 'week'},
+                            {text: '每月',  value: 'month'}
+                        ]
                     }
                 ]
             },
