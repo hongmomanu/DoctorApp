@@ -13,6 +13,7 @@ Ext.define('DoctorApp.view.settings.Settings', {
     config: {
 
         title:'我的设置',
+        scrollable:true,
         style:{
             'padding':'1px'
         },
@@ -45,6 +46,7 @@ Ext.define('DoctorApp.view.settings.Settings', {
                 items:[
                     {
                         html:'<div>hello jack</div>',
+                        itemId:'doctorInfo',
                         flex:5
                     },
                     {
@@ -58,6 +60,39 @@ Ext.define('DoctorApp.view.settings.Settings', {
 
                 ],
                 label:'我的账户'
+
+            },
+            {
+                xtype:'fieldset',
+                defaults:{
+                    labelWidth:'35%',
+                    labelAlign:'top'
+                },
+                items:[
+                    {
+                        xtype:'button',
+                        //label:'我的账户'
+                        text:'我的黑名单'
+                    }
+
+                ]
+
+            },
+            {
+                xtype:'fieldset',
+                defaults:{
+                    labelWidth:'35%',
+                    labelAlign:'top'
+                },
+                items:[
+                    {
+                        xtype:'button',
+                        label:'我的定制',
+                        itemId:'pushsetbtn',
+                        text:'定制推送'
+                    }
+
+                ]
 
             },
             {

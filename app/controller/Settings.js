@@ -6,7 +6,8 @@ Ext.define('DoctorApp.controller.Settings', {
     extend: 'Ext.app.Controller',
     config: {
         views: [
-            'settings.Settings'
+            'settings.Settings',
+            'settings.CustomPush'
         ],
         models: [
 
@@ -19,16 +20,25 @@ Ext.define('DoctorApp.controller.Settings', {
             settingsformview: {
                 viewshow: 'viewactived'
             },
+            pushsetbtn:{
+                'tap':'showPushForm'
+            },
             doctorCodepicSmallView:{
                 'tap':'showBigCode'
             }
         },
         refs: {
             settingsformview: 'settingsform',
+            pushsetbtn: 'settingsform #pushsetbtn',
+            custompushformview: 'custompushform',
+            settingnavview:'main #settingnavigationview',
             doctorCodepicSmallView: 'settingsform #doctorCodepicSmall'
         }
     },
-
+    showPushForm:function(btn){
+         var navView=this.getSettingnavview();
+        navView.push(Ext.widget('CustomPushForm'));
+    },
     viewactived: function (view, item) {
 
         //alert(111);
