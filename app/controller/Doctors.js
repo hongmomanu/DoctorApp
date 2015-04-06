@@ -28,19 +28,24 @@ Ext.define('DoctorApp.controller.Doctors', {
             },
             doctorsview: {
                 itemtap: 'onDoctorSelect',
+                itemtaphold:'onDoctorHold',
                 viewshow:'listShow'
             }
+
 
         },
         refs: {
             doctorsview: 'doctors',
+
             sendmessagebtn: 'doctormessagelist #sendmessage',
             messagecontent: 'doctormessagelist #messagecontent',
             mainview: 'main',
             doctorsnavview:'main #doctorsnavigationview'
         }
     },
-
+    onPatientSelect:function(){
+        Ext.Msg.alert('2323', '2323', Ext.emptyFn);
+    },
     onMainPush: function (view, item) {
         //alert(2);
         //this.getDoctorsnavview().deselectAll();
@@ -197,6 +202,49 @@ Ext.define('DoctorApp.controller.Doctors', {
         var url="doctor/sendmessage";
         var params=data;
         CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
+    },
+
+    showPatientList:function(){
+        Ext.Msg.alert('test', 'test', Ext.emptyFn);
+
+        var view=this.getDoctorsnavview();
+        var patientList=Ext.widget('patients');
+        patientList.on({
+            itemtap  : { fn: this.onPatientSelect, scope: this, single: true }
+        });
+
+        view.push(patientList);
+
+    },
+    onDoctorHold:function(list,index, target, record, e) {
+        //long doctor hold
+        var me=this;
+        var actionSheet = Ext.create('Ext.ActionSheet', {
+            items: [
+                {
+                    text: '推荐患者',
+                    handler:function(){
+                       me.showPatientList();
+                       actionSheet.hide();
+                    }
+                },
+                {
+                    text: '取消',
+                    handler : function() {
+                        actionSheet.hide();
+                    },
+                    ui  : 'confirm'
+                }
+            ]
+        });
+
+        Ext.Viewport.add(actionSheet);
+        actionSheet.show();
+
+        console.log(e);
+        e.preventDefault();
+        e.stopEvent();
+
     },
     onDoctorSelect: function (list, index, node, record) {
         if (!this.messageView)this.messageView = Ext.create('DoctorApp.view.doctors.DoctorMessage');

@@ -40,7 +40,7 @@ Ext.define('DoctorApp.controller.Patients', {
 
         },
         refs: {
-            patientssview: 'patients',
+            patientssview: '#patientsnavigationview #patientlist',
             patientsnavview:'main #patientsnavigationview'
         }
     },
