@@ -25,12 +25,16 @@ Ext.define('DoctorApp.controller.Settings', {
             },
             doctorCodepicSmallView:{
                 'tap':'showBigCode'
+            },
+            custompushconfirmbtn:{
+                'tap':'confirmPush'
             }
         },
         refs: {
             settingsformview: 'settingsform',
             pushsetbtn: 'settingsform #pushsetbtn',
             custompushformview: 'custompushform',
+            custompushconfirmbtn: 'custompushform #confirmbtn',
             settingnavview:'main #settingnavigationview',
             doctorCodepicSmallView: 'settingsform #doctorCodepicSmall'
         }
@@ -50,6 +54,14 @@ Ext.define('DoctorApp.controller.Settings', {
             width		: 64,
             height		: 64
         });
+    },
+    confirmPush:function(btn){
+        var navView=this.getSettingnavview();
+        Ext.Msg.confirm("提示","确定修改?",function(btn){
+            if(btn=="yes"){
+                navView.pop();
+            }
+        })
     },
     showBigCode:function(){
         alert(111);

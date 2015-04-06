@@ -50,7 +50,7 @@ Ext.define('DoctorApp.view.settings.CustomPush', {
                 items:[
                     {
                         xtype:'button',
-                        text:'✅',
+                        text:'确定',
                         itemId:'confirmbtn'
                     }
                 ]
