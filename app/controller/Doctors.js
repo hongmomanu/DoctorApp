@@ -264,6 +264,16 @@ Ext.define('DoctorApp.controller.Doctors', {
     },
     onDoctorHold:function(list,index, target, record, e) {
         //long doctor hold
+        //list.suspendEvents(false);
+
+        //e.stopPropagation( );
+
+        list.lastTapHold = new Date();
+        target.onBefore('tap',function(e){
+            alert(111);
+            e.stopEvent();
+        },this,{single:true});
+
         var me=this;
         var actionSheet = Ext.create('Ext.ActionSheet', {
             items: [
@@ -272,12 +282,14 @@ Ext.define('DoctorApp.controller.Doctors', {
                     handler:function(){
                        me.showPatientList(record);
                        actionSheet.hide();
+                        //list.resumeEvents();
                     }
                 },
                 {
                     text: '取消',
                     handler : function() {
                         actionSheet.hide();
+                        //list.resumeEvents();
                     },
                     ui  : 'confirm'
                 }
@@ -287,6 +299,8 @@ Ext.define('DoctorApp.controller.Doctors', {
         Ext.Viewport.add(actionSheet);
         actionSheet.show();
 
+
+
         /**
         console.log(e);
         e.preventDefault();
@@ -295,16 +309,22 @@ Ext.define('DoctorApp.controller.Doctors', {
 
     },
     onDoctorSelect: function (list, index, node, record) {
-        if (!this.messageView)this.messageView = Ext.create('DoctorApp.view.doctors.DoctorMessage');
-        //var messageView=Ext.create('DoctorApp.view.doctors.DoctorMessage');
+        //console.log(list.lastTapHold - new Date()) ;
+        if (!list.lastTapHold || ( new Date()-list.lastTapHold  > 1000)) {
+            if (!this.messageView)this.messageView = Ext.create('DoctorApp.view.doctors.DoctorMessage');
+            //var messageView=Ext.create('DoctorApp.view.doctors.DoctorMessage');
 
 
 
-        this.messageView.setTitle(record.get('userinfo').realname);
-        this.messageView.data=record;
-        this.messageView.mydata=Globle_Variable.user;
+            this.messageView.setTitle(record.get('userinfo').realname);
+            this.messageView.data=record;
+            this.messageView.mydata=Globle_Variable.user;
 
-        this.getDoctorsnavview().push(this.messageView);
+            this.getDoctorsnavview().push(this.messageView);
+
+
+        }
+
 
         //testobj=record;
 
