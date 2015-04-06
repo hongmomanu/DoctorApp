@@ -35,7 +35,7 @@ Ext.define('DoctorApp.controller.Doctors', {
 
         },
         refs: {
-            doctorsview: 'doctors',
+            doctorsview: 'main #doctorsnavigationview #doctorlist',
 
             sendmessagebtn: 'doctormessagelist #sendmessage',
             messagecontent: 'doctormessagelist #messagecontent',

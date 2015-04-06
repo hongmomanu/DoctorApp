@@ -1,11 +1,13 @@
 Ext.define('DoctorApp.view.doctors.Doctors', {
     extend: 'Ext.List',
     xtype: 'doctors',
+    alias: 'widget.doctors',
     cls: 'x-contacts',
     config: {
         //title: '医生圈',
         //cls: 'x-contacts',
         variableHeights: true,
+        itemId:'doctorlist',
         //refreshHeightOnUpdate :false,
         scrollToTopOnRefresh :false,
         grouped:true,
