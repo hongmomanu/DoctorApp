@@ -47,7 +47,7 @@ Ext.define('DoctorApp.controller.Doctors', {
     onPatientSelect:function(list, index, node, record){
         var me=this;
         //Ext.Msg.alert('2323', '2323', Ext.emptyFn);
-        Ext.Msg.confirm('title','message',function(buttonId){
+        Ext.Msg.confirm('消息','确定推荐患者',function(buttonId){
 
             console.log(buttonId);
             if(buttonId=='yes'){
@@ -246,7 +246,7 @@ Ext.define('DoctorApp.controller.Doctors', {
         //console.log(record);
         this.selectDoctor=record;
 
-        Ext.Msg.alert('test', 'test', Ext.emptyFn);
+        //Ext.Msg.alert('test', 'test', Ext.emptyFn);
 
         var view=this.getDoctorsnavview();
         var patientList=Ext.widget('patients');
