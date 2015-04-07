@@ -41,8 +41,38 @@ Ext.define('DoctorApp.controller.Settings', {
     },
     showPushForm:function(btn){
          var navView=this.getSettingnavview();
-        navView.push(Ext.widget('CustomPushForm'));
+         var form=Ext.widget('CustomPushForm');
+         navView.push(form);
+        testobj=form;
+        var successFunc = function (response, action) {
+            var res=JSON.parse(response.responseText);
+            if(res.success){
+                localStorage.custompush=JSON.stringify(res.data);
+                res.data.sendtime=new Date(res.data.sendtime);
+
+                form.setValues(res.data);
+
+            }else{
+                Ext.Msg.alert('失败', '获取设置定制失败', Ext.emptyFn);
+            }
+
+        };
+        var failFunc=function(response, action){
+            Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
+        }
+        var url="settings/getcustompush";
+        var params={doctorid: Globle_Variable.user._id};
+        CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
     },
+
+    makePushFire:function(){
+        //res.data 86400000
+        var custompush=JSON.parse(localStorage.custompush);
+        var sendtime=new Date(custompush.sendtime);
+        var frequency=custompush.frequency;
+    },
+
+
     viewactived: function (view, item) {
 
         //alert(111);
