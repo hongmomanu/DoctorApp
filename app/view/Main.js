@@ -93,6 +93,7 @@ Ext.define('DoctorApp.view.Main', {
                     },*/
                     {
                         xtype: 'navigationview',
+                        itemId:'settingnavigationview',
                         autoDestroy: false,
                         items:[{
                             xtype:'settingsform'

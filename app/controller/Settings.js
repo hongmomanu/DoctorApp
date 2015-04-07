@@ -6,7 +6,8 @@ Ext.define('DoctorApp.controller.Settings', {
     extend: 'Ext.app.Controller',
     config: {
         views: [
-            'settings.Settings'
+            'settings.Settings',
+            'settings.CustomPush'
         ],
         models: [
 
@@ -19,16 +20,29 @@ Ext.define('DoctorApp.controller.Settings', {
             settingsformview: {
                 viewshow: 'viewactived'
             },
+            pushsetbtn:{
+                'tap':'showPushForm'
+            },
             doctorCodepicSmallView:{
                 'tap':'showBigCode'
+            },
+            custompushconfirmbtn:{
+                'tap':'confirmPush'
             }
         },
         refs: {
             settingsformview: 'settingsform',
+            pushsetbtn: 'settingsform #pushsetbtn',
+            custompushformview: 'custompushform',
+            custompushconfirmbtn: 'custompushform #confirmbtn',
+            settingnavview:'main #settingnavigationview',
             doctorCodepicSmallView: 'settingsform #doctorCodepicSmall'
         }
     },
-
+    showPushForm:function(btn){
+         var navView=this.getSettingnavview();
+        navView.push(Ext.widget('CustomPushForm'));
+    },
     viewactived: function (view, item) {
 
         //alert(111);
@@ -40,6 +54,14 @@ Ext.define('DoctorApp.controller.Settings', {
             width		: 64,
             height		: 64
         });
+    },
+    confirmPush:function(btn){
+        var navView=this.getSettingnavview();
+        Ext.Msg.confirm("提示","确定修改?",function(btn){
+            if(btn=="yes"){
+                navView.pop();
+            }
+        })
     },
     showBigCode:function(){
         alert(111);

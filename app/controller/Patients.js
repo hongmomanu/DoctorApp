@@ -40,7 +40,7 @@ Ext.define('DoctorApp.controller.Patients', {
 
         },
         refs: {
-            patientssview: 'patients',
+            patientssview: '#patientsnavigationview #patientlist',
             patientsnavview:'main #patientsnavigationview'
         }
     },
@@ -49,6 +49,9 @@ Ext.define('DoctorApp.controller.Patients', {
         //long patient hold
         var actionSheet = Ext.create('Ext.ActionSheet', {
             items: [
+                {
+                    text: '推荐医生'
+                },
                 {
                     text: '添加黑名单',
                     ui  : 'decline'
