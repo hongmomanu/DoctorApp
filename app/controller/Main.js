@@ -124,13 +124,15 @@ Ext.define('DoctorApp.controller.Main', {
         this.socket.onmessage = function(event) {
             //alert(1111);
             var data=JSON.parse(event.data);
+            var doctorController=me.getApplication().getController('Doctors');
             if(data.type=='doctorchat'){
-                var doctorController=me.getApplication().getController('Doctors');
+
                 doctorController.receiveMessageProcess(data.data,event);
             }
             else if(data.type=='recommend'){
                 console.log('recommend');
                 console.log(data.data);
+                doctorController.receiveRecommendProcess(data.data,event);
 
             }
 

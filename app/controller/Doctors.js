@@ -121,6 +121,40 @@ Ext.define('DoctorApp.controller.Doctors', {
     },
 
 
+    receiveRecommendNotification:function(recommend,e){
+        var me=this;
+        try {
+
+            cordova.plugins.notification.local.schedule({
+                id: 1,
+                title: recommend.rectype==1?"医生:"+recommend.frominfo.realname+"推荐":
+                "患者:"+recommend.frominfo.realname+"推荐",
+                text: "新病人:"+recommend.patientinfo.realname,
+                //firstAt: monday_9_am,
+                //every: "week",
+                sound: "file://sounds/reminder.mp3",
+                icon: "http://icons.com/?cal_id=1",
+                data: { meetingId:recommend._id }
+            });
+
+            cordova.plugins.notification.local.on("click", function (notification) {
+                //joinMeeting(notification.data.meetingId);
+                Ext.Msg.alert('Title', notification.data.meetingId, Ext.emptyFn);
+                //me.receiveMessageShow(message,e);
+
+            });
+
+        }catch (err){
+            console.log(recommend) ;
+           // me.receiveMessageShow(message,e);
+
+        } finally{
+
+
+        }
+
+
+    },
 
     receiveMessageNotification:function(message,e){
 
@@ -178,6 +212,14 @@ Ext.define('DoctorApp.controller.Doctors', {
             var message=data[i];
             message.message=message.content;
             this.receiveMessageNotification(message,e);
+        }
+        //listView.select(1);
+    },
+    receiveRecommendProcess:function(data,e){
+        for(var i=0;i<data.length;i++){
+            var recommend=data[i];
+            //message.message=message.content;
+            this.receiveRecommendNotification(recommend,e);
         }
         //listView.select(1);
     },
