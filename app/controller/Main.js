@@ -128,6 +128,10 @@ Ext.define('DoctorApp.controller.Main', {
                 var doctorController=me.getApplication().getController('Doctors');
                 doctorController.receiveMessageProcess(data.data,event);
             }
+            else if(data.type=='recommend'){
+                console.log(data.data);
+
+            }
 
 
         };

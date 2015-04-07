@@ -68,14 +68,16 @@ Ext.define('DoctorApp.controller.Doctors', {
 
                 };
                 var failFunc=function(response, action){
-                    Ext.Msg.alert('登录失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
+                    Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
+                    //Ext.Msg.alert('test', 'test', Ext.emptyFn);
 
 
                 }
                 var url="doctor/sendmypatientToDoctor";
                 var params={
                     patientid:record.get('_id') ,
-                    doctorid:me.selectDoctor.get('_id')
+                    doctorid:me.selectDoctor.get('_id'),
+                    fromdoctorid:Globle_Variable.user._id
 
                 };
                 CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');

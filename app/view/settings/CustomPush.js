@@ -43,6 +43,7 @@ Ext.define('DoctorApp.view.settings.CustomPush', {
                     {
                         xtype: 'selectfield',
                         label: '推送频率',
+                        name:'frequency',
                         options: [
                             {text: '仅一次',  value: 'once'},
                             {text: '每天', value: 'day'},
