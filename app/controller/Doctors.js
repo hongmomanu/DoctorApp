@@ -167,19 +167,12 @@ Ext.define('DoctorApp.controller.Doctors', {
         }
     },
     receiveMessageProcess:function(data,e){
-
-
-
-
         for(var i=0;i<data.length;i++){
             var message=data[i];
             message.message=message.content;
             this.receiveMessageNotification(message,e);
-
-
         }
         //listView.select(1);
-
     },
 
     filterReceiveIndex:function(data,store){
@@ -271,10 +264,7 @@ Ext.define('DoctorApp.controller.Doctors', {
         //e.stopPropagation( );
 
         list.lastTapHold = new Date();
-        target.onBefore('tap',function(e){
-            alert(111);
-            e.stopEvent();
-        },this,{single:true});
+
 
         var me=this;
         var actionSheet = Ext.create('Ext.ActionSheet', {
