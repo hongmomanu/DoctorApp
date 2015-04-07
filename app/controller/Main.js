@@ -129,6 +129,7 @@ Ext.define('DoctorApp.controller.Main', {
                 doctorController.receiveMessageProcess(data.data,event);
             }
             else if(data.type=='recommend'){
+                console.log('recommend');
                 console.log(data.data);
 
             }

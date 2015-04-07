@@ -100,6 +100,11 @@ Ext.define('DoctorApp.controller.Doctors', {
         //this.initDoctorList();
 
     },
+
+    initDoctorMessage:function(){
+
+    },
+
     initDoctorList:function(){
 
        var store=Ext.getStore('Doctors');
@@ -114,6 +119,8 @@ Ext.define('DoctorApp.controller.Doctors', {
                 }});
 
     },
+
+
 
     receiveMessageNotification:function(message,e){
 
