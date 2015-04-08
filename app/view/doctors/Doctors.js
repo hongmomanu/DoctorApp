@@ -9,7 +9,7 @@ Ext.define('DoctorApp.view.doctors.Doctors', {
         variableHeights: true,
         itemId:'doctorlist',
         //refreshHeightOnUpdate :false,
-        scrollToTopOnRefresh :false,
+        scrollToTopOnRefresh :true,
         grouped:true,
         //indexBar:true,
         store: 'Doctors',

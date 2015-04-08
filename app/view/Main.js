@@ -72,6 +72,7 @@ Ext.define('DoctorApp.view.Main', {
                         xtype: 'titlebar',
                         title: '欢迎使用'
                     },*/
+
                     {
                         title:'医学咨询',
                         xtype: 'materialmain'
