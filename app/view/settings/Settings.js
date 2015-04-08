@@ -71,12 +71,11 @@ Ext.define('DoctorApp.view.settings.Settings', {
                 items:[
                     {
                         xtype:'button',
+                        itemId:'blacklistbtn',
                         //label:'我的账户'
                         text:'我的黑名单'
                     }
-
                 ]
-
             },
             {
                 xtype:'fieldset',
@@ -111,7 +110,6 @@ Ext.define('DoctorApp.view.settings.Settings', {
                         name:'test2',
                         value:30,
                         label:'settings test2'
-
                     }
 
                 ]

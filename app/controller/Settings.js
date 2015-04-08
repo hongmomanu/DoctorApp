@@ -7,14 +7,15 @@ Ext.define('DoctorApp.controller.Settings', {
     config: {
         views: [
             'settings.Settings',
+            'settings.BlackList',
             'settings.CustomPush'
         ],
         models: [
-
+            'settings.BlackList'
 
         ],
         stores: [
-
+            'settings.BlackLists'
         ],
         control: {
             settingsformview: {
@@ -22,6 +23,9 @@ Ext.define('DoctorApp.controller.Settings', {
             },
             pushsetbtn:{
                 'tap':'showPushForm'
+            },
+            blacklistbtn:{
+                'tap':'showBlackList'
             },
             doctorCodepicSmallView:{
                 'tap':'showBigCode'
@@ -33,17 +37,23 @@ Ext.define('DoctorApp.controller.Settings', {
         refs: {
             settingsformview: 'settingsform',
             pushsetbtn: 'settingsform #pushsetbtn',
+            blacklistbtn: 'settingsform #blacklistbtn',
             custompushformview: 'custompushform',
             custompushconfirmbtn: 'custompushform #confirmbtn',
             settingnavview:'main #settingnavigationview',
             doctorCodepicSmallView: 'settingsform #doctorCodepicSmall'
         }
     },
+    showBlackList:function(btn){
+        var navView=this.getSettingnavview();
+        var list=Ext.widget('blacklist',{'title':'我的黑名单'});
+        navView.push(list);
+        this.initBlackList();
+    },
     showPushForm:function(btn){
          var navView=this.getSettingnavview();
          var form=Ext.widget('CustomPushForm');
          navView.push(form);
-        testobj=form;
         var successFunc = function (response, action) {
             var res=JSON.parse(response.responseText);
             if(res.success){
@@ -118,6 +128,19 @@ Ext.define('DoctorApp.controller.Settings', {
     showBigCode:function(){
         alert(111);
 
+    },
+    initBlackList:function(){
+
+        var store=Ext.getStore('BlackLists');
+        store.load({
+            //define the parameters of the store:
+            params:{
+                id : Globle_Variable.user._id
+            },
+            scope: this,
+            callback : function(records, operation, success) {
+
+            }});
     }
 
 
