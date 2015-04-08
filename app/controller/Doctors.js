@@ -49,22 +49,19 @@ Ext.define('DoctorApp.controller.Doctors', {
         //Ext.Msg.alert('2323', '2323', Ext.emptyFn);
         Ext.Msg.confirm('消息','确定推荐患者',function(buttonId){
 
-            console.log(buttonId);
             if(buttonId=='yes'){
-
 
                 var successFunc = function (response, action) {
 
-                    /*var res=JSON.parse(response.responseText);
+
+                    var res=JSON.parse(response.responseText);
                      if(res.success){
-                     Ext.Viewport.removeAt(0);
-                     Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
-                     localStorage.user=JSON.stringify(res.user);
-                     Globle_Variable.user=res.user;
+
+                         Ext.Msg.alert('成功', '请求已发出', Ext.emptyFn);
 
                      }else{
-                     Ext.Msg.alert('登录失败', '用户名密码错误', Ext.emptyFn);
-                     }*/
+                        Ext.Msg.alert('提示', res.message, Ext.emptyFn);
+                     }
 
                 };
                 var failFunc=function(response, action){
@@ -125,9 +122,10 @@ Ext.define('DoctorApp.controller.Doctors', {
         var me=this;
         try {
 
+            //Ext.Msg.alert('test', cordova.plugins.notification.local.schedule , Ext.emptyFn);
             cordova.plugins.notification.local.schedule({
                 id: 1,
-                title: recommend.rectype==1?"医生:"+recommend.frominfo.realname+"推荐":
+                title: recommend.rectype==1?"医生:"+recommend.frominfo.userinfo.realname+"推荐":
                 "患者:"+recommend.frominfo.realname+"推荐",
                 text: "新病人:"+recommend.patientinfo.realname,
                 //firstAt: monday_9_am,
@@ -141,12 +139,15 @@ Ext.define('DoctorApp.controller.Doctors', {
                 //joinMeeting(notification.data.meetingId);
                 Ext.Msg.alert('Title', notification.data.meetingId, Ext.emptyFn);
                 //me.receiveMessageShow(message,e);
+                me.receiveRecommendShow(recommend,e);
 
             });
 
         }catch (err){
-            console.log(recommend) ;
+            //console.log(recommend) ;
+            //Ext.Msg.alert('Title', "error", Ext.emptyFn);
            // me.receiveMessageShow(message,e);
+            me.receiveRecommendShow(recommend,e);
 
         } finally{
 
@@ -190,10 +191,55 @@ Ext.define('DoctorApp.controller.Doctors', {
 
 
     },
+    receiveRecommendShow:function(recommend,e){
+        //alert(1);
+        //console.log(recommend);
+        Ext.Msg.confirm('消息','是否添加'+ (recommend.rectype==1?"医生:"+recommend.frominfo.userinfo.realname+"推荐":
+        "患者:"+recommend.frominfo.realname+"推荐")+"的患者:"+recommend.patientinfo.realname,function(buttonId){
+
+            if(buttonId=='yes'){
+
+                var successFunc = function (response, action) {
+
+                    var res=JSON.parse(response.responseText);
+                     if(res.success){
+
+                         Ext.Msg.show({
+                             title:'成功',
+                             message: '已接受推荐，等待对方同意',
+                             buttons: Ext.MessageBox.OK,
+                             fn:Ext.emptyFn
+                         });
+                         //Ext.Msg.alert('成功', '已接受推荐，等待对方同意', Ext.emptyFn);
+
+                     }else{
+                         Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
+                     }
+
+                };
+                var failFunc=function(response, action){
+                    Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
+                    //Ext.Msg.alert('test', 'test', Ext.emptyFn);
+                }
+                var url="doctor/acceptrecommend";
+                var params={
+                    rid:recommend._id
+                };
+                CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
+            }else{
+                var view=me.getDoctorsnavview();
+                view.pop();
+            }
+
+
+        });
+
+
+
+    },
     receiveMessageShow:function(message,e){
         try{
             var mainView=this.getMainview();
-            console.log(message) ;
             mainView.setActiveItem(0);
             var listView=this.getDoctorsview();
             var store=listView.getStore();
@@ -216,7 +262,10 @@ Ext.define('DoctorApp.controller.Doctors', {
         //listView.select(1);
     },
     receiveRecommendProcess:function(data,e){
+        //console.log(data);
+        //alert("1");
         for(var i=0;i<data.length;i++){
+            //alert(i);
             var recommend=data[i];
             //message.message=message.content;
             this.receiveRecommendNotification(recommend,e);
@@ -250,7 +299,7 @@ Ext.define('DoctorApp.controller.Doctors', {
 
             var socket=mainController.socket;
             socket.send(JSON.stringify({
-                type:"chatdoctor",
+                type:"doctorchat",
                 from:myinfo._id,
                 to :toinfo.get("_id"),
                 content: content
@@ -298,7 +347,7 @@ Ext.define('DoctorApp.controller.Doctors', {
         //Ext.Msg.alert('test', 'test', Ext.emptyFn);
 
         var view=this.getDoctorsnavview();
-        var patientList=Ext.widget('patients');
+        var patientList=Ext.widget('patients',{title:'选择患者'});
         patientList.on({
             itemtap  : { fn: this.onPatientSelect, scope: this, single: true }
         });

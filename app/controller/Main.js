@@ -134,6 +134,10 @@ Ext.define('DoctorApp.controller.Main', {
                 console.log(data.data);
                 doctorController.receiveRecommendProcess(data.data,event);
 
+            }else if(data.type=='recommendconfirm'){
+
+                console.log('recommendconfirm');
+                console.log(data.data);
             }
 
 
@@ -147,7 +151,7 @@ Ext.define('DoctorApp.controller.Main', {
         };
         this.socket.onopen = function() {
             me.socket.send(JSON.stringify({
-                type:"connect",
+                type:"doctorconnect",
                 content: Globle_Variable.user._id
             }));
         };

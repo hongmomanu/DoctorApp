@@ -71,7 +71,7 @@ Ext.define('DoctorApp.controller.Patients', {
         //Ext.Msg.alert('test', 'test', Ext.emptyFn);
 
         var view=this.getPatientsnavview();
-        var doctorsList=Ext.widget('doctors');
+        var doctorsList=Ext.widget('doctors',{title:'选择医生'});
         doctorsList.on({
             itemtap  : { fn: this.onDoctorSelect, scope: this, single: true }
         });
@@ -94,7 +94,7 @@ Ext.define('DoctorApp.controller.Patients', {
                          Ext.Msg.alert('成功', '推荐医生成功', Ext.emptyFn);
 
                      }else{
-                         Ext.Msg.alert('失败', '推荐医生失败', Ext.emptyFn);
+                         Ext.Msg.alert('提示', res.message, Ext.emptyFn);
                      }
                     view.pop();
 

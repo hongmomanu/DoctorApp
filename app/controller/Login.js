@@ -49,7 +49,7 @@ Ext.define('DoctorApp.controller.Login', {
             loginformview: 'loginform'
         }
     },
-
+    //doctor app init
     doDoctorLogin:function(btn){
 
         var formpanel=this.getLoginformcontent();
