@@ -61,6 +61,30 @@ Ext.application({
 
         //Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
         //Ext.Viewport.add(Ext.create('DoctorApp.view.register.Register'));
+
+        document.addEventListener('deviceready', function () {
+            cordova.plugins.notification.local.registerPermission(function (granted) {
+                //Ext.Msg.alert('is granted','Permission has been grantedsssss: ' + granted);
+            });
+            // cordova.plugins.notification.local is now available
+
+            /*cordova.plugins.notification.local.hasPermission(function (granted) {
+                // console.log('Permission has been granted: ' + granted);
+                Ext.Msg.alert('is granted','Permission has been granted: ' + granted);
+            });*/
+
+            /*cordova.plugins.notification.local.registerPermission(function (granted) {
+                Ext.Msg.alert('is granted','Permission has been grantedsssss: ' + granted);
+            });
+
+            cordova.plugins.notification.local.schedule({
+                title: "New Message",
+                message: "Hi, are you ready? We are waiting."
+            });*/
+
+
+        }, false);
+
         Ext.Viewport.add(Ext.create('DoctorApp.view.login.Login'));
     },
 

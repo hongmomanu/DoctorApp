@@ -130,8 +130,8 @@ Ext.define('DoctorApp.controller.Doctors', {
                 text: "新病人:"+recommend.patientinfo.realname,
                 //firstAt: monday_9_am,
                 //every: "week",
-                sound: "file://sounds/reminder.mp3",
-                icon: "http://icons.com/?cal_id=1",
+                //sound: "file://sounds/reminder.mp3",
+                //icon: "http://icons.com/?cal_id=1",
                 data: { meetingId:recommend._id }
             });
 
@@ -168,8 +168,8 @@ Ext.define('DoctorApp.controller.Doctors', {
                 text: message.message,
                 //firstAt: monday_9_am,
                 //every: "week",
-                sound: "file://sounds/reminder.mp3",
-                icon: "http://icons.com/?cal_id=1",
+                //sound: "file://sounds/reminder.mp3",
+                //icon: "http://icons.com/?cal_id=1",
                 data: { meetingId:"123#fg8" }
             });
 
