@@ -30,20 +30,19 @@ Ext.define('DoctorApp.controller.Patients', {
         control: {
             patientsnavview: {
                 push: 'onMainPush'
-
             },
             patientssview: {
                 itemtap: 'onPatientSelect',
                 itemtaphold:'onPatientHold',
                 viewshow:'listShow'
             }
-
         },
         refs: {
             patientssview: '#patientsnavigationview #patientlist',
             patientsnavview:'main #patientsnavigationview'
         }
     },
+    // add doctor patient to black list
     addtoblacklist:function(record,actionSheet){
         var successFunc = function (response, action) {
             var res=JSON.parse(response.responseText);
