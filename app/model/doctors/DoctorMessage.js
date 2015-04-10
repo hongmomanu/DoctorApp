@@ -8,6 +8,8 @@ Ext.define('DoctorApp.model.doctors.DoctorMessage', {
             },
             'userinfo',
             'message',
+            'imgid',
+            'issend',
             'messagetype'
         ]
     }

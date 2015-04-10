@@ -37,6 +37,7 @@ Ext.define('DoctorApp.controller.Doctors', {
         },
         refs: {
             doctorsview: 'main #doctorsnavigationview #doctorlist',
+            patientsview: 'main #patientsnavigationview #patientlist',
 
             sendmessagebtn: 'doctormessagelist #sendmessage',
             messagecontent: 'doctormessagelist #messagecontent',
@@ -124,7 +125,7 @@ Ext.define('DoctorApp.controller.Doctors', {
 
             //Ext.Msg.alert('test', cordova.plugins.notification.local.schedule , Ext.emptyFn);
             cordova.plugins.notification.local.schedule({
-                id: 1,
+                id: recommend._id,
                 title: recommend.rectype==1?"医生:"+recommend.frominfo.userinfo.realname+"推荐":
                 "患者:"+recommend.frominfo.realname+"推荐",
                 text: "新病人:"+recommend.patientinfo.realname,
@@ -137,7 +138,7 @@ Ext.define('DoctorApp.controller.Doctors', {
 
             cordova.plugins.notification.local.on("click", function (notification) {
                 //joinMeeting(notification.data.meetingId);
-                Ext.Msg.alert('Title', notification.data.meetingId, Ext.emptyFn);
+                //Ext.Msg.alert('Title', notification.data.meetingId, Ext.emptyFn);
                 //me.receiveMessageShow(message,e);
                 me.receiveRecommendShow(recommend,e);
 
@@ -163,20 +164,21 @@ Ext.define('DoctorApp.controller.Doctors', {
         try {
 
             cordova.plugins.notification.local.schedule({
-                id: 1,
-                title: message.userinfo.realname,
+                id: message._id,
+                title: (message.fromtype==0?'病友 ':'医生 ')+
+                message.userinfo.realname+' 来消息啦!' ,
                 text: message.message,
                 //firstAt: monday_9_am,
                 //every: "week",
                 //sound: "file://sounds/reminder.mp3",
                 //icon: "http://icons.com/?cal_id=1",
-                data: { meetingId:"123#fg8" }
+                data: message
             });
 
             cordova.plugins.notification.local.on("click", function (notification) {
                 //joinMeeting(notification.data.meetingId);
-                Ext.Msg.alert('Title', notification.data.meetingId, Ext.emptyFn);
-                me.receiveMessageShow(message,e);
+                //Ext.Msg.alert('Title', notification.data.meetingId, Ext.emptyFn);
+                me.receiveMessageShow(notification.data.message,e);
 
             });
 
@@ -206,7 +208,8 @@ Ext.define('DoctorApp.controller.Doctors', {
 
                          Ext.Msg.show({
                              title:'成功',
-                             message: '已接受推荐，等待对方同意',
+                             message:  (recommend.isdoctoraccepted||recommend.ispatientaccepted)?'已成功添加患者':
+                                 '已接受推荐，等待对方同意',
                              buttons: Ext.MessageBox.OK,
                              fn:Ext.emptyFn
                          });
@@ -240,17 +243,41 @@ Ext.define('DoctorApp.controller.Doctors', {
     receiveMessageShow:function(message,e){
         try{
             var mainView=this.getMainview();
-            mainView.setActiveItem(0);
-            var listView=this.getDoctorsview();
+            var listView=null;
+            var messagestore=null;
+            console.log("message heheehe");
+            console.log(message)
+
+            if(message.fromtype==1){
+
+                mainView.setActiveItem(0);
+                listView=this.getDoctorsview();
+
+
+            }else{
+                mainView.setActiveItem(1);
+                listView=this.getPatientsview();
+
+            }
             var store=listView.getStore();
             var index =this.filterReceiveIndex(message,store);
             listView.select(index);
             listView.fireEvent('itemtap',listView,index,listView.getActiveItem(),store.getAt(index),e);
+
         }catch(err) {
 
         }finally{
 
-            Ext.getStore('DoctorMessages').add(Ext.apply({local: false}, message));
+            var doctorController=this.getApplication().getController('Doctors');
+            var patientController=this.getApplication().getController('Patients');
+            if(message.fromtype==0){
+                messagestore=patientController.messageView[message.fromid].getStore()
+            }else{
+                messagestore=doctorController.messageView[message.fromid].getStore();
+            }
+
+            console.log(messagestore);
+            messagestore.add(Ext.apply({local: false}, message));
         }
     },
     receiveMessageProcess:function(data,e){
@@ -284,16 +311,23 @@ Ext.define('DoctorApp.controller.Doctors', {
         }
         return index;
     },
+    messageView:{},
     sendMessage:function(btn){
         var content=Ext.String.trim(this.getMessagecontent().getValue());
 
         if(content&&content!=''){
             //alert(conten);
-            var myinfo= this.messageView.mydata;
 
-            var toinfo=this.messageView.data;
+            var listview=btn.up('list');
+            var myinfo= listview.mydata;
+
+            var toinfo=listview.data;
+            var imgid='chatstatusimg'+(new Date()).getTime();
             var message=Ext.apply({message:content}, myinfo);
-            Ext.getStore('DoctorMessages').add(Ext.apply({local: true}, message));
+            //console.log(imgid);
+            listview.getStore().add(Ext.apply({local: true,imgid:imgid}, message));
+
+
 
             var mainController=this.getApplication().getController('Main');
 
@@ -301,6 +335,8 @@ Ext.define('DoctorApp.controller.Doctors', {
             socket.send(JSON.stringify({
                 type:"doctorchat",
                 from:myinfo._id,
+                fromtype:1,
+                imgid:imgid,
                 to :toinfo.get("_id"),
                 content: content
             }));
@@ -399,9 +435,25 @@ Ext.define('DoctorApp.controller.Doctors', {
 
     },
     onDoctorSelect: function (list, index, node, record) {
+
+
         //console.log(list.lastTapHold - new Date()) ;
         if (!list.lastTapHold || ( new Date()-list.lastTapHold  > 1000)) {
-            if (!this.messageView)this.messageView = Ext.create('DoctorApp.view.doctors.DoctorMessage');
+
+            if (!this.messageView[record.get('_id')]){
+                this.messageView[record.get('_id')] =Ext.create('DoctorApp.view.doctors.DoctorMessage');
+
+            }
+            var selectview=this.messageView[record.get('_id')];
+
+
+            selectview.setTitle(record.get('userinfo').realname);
+            selectview.data=record;
+            selectview.mydata=Globle_Variable.user;
+            this.getDoctorsnavview().push(selectview);
+
+
+            /*if (!this.messageView)this.messageView = Ext.create('DoctorApp.view.doctors.DoctorMessage');
             //var messageView=Ext.create('DoctorApp.view.doctors.DoctorMessage');
 
 
@@ -410,7 +462,7 @@ Ext.define('DoctorApp.controller.Doctors', {
             this.messageView.data=record;
             this.messageView.mydata=Globle_Variable.user;
 
-            this.getDoctorsnavview().push(this.messageView);
+            this.getDoctorsnavview().push(this.messageView);*/
 
 
         }

@@ -85,7 +85,7 @@ Ext.define('DoctorApp.controller.Main', {
     doLoadmorelistCLick: function () {
         //alert(111);
         store = this.getContacts().getStore();
-        store.data.items.length
+        //store.data.items.length
 
         for (var i = 0; i < 10; i++) {
             //console.log(store.data.items[i].raw);
@@ -112,7 +112,19 @@ Ext.define('DoctorApp.controller.Main', {
         this.websocketInit();
         //testobj = this;
     },
-
+    hideloadingimg:function(data){
+        //console.log(imgid);
+        var doctorController=this.getApplication().getController('Doctors');
+        var patientController=this.getApplication().getController('Patients');
+        var store=doctorController.messageView[data["toid"]]?doctorController.messageView[data["toid"]].getStore():
+            patientController.messageView[data["toid"]].getStore();
+        //var store=Ext.getStore('PatientMessages');
+        store.data.each(function(a){
+            if(a.get('imgid')==data["imgid"]){
+                a.set('issend','none');
+            }
+        });
+    },
     websocketInit:function(){
         var url=Globle_Variable.serverurl;
         //url=url?"ws://"+url.split("://")[1].split(":")[0]+":3001/":"ws://localhost:3001/";
@@ -136,8 +148,13 @@ Ext.define('DoctorApp.controller.Main', {
 
             }else if(data.type=='recommendconfirm'){
 
-                console.log('recommendconfirm');
-                console.log(data.data);
+                console.log('recommendconfirm')
+            }
+            else if(data.type=='chatsuc'){
+                console.log('chatsuc');
+
+                me.hideloadingimg(data.data)
+
             }
 
 

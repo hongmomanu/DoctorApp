@@ -165,12 +165,13 @@
     "builds": {
        
        "native": { // This can be any build target name you desire (eg myApp, apple, etc)
-            "packager": "cordova", // Specify that we are using cordova to package the app
-            "cordova" : { // configuration for cordova build
+            "packager": "phonegap", // phonegap Specify that we are using cordova to package the app
+            "phonegap" : { // configuration for cordova build
                 "config": {
-                     //"id": "com.domain.DoctorApp",  // namespace of application (required)
+                     "id": "com.domain.DoctorApp",  // namespace of application (required)
                      "name": "DoctorApp",  // app name which appears under the icon on device
-                     "platforms": "ios" // add platform(s) here
+                    "remote": false,
+                     "platform": "android" // add platform(s) here
                 }
            }
         }

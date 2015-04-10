@@ -5,14 +5,14 @@ Ext.define('DoctorApp.view.doctors.DoctorMessage', {
     config: {
         disableSelection: true,
         title: 'Chat',
-        store: 'DoctorMessages',
+        store:Ext.create('DoctorApp.store.doctors.DoctorMessages'),
 
         itemTpl : new Ext.XTemplate(
             '<tpl if="local">',
             '	<div class="nick local">{userinfo.realname}</div>',
             '	<div class="x-button x-button-confirm local"">',
             //'		 <canvas class="" width="50" height="50"></canvas>',
-                    '<img src="resources/icons/loading.gif" width="30" height="30">',
+                    '<img id={imgid} style="display: {issend}" src="resources/icons/loading.gif" width="30" height="30">',
             '       <p class="x-button-label message">{message}</p>',
             '	</div>',
             '<tpl else>',
