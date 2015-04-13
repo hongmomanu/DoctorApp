@@ -6,8 +6,13 @@ Ext.define('DoctorApp.model.patients.PatientMessage', {
                 name:'local',
                 type: 'boolean'
             },
+
             'userinfo',
             'username',
+            'realname',
+            'content',
+            'imgid',
+            'issend',
             'message',
             'messagetype'
         ]

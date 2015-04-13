@@ -157,14 +157,12 @@ Ext.define('DoctorApp.controller.Patients', {
 
     },
     onMainPush: function (view, item) {
-        this.getPatientssview().deselectAll();
+        //this.getPatientssview().deselectAll();
     },
     listShow:function(){
         //this.initPatientList();
     },
-    messageView:{
-
-    },
+    messageView:{},
 
     onPatientSelect: function (list, index, node, record) {
 
@@ -172,12 +170,16 @@ Ext.define('DoctorApp.controller.Patients', {
 
         if (!list.lastTapHold || ( new Date()-list.lastTapHold  > 1000)) {
 
+            //alert(1111);
+
+
             if (!this.messageView[record.get('_id')]){
                 this.messageView[record.get('_id')] =Ext.create('DoctorApp.view.patients.PatientsMessage');
 
             }
 
             var selectview=this.messageView[record.get('_id')];
+
 
             selectview.setTitle(record.get('realname'));
             selectview.data=record;

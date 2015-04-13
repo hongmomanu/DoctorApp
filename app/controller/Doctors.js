@@ -8,11 +8,11 @@ Ext.define('DoctorApp.controller.Doctors', {
     config: {
 
         models: [
-            'doctors.Doctor','doctors.DoctorMessage'
+            'doctors.Doctor', 'doctors.DoctorMessage'
         ],
 
         stores: [
-            'doctors.Doctors','doctors.DoctorMessages'
+            'doctors.Doctors', 'doctors.DoctorMessages'
         ],
 
         views: [
@@ -24,13 +24,13 @@ Ext.define('DoctorApp.controller.Doctors', {
             doctorsnavview: {
                 push: 'onMainPush'
             },
-            sendmessagebtn:{
-                tap:'sendMessage'
+            sendmessagebtn: {
+                tap: 'sendMessage'
             },
             doctorsview: {
                 itemtap: 'onDoctorSelect',
-                itemtaphold:'onDoctorHold',
-                viewshow:'listShow'
+                itemtaphold: 'onDoctorHold',
+                viewshow: 'listShow'
             }
 
 
@@ -42,45 +42,45 @@ Ext.define('DoctorApp.controller.Doctors', {
             sendmessagebtn: 'doctormessagelist #sendmessage',
             messagecontent: 'doctormessagelist #messagecontent',
             mainview: 'main',
-            doctorsnavview:'main #doctorsnavigationview'
+            doctorsnavview: 'main #doctorsnavigationview'
         }
     },
-    onPatientSelect:function(list, index, node, record){
-        var me=this;
+    onPatientSelect: function (list, index, node, record) {
+        var me = this;
         //Ext.Msg.alert('2323', '2323', Ext.emptyFn);
-        Ext.Msg.confirm('消息','确定推荐患者',function(buttonId){
+        Ext.Msg.confirm('消息', '确定推荐患者', function (buttonId) {
 
-            if(buttonId=='yes'){
+            if (buttonId == 'yes') {
 
                 var successFunc = function (response, action) {
 
 
-                    var res=JSON.parse(response.responseText);
-                     if(res.success){
+                    var res = JSON.parse(response.responseText);
+                    if (res.success) {
 
-                         Ext.Msg.alert('成功', '请求已发出', Ext.emptyFn);
+                        Ext.Msg.alert('成功', '请求已发出', Ext.emptyFn);
 
-                     }else{
+                    } else {
                         Ext.Msg.alert('提示', res.message, Ext.emptyFn);
-                     }
+                    }
 
                 };
-                var failFunc=function(response, action){
+                var failFunc = function (response, action) {
                     Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
                     //Ext.Msg.alert('test', 'test', Ext.emptyFn);
 
 
                 }
-                var url="doctor/sendmypatientToDoctor";
-                var params={
-                    patientid:record.get('_id') ,
-                    doctorid:me.selectDoctor.get('_id'),
-                    fromdoctorid:Globle_Variable.user._id
+                var url = "doctor/sendmypatientToDoctor";
+                var params = {
+                    patientid: record.get('_id'),
+                    doctorid: me.selectDoctor.get('_id'),
+                    fromdoctorid: Globle_Variable.user._id
 
                 };
-                CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
-            }else{
-                var view=me.getDoctorsnavview();
+                CommonUtil.ajaxSend(params, url, successFunc, failFunc, 'POST');
+            } else {
+                var view = me.getDoctorsnavview();
                 view.pop();
             }
 
@@ -90,67 +90,68 @@ Ext.define('DoctorApp.controller.Doctors', {
     },
     onMainPush: function (view, item) {
         //alert(2);
-        //this.getDoctorsnavview().deselectAll();
+        this.getDoctorsnavview().deselectAll();
 
     },
-    listShow:function(event){
+    listShow: function (event) {
         // init list data
         //this.initDoctorList();
 
     },
 
-    initDoctorMessage:function(){
+    initDoctorMessage: function () {
 
     },
 
-    initDoctorList:function(){
-       var doctorlistView=this.getDoctorsview();
-       var store=doctorlistView.getStore();
-       store.load({
-                //define the parameters of the store:
-                params:{
-                    id : Globle_Variable.user._id
-                },
-                scope: this,
-                callback : function(records, operation, success) {
+    initDoctorList: function () {
+        var doctorlistView = this.getDoctorsview();
+        var store = doctorlistView.getStore();
+        store.load({
+            //define the parameters of the store:
+            params: {
+                id: Globle_Variable.user._id
+            },
+            scope: this,
+            callback: function (records, operation, success) {
 
-                }});
+            }
+        });
 
     },
 
 
-    receiveRecommendNotification:function(recommend,e){
-        var me=this;
+    receiveRecommendNotification: function (recommend, e) {
+        var me = this;
         try {
 
             //Ext.Msg.alert('test', cordova.plugins.notification.local.schedule , Ext.emptyFn);
             cordova.plugins.notification.local.schedule({
                 id: recommend._id,
-                title: recommend.rectype==1?"医生:"+recommend.frominfo.userinfo.realname+"推荐":
-                "患者:"+recommend.frominfo.realname+"推荐",
-                text: "新病人:"+recommend.patientinfo.realname,
+                title: recommend.rectype == 1 ? "医生:" + recommend.frominfo.userinfo.realname + "推荐" :
+                "患者:" + recommend.frominfo.realname + "推荐",
+                text: "新病人:" + recommend.patientinfo.realname,
                 //firstAt: monday_9_am,
                 //every: "week",
                 //sound: "file://sounds/reminder.mp3",
                 //icon: "http://icons.com/?cal_id=1",
-                data: { meetingId:recommend._id }
+                data: {meetingId: recommend._id}
             });
 
             cordova.plugins.notification.local.on("click", function (notification) {
                 //joinMeeting(notification.data.meetingId);
                 //Ext.Msg.alert('Title', notification.data.meetingId, Ext.emptyFn);
                 //me.receiveMessageShow(message,e);
-                me.receiveRecommendShow(recommend,e);
+                me.receiveRecommendShow(recommend, e);
 
             });
 
-        }catch (err){
+        } catch (err) {
             //console.log(recommend) ;
             //Ext.Msg.alert('Title', "error", Ext.emptyFn);
-           // me.receiveMessageShow(message,e);
-            me.receiveRecommendShow(recommend,e);
+            // me.receiveMessageShow(message,e);
+            me.receiveRecommendShow(recommend, e);
 
-        } finally{
+        } finally {
 
 
         }
@@ -158,15 +159,15 @@ Ext.define('DoctorApp.controller.Doctors', {
 
     },
 
-    receiveMessageNotification:function(message,e){
+    receiveMessageNotification: function (message, e) {
 
-        var me=this;
+        var me = this;
         try {
 
             cordova.plugins.notification.local.schedule({
                 id: message._id,
-                title: (message.fromtype==0?'病友 ':'医生 ')+
-                message.userinfo.realname+' 来消息啦!' ,
+                title: (message.fromtype == 0 ? '病友 ' : '医生 ') +
+                message.userinfo.realname + ' 来消息啦!',
                 text: message.message,
                 //firstAt: monday_9_am,
                 //every: "week",
@@ -178,59 +179,59 @@ Ext.define('DoctorApp.controller.Doctors', {
             cordova.plugins.notification.local.on("click", function (notification) {
                 //joinMeeting(notification.data.meetingId);
                 //Ext.Msg.alert('Title', notification.data.meetingId, Ext.emptyFn);
-                me.receiveMessageShow(notification.data.message,e);
+                me.receiveMessageShow(notification.data.message, e);
 
             });
 
-        }catch (err){
-            console.log(message) ;
-            me.receiveMessageShow(message,e);
+        } catch (err) {
+            console.log(message);
+            me.receiveMessageShow(message, e);
 
-        } finally{
+        } finally {
 
 
         }
 
 
     },
-    receiveRecommendShow:function(recommend,e){
+    receiveRecommendShow: function (recommend, e) {
         //alert(1);
         //console.log(recommend);
-        Ext.Msg.confirm('消息','是否添加'+ (recommend.rectype==1?"医生:"+recommend.frominfo.userinfo.realname+"推荐":
-        "患者:"+recommend.frominfo.realname+"推荐")+"的患者:"+recommend.patientinfo.realname,function(buttonId){
+        Ext.Msg.confirm('消息', '是否添加' + (recommend.rectype == 1 ? "医生:" + recommend.frominfo.userinfo.realname + "推荐" :
+        "患者:" + recommend.frominfo.realname + "推荐") + "的患者:" + recommend.patientinfo.realname, function (buttonId) {
 
-            if(buttonId=='yes'){
+            if (buttonId == 'yes') {
 
                 var successFunc = function (response, action) {
 
-                    var res=JSON.parse(response.responseText);
-                     if(res.success){
+                    var res = JSON.parse(response.responseText);
+                    if (res.success) {
 
-                         Ext.Msg.show({
-                             title:'成功',
-                             message:  (recommend.isdoctoraccepted||recommend.ispatientaccepted)?'已成功添加患者':
-                                 '已接受推荐，等待对方同意',
-                             buttons: Ext.MessageBox.OK,
-                             fn:Ext.emptyFn
-                         });
-                         //Ext.Msg.alert('成功', '已接受推荐，等待对方同意', Ext.emptyFn);
+                        Ext.Msg.show({
+                            title: '成功',
+                            message: (recommend.isdoctoraccepted || recommend.ispatientaccepted) ? '已成功添加患者' :
+                                '已接受推荐，等待对方同意',
+                            buttons: Ext.MessageBox.OK,
+                            fn: Ext.emptyFn
+                        });
+                        //Ext.Msg.alert('成功', '已接受推荐，等待对方同意', Ext.emptyFn);
 
-                     }else{
-                         Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
-                     }
+                    } else {
+                        Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
+                    }
 
                 };
-                var failFunc=function(response, action){
+                var failFunc = function (response, action) {
                     Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
                     //Ext.Msg.alert('test', 'test', Ext.emptyFn);
                 }
-                var url="doctor/acceptrecommend";
-                var params={
-                    rid:recommend._id
+                var url = "doctor/acceptrecommend";
+                var params = {
+                    rid: recommend._id
                 };
-                CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
-            }else{
-                var view=me.getDoctorsnavview();
+                CommonUtil.ajaxSend(params, url, successFunc, failFunc, 'POST');
+            } else {
+                var view = me.getDoctorsnavview();
                 view.pop();
             }
 
@@ -238,108 +239,130 @@ Ext.define('DoctorApp.controller.Doctors', {
         });
 
 
-
     },
-    receiveMessageShow:function(message,e){
-        try{
-            var mainView=this.getMainview();
-            var listView=null;
-            var messagestore=null;
-            console.log("message heheehe");
-            console.log(message)
+    receiveMessageShow: function (message, e) {
 
-            if(message.fromtype==1){
-
-                mainView.setActiveItem(0);
-                listView=this.getDoctorsview();
+        var mainView = this.getMainview();
+        this.listView = null;
+        var messagestore = null;
 
 
-            }else{
-                mainView.setActiveItem(1);
-                listView=this.getPatientsview();
+        if (message.fromtype == 1) {
+            mainView.setActiveItem(0);
+            this.listView = this.getDoctorsview();
 
-            }
-            testobj=this;
-            console.log(listView);
-            var store=listView.getStore();
-            var index =this.filterReceiveIndex(message,store);
-            listView.select(index);
-            listView.fireEvent('itemtap',listView,index,listView.getActiveItem(),store.getAt(index),e);
 
-        }catch(err) {
+        } else {
+            mainView.setActiveItem(1);
+            this.listView = this.getPatientsview();
 
-        }finally{
-
-            var doctorController=this.getApplication().getController('Doctors');
-            var patientController=this.getApplication().getController('Patients');
-            if(message.fromtype==0){
-                messagestore=patientController.messageView[message.fromid].getStore()
-            }else{
-                messagestore=doctorController.messageView[message.fromid].getStore();
-            }
-
-            console.log(messagestore);
-            messagestore.add(Ext.apply({local: false}, message));
         }
+       //alert('begin 121');
+
+        var me = this;
+
+        var d = new Ext.util.DelayedTask(function () {
+            try {
+
+                \
+                var store = me.listView.getStore();
+
+                //alert(-1);
+                var index = me.filterReceiveIndex(message, store);
+                //alert(-2);
+                me.listView.select(index);
+
+                me.listView.fireEvent('itemtap', me.listView, index, me.listView.getActiveItem(), store.getAt(index), e);
+            } catch (err) {
+
+                console.log(err);
+            }
+            finally {
+
+                var doctorController = me.getApplication().getController('Doctors');
+                var patientController = me.getApplication().getController('Patients');
+                if (message.fromtype == 0) {
+                    messagestore = patientController.messageView[message.fromid].getStore()
+                } else {
+                    messagestore = doctorController.messageView[message.fromid].getStore();
+                }
+
+                //console.log(messagestore);
+                messagestore.add(Ext.apply({local: false}, message));
+            }
+        });
+        d.delay(500);
+
+        /*this.listView.on({
+            painted: {
+                fn: function () {
+                    //alert(0);
+
+
+
+                }, scope: this, single: true
+            }
+        });*/
+
+
     },
-    receiveMessageProcess:function(data,e){
-        for(var i=0;i<data.length;i++){
-            var message=data[i];
-            message.message=message.content;
-            this.receiveMessageNotification(message,e);
+    receiveMessageProcess: function (data, e) {
+        for (var i = 0; i < data.length; i++) {
+            var message = data[i];
+            message.message = message.content;
+            this.receiveMessageNotification(message, e);
         }
         //listView.select(1);
     },
-    receiveRecommendProcess:function(data,e){
+    receiveRecommendProcess: function (data, e) {
         //console.log(data);
         //alert("1");
-        for(var i=0;i<data.length;i++){
+        for (var i = 0; i < data.length; i++) {
             //alert(i);
-            var recommend=data[i];
+            var recommend = data[i];
             //message.message=message.content;
-            this.receiveRecommendNotification(recommend,e);
+            this.receiveRecommendNotification(recommend, e);
         }
         //listView.select(1);
     },
 
-    filterReceiveIndex:function(data,store){
-        var listdata=store.data.items;
-        var index=0;
-        for(var i=0;i<listdata.length;i++){
-            if(listdata[i].get("_id")==data.fromid){
-                index=i;
+    filterReceiveIndex: function (data, store) {
+        var listdata = store.data.items;
+        var index = 0;
+        for (var i = 0; i < listdata.length; i++) {
+            if (listdata[i].get("_id") == data.fromid) {
+                index = i;
                 break;
             }
         }
         return index;
     },
-    messageView:{},
-    sendMessage:function(btn){
-        var content=Ext.String.trim(this.getMessagecontent().getValue());
+    messageView: {},
+    sendMessage: function (btn) {
+        var content = Ext.String.trim(this.getMessagecontent().getValue());
 
-        if(content&&content!=''){
+        if (content && content != '') {
             //alert(conten);
 
-            var listview=btn.up('list');
-            var myinfo= listview.mydata;
+            var listview = btn.up('list');
+            var myinfo = listview.mydata;
 
-            var toinfo=listview.data;
-            var imgid='chatstatusimg'+(new Date()).getTime();
-            var message=Ext.apply({message:content}, myinfo);
+            var toinfo = listview.data;
+            var imgid = 'chatstatusimg' + (new Date()).getTime();
+            var message = Ext.apply({message: content}, myinfo);
             //console.log(imgid);
-            listview.getStore().add(Ext.apply({local: true,imgid:imgid}, message));
+            listview.getStore().add(Ext.apply({local: true, imgid: imgid}, message));
 
 
+            var mainController = this.getApplication().getController('Main');
 
-            var mainController=this.getApplication().getController('Main');
-
-            var socket=mainController.socket;
+            var socket = mainController.socket;
             socket.send(JSON.stringify({
-                type:"doctorchat",
-                from:myinfo._id,
-                fromtype:1,
-                imgid:imgid,
-                to :toinfo.get("_id"),
+                type: "doctorchat",
+                from: myinfo._id,
+                fromtype: 1,
+                imgid: imgid,
+                to: toinfo.get("_id"),
                 content: content
             }));
 
@@ -347,53 +370,53 @@ Ext.define('DoctorApp.controller.Doctors', {
             //loadingObj.show();
 
 
-        }else{
-            CommonUtil.showMessage("no content",true);
+        } else {
+            CommonUtil.showMessage("no content", true);
         }
 
 
     },
-    sendMsgByAjax:function(data){
+    sendMsgByAjax: function (data) {
         var successFunc = function (response, action) {
 
             /*var res=JSON.parse(response.responseText);
-            if(res.success){
-                Ext.Viewport.removeAt(0);
-                Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
-                localStorage.user=JSON.stringify(res.user);
-                Globle_Variable.user=res.user;
+             if(res.success){
+             Ext.Viewport.removeAt(0);
+             Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
+             localStorage.user=JSON.stringify(res.user);
+             Globle_Variable.user=res.user;
 
-            }else{
-                Ext.Msg.alert('登录失败', '用户名密码错误', Ext.emptyFn);
-            }*/
+             }else{
+             Ext.Msg.alert('登录失败', '用户名密码错误', Ext.emptyFn);
+             }*/
 
         };
-        var failFunc=function(response, action){
+        var failFunc = function (response, action) {
             Ext.Msg.alert('登录失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
 
         }
-        var url="doctor/sendmessage";
-        var params=data;
-        CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
+        var url = "doctor/sendmessage";
+        var params = data;
+        CommonUtil.ajaxSend(params, url, successFunc, failFunc, 'POST');
     },
 
-    showPatientList:function(record){
+    showPatientList: function (record) {
 
         //console.log(record);
-        this.selectDoctor=record;
+        this.selectDoctor = record;
 
         //Ext.Msg.alert('test', 'test', Ext.emptyFn);
 
-        var view=this.getDoctorsnavview();
-        var patientList=Ext.widget('patients',{title:'选择患者'});
+        var view = this.getDoctorsnavview();
+        var patientList = Ext.widget('patients', {title: '选择患者'});
         patientList.on({
-            itemtap  : { fn: this.onPatientSelect, scope: this, single: true }
+            itemtap: {fn: this.onPatientSelect, scope: this, single: true}
         });
 
         view.push(patientList);
 
     },
-    onDoctorHold:function(list,index, target, record, e) {
+    onDoctorHold: function (list, index, target, record, e) {
         //long doctor hold
         //list.suspendEvents(false);
 
@@ -402,24 +425,24 @@ Ext.define('DoctorApp.controller.Doctors', {
         list.lastTapHold = new Date();
 
 
-        var me=this;
+        var me = this;
         var actionSheet = Ext.create('Ext.ActionSheet', {
             items: [
                 {
                     text: '推荐患者',
-                    handler:function(){
-                       me.showPatientList(record);
-                       actionSheet.hide();
+                    handler: function () {
+                        me.showPatientList(record);
+                        actionSheet.hide();
                         //list.resumeEvents();
                     }
                 },
                 {
                     text: '取消',
-                    handler : function() {
+                    handler: function () {
                         actionSheet.hide();
                         //list.resumeEvents();
                     },
-                    ui  : 'confirm'
+                    ui: 'confirm'
                 }
             ]
         });
@@ -428,11 +451,10 @@ Ext.define('DoctorApp.controller.Doctors', {
         actionSheet.show();
 
 
-
         /**
-        console.log(e);
-        e.preventDefault();
-        e.stopEvent();
+         console.log(e);
+         e.preventDefault();
+         e.stopEvent();
          **/
 
     },
@@ -440,31 +462,31 @@ Ext.define('DoctorApp.controller.Doctors', {
 
 
         //console.log(list.lastTapHold - new Date()) ;
-        if (!list.lastTapHold || ( new Date()-list.lastTapHold  > 1000)) {
+        if (!list.lastTapHold || ( new Date() - list.lastTapHold > 1000)) {
 
-            if (!this.messageView[record.get('_id')]){
-                this.messageView[record.get('_id')] =Ext.create('DoctorApp.view.doctors.DoctorMessage');
+            if (!this.messageView[record.get('_id')]) {
+                this.messageView[record.get('_id')] = Ext.create('DoctorApp.view.doctors.DoctorMessage');
 
             }
-            var selectview=this.messageView[record.get('_id')];
+            var selectview = this.messageView[record.get('_id')];
 
 
             selectview.setTitle(record.get('userinfo').realname);
-            selectview.data=record;
-            selectview.mydata=Globle_Variable.user;
+            selectview.data = record;
+            selectview.mydata = Globle_Variable.user;
             this.getDoctorsnavview().push(selectview);
 
 
             /*if (!this.messageView)this.messageView = Ext.create('DoctorApp.view.doctors.DoctorMessage');
-            //var messageView=Ext.create('DoctorApp.view.doctors.DoctorMessage');
+             //var messageView=Ext.create('DoctorApp.view.doctors.DoctorMessage');
 
 
 
-            this.messageView.setTitle(record.get('userinfo').realname);
-            this.messageView.data=record;
-            this.messageView.mydata=Globle_Variable.user;
+             this.messageView.setTitle(record.get('userinfo').realname);
+             this.messageView.data=record;
+             this.messageView.mydata=Globle_Variable.user;
 
-            this.getDoctorsnavview().push(this.messageView);*/
+             this.getDoctorsnavview().push(this.messageView);*/
 
 
         }
@@ -473,10 +495,10 @@ Ext.define('DoctorApp.controller.Doctors', {
         //testobj=record;
 
         // alert(1);
-       /* if (!this.showContact)this.showContact = Ext.create('DoctorApp.view.contact.Show');
+        /* if (!this.showContact)this.showContact = Ext.create('DoctorApp.view.contact.Show');
 
-        this.showContact.setRecord(record);
-        this.getDoctorsnavview().push(this.showContact);*/
+         this.showContact.setRecord(record);
+         this.getDoctorsnavview().push(this.showContact);*/
 
         // Push the show contact view into the navigation view
 
