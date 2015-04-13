@@ -19,14 +19,15 @@ Ext.define('DoctorApp.view.patients.Patients', {
                 this.fireEvent('viewshow', this);
             }
         },
-        store: 'Patients',
-        items: [{
+        
+        store: Ext.create('DoctorApp.store.patients.Patients'),
+        items: [/*{
             xtype: 'button',
             scrollDock: 'bottom',
             docked: 'bottom',
             //itemId:'loadmorelist',
             text: 'Load More...'
-        }],
+        }*/],
         itemTpl: [
             '<div class="headshot">',
             ' {realname}',

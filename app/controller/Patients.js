@@ -162,16 +162,27 @@ Ext.define('DoctorApp.controller.Patients', {
     listShow:function(){
         //this.initPatientList();
     },
+    messageView:{
+
+    },
+
     onPatientSelect: function (list, index, node, record) {
+
+
+
         if (!list.lastTapHold || ( new Date()-list.lastTapHold  > 1000)) {
 
-            if (!this.messageView)this.messageView = Ext.create('DoctorApp.view.patients.PatientsMessage');
-            //var messageView=Ext.create('DoctorApp.view.doctors.DoctorMessage');
+            if (!this.messageView[record.get('_id')]){
+                this.messageView[record.get('_id')] =Ext.create('DoctorApp.view.patients.PatientsMessage');
 
-            this.messageView.setTitle(record.get('realname'));
-            this.messageView.data=record;
-            this.messageView.mydata=Globle_Variable.user;
-            this.getPatientsnavview().push(this.messageView);
+            }
+
+            var selectview=this.messageView[record.get('_id')];
+
+            selectview.setTitle(record.get('realname'));
+            selectview.data=record;
+            selectview.mydata=Globle_Variable.user;
+            this.getPatientsnavview().push(selectview);
 
         }
 
@@ -181,8 +192,8 @@ Ext.define('DoctorApp.controller.Patients', {
 
     },
     initPatientList:function(){
-
-        var store=Ext.getStore('Patients');
+        var patientlistview=this.getPatientssview();
+        var store=patientlistview.getStore();
         store.load({
             //define the parameters of the store:
             params:{

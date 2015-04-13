@@ -104,8 +104,8 @@ Ext.define('DoctorApp.controller.Doctors', {
     },
 
     initDoctorList:function(){
-
-       var store=Ext.getStore('Doctors');
+       var doctorlistView=this.getDoctorsview();
+       var store=doctorlistView.getStore();
        store.load({
                 //define the parameters of the store:
                 params:{
@@ -259,6 +259,8 @@ Ext.define('DoctorApp.controller.Doctors', {
                 listView=this.getPatientsview();
 
             }
+            testobj=this;
+            console.log(listView);
             var store=listView.getStore();
             var index =this.filterReceiveIndex(message,store);
             listView.select(index);

@@ -12,7 +12,7 @@ Ext.define('DoctorApp.view.doctors.Doctors', {
         scrollToTopOnRefresh :true,
         grouped:true,
         //indexBar:true,
-        store: 'Doctors',
+        store: Ext.create('DoctorApp.store.doctors.Doctors'),
 
         listeners: {
             painted: function(){
@@ -21,13 +21,7 @@ Ext.define('DoctorApp.view.doctors.Doctors', {
             }
         },
 
-        items: [{
-            xtype: 'button',
-            scrollDock: 'bottom',
-            docked: 'bottom',
-            //itemId:'loadmorelist',
-            text: 'Load More...'
-        }],
+        items: [],
         itemTpl: [
             '<div class="headshot">',
             '{userinfo.sectionname} {userinfo.realname}',
