@@ -19,6 +19,8 @@ Ext.define('DoctorApp.controller.Doctors', {
             'doctors.Doctors',
             'doctors.DoctorMessage'
         ],
+        maxPosition: 0,
+        scroller: null,
 
         control: {
             doctorsnavview: {
@@ -26,6 +28,21 @@ Ext.define('DoctorApp.controller.Doctors', {
             },
             sendmessagebtn: {
                 tap: 'sendMessage'
+            },
+            'doctormessagelistview': {
+                initialize: function (list) {
+                    var me = this,
+                        scroller = list.getScrollable().getScroller();
+
+                    scroller.on('maxpositionchange', function (scroller, maxPos, opts) {
+                        me.setMaxPosition(maxPos.y);
+                    });
+                    //console.log(scroller);
+                    //testobj=list;
+                    me.setScroller(scroller);
+
+                    //me.getMessage().setValue(Ext.create('Chat.ux.LoremIpsum').getSentence());
+                }
             },
             doctorsview: {
                 itemtap: 'onDoctorSelect',
@@ -38,6 +55,7 @@ Ext.define('DoctorApp.controller.Doctors', {
         refs: {
             doctorsview: 'main #doctorsnavigationview #doctorlist',
             patientsview: 'main #patientsnavigationview #patientlist',
+            doctormessagelistview:'doctormessagelist',
 
             sendmessagebtn: 'doctormessagelist #sendmessage',
             messagecontent: 'doctormessagelist #messagecontent',
@@ -120,6 +138,39 @@ Ext.define('DoctorApp.controller.Doctors', {
     },
 
 
+    receiveQuickApplyProcess:function(recommend,e){
+        var me = this;
+        try {
+
+            //Ext.Msg.alert('test', cordova.plugins.notification.local.schedule , Ext.emptyFn);
+            cordova.plugins.notification.local.schedule({
+                id: recommend._id,
+                title: "患者:" + recommend.userinfo.realname + "呼叫急救",
+                text: "患者:" + recommend.userinfo.realname + "呼叫急救",
+                //firstAt: monday_9_am,
+                //every: "week",
+                //sound: "file://sounds/reminder.mp3",
+                //icon: "http://icons.com/?cal_id=1",
+                data: {data: recommend}
+            });
+
+            cordova.plugins.notification.local.on("click", function (notification) {
+
+                me.receiveQuickApplyShow(notification.data.data, e);
+
+            });
+
+        } catch (err) {
+
+            me.receiveQuickApplyShow(recommend, e);
+
+        } finally {
+
+
+        }
+
+    },
+
     receiveRecommendNotification: function (recommend, e) {
         var me = this;
         try {
@@ -194,9 +245,53 @@ Ext.define('DoctorApp.controller.Doctors', {
 
 
     },
+
+    receiveQuickApplyShow:function(recommend, e){
+        Ext.Msg.confirm('消息', '是否接受'+recommend.userinfo.realname+'的急救请求', function (buttonId) {
+
+            if (buttonId == 'yes') {
+
+                var successFunc = function (response, action) {
+
+                    var res = JSON.parse(response.responseText);
+                    if (res.success) {
+
+                        Ext.Msg.show({
+                            title: '成功',
+                            message: '等待'+recommend.userinfo.realname+'发起消息',
+                            buttons: Ext.MessageBox.OK,
+                            fn: Ext.emptyFn
+                        });
+                        //Ext.Msg.alert('成功', '已接受推荐，等待对方同意', Ext.emptyFn);
+
+                    } else {
+                        Ext.Msg.alert('失败', res.msg, Ext.emptyFn);
+                    }
+
+                };
+                var failFunc = function (response, action) {
+                    Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
+                    //Ext.Msg.alert('test', 'test', Ext.emptyFn);
+                }
+                var url = "doctor/acceptquickapply";
+                var params = {
+                    aid: recommend._id,
+                    doctorid: recommend.doctorid,
+                    patientid :recommend.patientid
+                };
+                CommonUtil.ajaxSend(params, url, successFunc, failFunc, 'POST');
+
+
+
+            }
+
+        });
+
+
+
+    },
     receiveRecommendShow: function (recommend, e) {
-        //alert(1);
-        //console.log(recommend);
+
         Ext.Msg.confirm('消息', '是否添加' + (recommend.rectype == 1 ? "医生:" + recommend.frominfo.userinfo.realname + "推荐" :
         "患者:" + recommend.frominfo.realname + "推荐") + "的患者:" + recommend.patientinfo.realname, function (buttonId) {
 
@@ -264,7 +359,6 @@ Ext.define('DoctorApp.controller.Doctors', {
         var d = new Ext.util.DelayedTask(function () {
             try {
 
-                \
                 var store = me.listView.getStore();
 
                 //alert(-1);
@@ -289,6 +383,7 @@ Ext.define('DoctorApp.controller.Doctors', {
 
                 //console.log(messagestore);
                 messagestore.add(Ext.apply({local: false}, message));
+                me.scrollMsgList();
             }
         });
         d.delay(500);
@@ -326,6 +421,7 @@ Ext.define('DoctorApp.controller.Doctors', {
         //listView.select(1);
     },
 
+
     filterReceiveIndex: function (data, store) {
         var listdata = store.data.items;
         var index = 0;
@@ -338,8 +434,18 @@ Ext.define('DoctorApp.controller.Doctors', {
         return index;
     },
     messageView: {},
+    scrollMsgList:function(){
+        var scroller=this.getScroller();
+
+        var task = Ext.create('Ext.util.DelayedTask', function() {
+            scroller.scrollToEnd(true);
+        });
+        task.delay(20);
+    },
     sendMessage: function (btn) {
-        var content = Ext.String.trim(this.getMessagecontent().getValue());
+
+        var message=btn.up('list').down('#messagecontent');
+        var content = Ext.String.trim(message.getValue());
 
         if (content && content != '') {
             //alert(conten);
@@ -352,7 +458,7 @@ Ext.define('DoctorApp.controller.Doctors', {
             var message = Ext.apply({message: content}, myinfo);
             //console.log(imgid);
             listview.getStore().add(Ext.apply({local: true, imgid: imgid}, message));
-
+            this.scrollMsgList();
 
             var mainController = this.getApplication().getController('Main');
 

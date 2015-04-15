@@ -149,6 +149,11 @@ Ext.define('DoctorApp.controller.Main', {
             }else if(data.type=='recommendconfirm'){
 
                 console.log('recommendconfirm')
+            }else if(data.type=='patientquickapply'){
+
+                console.log('patientquickapply');
+                console.log(data.data);
+                doctorController.receiveQuickApplyProcess(data.data,event);
             }
             else if(data.type=='chatsuc'){
                 console.log('chatsuc');

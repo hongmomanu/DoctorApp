@@ -38,6 +38,10 @@ Ext.define('DoctorApp.controller.Login', {
             newdoctorbtn:{
 
                 tap:'doNewDoctor'
+            },
+            loginformview:{
+                initialize:'initFunc'
+
             }
 
         },
@@ -49,6 +53,25 @@ Ext.define('DoctorApp.controller.Login', {
             loginformview: 'loginform'
         }
     },
+
+    initFunc:function (){
+        this.autoLogin();
+        //this.makeLocationListener();
+
+    },
+    autoLogin:function(){
+
+        var userinfo=JSON.parse(localStorage.user);
+        console.log(userinfo);
+        if(userinfo){
+            var formpanel=this.getLoginformcontent();
+            formpanel.setValues(userinfo.userinfo);
+            this.doDoctorLogin();
+
+        }
+
+    },
+
     //doctor app init
     doDoctorLogin:function(btn){
 

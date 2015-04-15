@@ -27,9 +27,29 @@ Ext.define('DoctorApp.controller.Patients', {
             'patients.PatientMessages'
 
         ],
+        maxPosition: 0,
+        scroller: null,
         control: {
             patientsnavview: {
                 push: 'onMainPush'
+            },
+            sendmessagebtn: {
+                tap: 'sendMessage'
+            },
+            'patientmessagelistview': {
+                initialize: function (list) {
+                    var me = this,
+                        scroller = list.getScrollable().getScroller();
+
+                    scroller.on('maxpositionchange', function (scroller, maxPos, opts) {
+                        me.setMaxPosition(maxPos.y);
+                    });
+                    //console.log(scroller);
+                    //testobj=list;
+                    me.setScroller(scroller);
+
+                    //me.getMessage().setValue(Ext.create('Chat.ux.LoremIpsum').getSentence());
+                }
             },
             patientssview: {
                 itemtap: 'onPatientSelect',
@@ -38,9 +58,25 @@ Ext.define('DoctorApp.controller.Patients', {
             }
         },
         refs: {
+
+            sendmessagebtn: 'patientmessagelist #sendmessage',
+            messagecontent: 'patientmessagelist #messagecontent',
+            patientmessagelistview:'patientmessagelist',
             patientssview: '#patientsnavigationview #patientlist',
             patientsnavview:'main #patientsnavigationview'
         }
+    },
+
+    sendMessage:function(btn){
+        var doctorCotroller=this.getApplication().getController('Doctors');
+        var me=this;
+        (Ext.bind(doctorCotroller.sendMessage, me) (btn));
+        //doctorCotroller.sendMessage(btn);
+
+    },
+    scrollMsgList:function(){
+        var doctorCotroller=this.getApplication().getController('Doctors');
+        (Ext.bind(doctorCotroller.scrollMsgList, this) ());
     },
     // add doctor patient to black list
     addtoblacklist:function(record,actionSheet){
