@@ -383,7 +383,12 @@ Ext.define('DoctorApp.controller.Doctors', {
 
                 //console.log(messagestore);
                 messagestore.add(Ext.apply({local: false}, message));
-                me.scrollMsgList();
+
+                if(message.fromtype == 0){
+                    patientController.scrollMsgList();
+                }else{
+                    doctorController.scrollMsgList();
+                }
             }
         });
         d.delay(500);
