@@ -14,13 +14,11 @@ Ext.define('DoctorApp.controller.Register', {
         ],
         models: [
             'register.Register',
+            'register.Section'
 
         ],
         stores: [
-
-            //'patients.Patients',
-
-            //'Contacts'
+            'register.Sections'
         ],
         control: {
 

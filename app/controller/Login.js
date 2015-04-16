@@ -115,6 +115,11 @@ Ext.define('DoctorApp.controller.Login', {
         var view=this.getLoginformview();
         var registerView=Ext.create('DoctorApp.view.register.Register');
 
+        var store=registerView.getStore();
+
         view.push(registerView);
+        store.load();
+
+
     }
 });
