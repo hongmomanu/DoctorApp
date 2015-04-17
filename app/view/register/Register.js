@@ -28,6 +28,7 @@ Ext.define('DoctorApp.view.register.Register', {
                     {
                         xtype:'fieldset',
                         instructions:'请填写信息',
+                        centered: true,
                         defaults:{
                             labelWidth:'150px'
                         },
