@@ -1,6 +1,6 @@
 Ext.define('DoctorApp.view.settings.Settings', {
 
-    extend: 'Ext.Container',
+    extend: 'Ext.form.Panel',
     xtype: 'settingsform',
     //alias: 'widget.RegisterPanel',
     //itemId: 'registerpanel',

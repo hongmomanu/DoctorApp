@@ -91,9 +91,7 @@ Ext.define('DoctorApp.controller.Settings', {
 
         var successFunc = function (response, action) {
             var res=JSON.parse(response.responseText);
-
             if(res.success){
-                //me.getMoneyInfo().setHtml('<div>我的余额:'+res.money+'</div>')
                 form.setValues({
                     money:res.money,
                     username:Globle_Variable.user.userinfo.username,
@@ -172,10 +170,9 @@ Ext.define('DoctorApp.controller.Settings', {
             }
         })
     },
-    showBigCode:function(){
+    showBigCode:function(item){
         var overlay = Ext.Viewport.add({
             xtype: 'panel',
-
             // We give it a left and top property to make it floating by default
             left: 0,
             top: 0,
