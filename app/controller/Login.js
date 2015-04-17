@@ -90,9 +90,10 @@ Ext.define('DoctorApp.controller.Login', {
 
                     var doctorCotroller=me.getApplication().getController('Doctors');
                     var patientCotroller=me.getApplication().getController('Patients');
-                    //var settingCotroller=me.getApplication().getController('Settings');
+                    var settingCotroller=me.getApplication().getController('Settings');
                     doctorCotroller.initDoctorList();
                     patientCotroller.initPatientList();
+                    settingCotroller.initSetting();
                     //settingCotroller.initBlackList();
 
                 }else{

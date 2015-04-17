@@ -29,11 +29,8 @@ Ext.define('DoctorApp.view.settings.Settings', {
 
             {
                 xtype:'fieldset',
-                title: 'About You',
-                defaults:{
-                    labelWidth:'35%',
-                    labelAlign:'top'
-                },
+                title: '个人信息',
+
                 listeners: {
                     tap: function(){
                         alert('hey!');
@@ -43,7 +40,7 @@ Ext.define('DoctorApp.view.settings.Settings', {
                     }
                 },
                 layout: 'hbox',
-                items:[
+                /*items:[
                     {
                         html:'<div>hello jack</div>',
                         itemId:'doctorInfo',
@@ -58,16 +55,73 @@ Ext.define('DoctorApp.view.settings.Settings', {
                         width : 64
                     }
 
+                ],*/
+                items:[
+                    {
+                        layout:'vbox',
+                        defaults:{
+                            labelWidth:'120px'
+                        },
+                        items:[
+                            {
+                                xtype: 'textfield',
+                                label: '用户名',
+                                //disabled:true,
+                                readOnly:true,
+                                itemId:'username',
+                                name: 'username'
+
+                            },
+                            {
+                                xtype: 'textfield',
+                                label: '姓名',
+                                //disabled:true,
+                                readOnly:true,
+                                itemId:'realname',
+                                name: 'realname'
+
+                            },
+                            {
+                                xtype: 'textfield',
+                                label: '我的余额',
+                                name:'money',
+                                readOnly:true,
+                                //disabled:true,
+                                itemId:'moneyInfo'
+                            }
+
+                        ],
+                        /*html:'<div>hello jack</div>',
+                         itemId:'userInfo',*/
+                        flex:3
+                    }
+                    ,
+                    {
+                        flex:1,
+                        xtype:'container',
+                        //padding:'15 0 0 20',
+                        layout: {
+                            type: 'vbox',
+                            align: 'middle'
+                        },
+                        items:[
+                            {
+                                centered:true,
+                                xtype:'image',
+                                itemId:'doctorCodepicSmall',
+                                id:'doctorCodepicSmall'
+                            }
+                        ]
+                    }
+
+
                 ],
                 label:'我的账户'
 
             },
             {
                 xtype:'fieldset',
-                defaults:{
-                    labelWidth:'35%',
-                    labelAlign:'top'
-                },
+
                 items:[
                     {
                         xtype:'button',
@@ -102,30 +156,26 @@ Ext.define('DoctorApp.view.settings.Settings', {
                 },
                 items:[
                     {
-                        xtype:'textfield',
-                        label:'我的账户'
-                    },
-                    {
-                        xtype:'sliderfield',
-                        name:'test2',
-                        value:30,
-                        label:'settings test2'
+                        xtype:'button',
+                        ui  : 'confirm',
+                        itemId:'scanbtn',
+                        text:'扫描二维码'
                     }
-
                 ]
-
-            },
-
+            }
+            ,
             {
-                xtype:'container',
-                layout:{
-                    type:'vbox'
+                xtype:'fieldset',
+                defaults:{
+                    labelWidth:'35%',
+                    labelAlign:'top'
                 },
                 items:[
                     {
                         xtype:'button',
-                        text:'ok',
-                        itemId:'settingsok'
+                        itemId:'logoutbtn',
+                        ui  : 'decline',
+                        text:'退出'
                     }
                 ]
             }

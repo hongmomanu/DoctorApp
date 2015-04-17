@@ -82,6 +82,53 @@ Ext.define('DoctorApp.controller.Settings', {
         var frequency=custompush.frequency;
     },
 
+    makeUserinfo:function(){
+        var me=this;
+        /* me.getUserInfo().setHtml('<div style="height: 100%;"><table  ><tr><td><a>用户名:</a></td><td><a>'+Globle_Variable.user.username+'</a></td></tr></div>'
+         +'<div><tr><td><a>姓名:</a></td><td><a>'+Globle_Variable.user.realname+'</a></td></tr></table></div>');
+         */
+        var form=this.getSettingsformview();
+
+        var successFunc = function (response, action) {
+            var res=JSON.parse(response.responseText);
+
+            if(res.success){
+                //me.getMoneyInfo().setHtml('<div>我的余额:'+res.money+'</div>')
+                form.setValues({
+                    money:res.money,
+                    username:Globle_Variable.user.userinfo.username,
+                    realname:Globle_Variable.user.userinfo.realname
+                });
+            }else{
+
+            }
+
+        };
+        var failFunc=function(response, action){
+            Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
+        }
+        var url="patient/getmoneybyid";
+        var params={userid: Globle_Variable.user._id};
+        CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
+
+    },
+
+    initSetting:function(){
+
+        this.makecode(64,64,'doctorCodepicSmall');
+        this.makeUserinfo()
+
+    },
+    makecode:function(width,height,id){
+        var cont=$('#'+id);
+        cont.html('');
+        cont.qrcode({
+            text	: Globle_Variable.user.userinfo.username,
+            width		: width,
+            height		: height
+        });
+    },
+
 
     viewactived: function (view, item) {
 
@@ -126,7 +173,43 @@ Ext.define('DoctorApp.controller.Settings', {
         })
     },
     showBigCode:function(){
-        alert(111);
+        var overlay = Ext.Viewport.add({
+            xtype: 'panel',
+
+            // We give it a left and top property to make it floating by default
+            left: 0,
+            top: 0,
+
+            // Make it modal so you can click the mask to hide the overlay
+            modal: true,
+            hideOnMaskTap: true,
+
+            // Make it hidden by default
+            hidden: true,
+
+            // Set the width and height of the panel
+            width: 280,
+            height: 280,
+
+            // Here we specify the #id of the element we created in `index.html`
+            contentEl: 'content',
+
+            // Style the content and make it scrollable
+            styleHtmlContent: true,
+            scrollable: true,
+
+            // Insert a title docked at the top with a title
+            items: [
+                {
+                    //docked: 'top',
+                    xtype: 'panel',
+                    html:'<div id="biggercode"></div>',
+                    title: 'Overlay Title'
+                }
+            ]
+        });
+        this.makecode(220,220,"biggercode");
+        overlay.showBy(item);
 
     },
     initBlackList:function(){
