@@ -171,6 +171,7 @@ Ext.define('DoctorApp.controller.Main', {
             });
             d.delay(5000);
         };
+
         this.socket.onopen = function() {
             me.socket.send(JSON.stringify({
                 type:"doctorconnect",
