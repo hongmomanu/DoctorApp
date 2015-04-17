@@ -91,13 +91,15 @@ Ext.define('DoctorApp.controller.Login', {
                     var doctorCotroller=me.getApplication().getController('Doctors');
                     var patientCotroller=me.getApplication().getController('Patients');
                     var settingCotroller=me.getApplication().getController('Settings');
+
                     doctorCotroller.initDoctorList();
                     patientCotroller.initPatientList();
                     settingCotroller.initSetting();
                     //settingCotroller.initBlackList();
 
+
                 }else{
-                    Ext.Msg.alert('登录失败', '用户名密码错误', Ext.emptyFn);
+                    Ext.Msg.alert('登录失败', res.message, Ext.emptyFn);
                 }
 
             };

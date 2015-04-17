@@ -25,6 +25,13 @@ Ext.define('DoctorApp.model.register.Register', {
                 type: 'string'
             },
             {
+                name: 'hospital',
+                type: 'string'
+            },{
+                name: 'bankcardnum',
+                type: 'string'
+            },
+            {
                 name: 'sex',
                 type: 'string'
             }],
@@ -34,13 +41,20 @@ Ext.define('DoctorApp.model.register.Register', {
                         type: 'presence',
                         message: '请输入姓名!'
                     },
-
-                   {
+                    {
+                        field: 'hospital',
+                        type: 'presence',
+                        message: '请输入所属医疗机构!'
+                    },{
+                        field: 'bankcardnum',
+                        type: 'presence',
+                        message: '请输入个人银行卡号!'
+                    },
+                    {
                         field: 'username',
                         type: 'presence',
                         message: '请输入用户名!'
                     },
-
                     {
                         field: 'password',
                         type: 'presence',

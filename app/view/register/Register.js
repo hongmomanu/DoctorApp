@@ -69,12 +69,20 @@ Ext.define('DoctorApp.view.register.Register', {
                                 required:true,
                                 clearIcon:true
                             },
-                            /*{
-                             xtype:'datepickerfield',
-                             name:'birthday',
-                             placeHolder:'请输入生日',
-                             label:'生日'
-                             },*/
+                            {
+                             xtype:'textfield',
+                             name:'hospital',
+                             required:true,
+                             placeHolder:'请输入所属医疗机构',
+                             label:'医疗机构'
+                             },
+                            {
+                             xtype:'textfield',
+                             name:'bankcardnum',
+                             placeHolder:'请输入个人银行卡号',
+                             required:true,
+                             label:'个人银行卡号'
+                             },
                             {
                                 xtype:'selectfield',
                                 label:'性别',
