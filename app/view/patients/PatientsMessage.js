@@ -31,7 +31,7 @@ Ext.define('DoctorApp.view.patients.PatientsMessage', {
                 docked: 'bottom',
                 //hidden:true,
                 iconCls:'reply',
-                text:'退回',
+                text:'退回',  //任务描述 当任务正在进行且已经付款的情况可以退款，若退款写出退款标志
                 right:0,
                 style: {
                     'border-left': '1px solid red',
