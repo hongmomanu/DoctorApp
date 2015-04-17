@@ -37,6 +37,13 @@ Ext.define('DoctorApp.view.register.Register', {
                         },
                         items:[
                             {
+                                xtype: 'image',
+                                itemId: 'personpic',
+                                name:'personpic',
+                                label:'个人照片',
+                                src: 'resources/icons/noperson.gif'
+                            },
+                            {
                             xtype:'textfield',
                             name:'username',
                             label:'用户名',
