@@ -16,8 +16,11 @@ Ext.define('DoctorApp.view.register.Register', {
         style:{
             'padding':'1px'
         },
+
         layout: 'fit',
+
         fullscreen: true,
+
         items:[
 
             {
