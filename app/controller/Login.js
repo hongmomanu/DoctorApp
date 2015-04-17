@@ -98,6 +98,7 @@ Ext.define('DoctorApp.controller.Login', {
                     //settingCotroller.initBlackList();
 
 
+
                 }else{
                     Ext.Msg.alert('登录失败', res.message, Ext.emptyFn);
                 }
