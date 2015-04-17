@@ -146,6 +146,7 @@ Ext.define('DoctorApp.controller.Doctors', {
                 id: recommend._id,
                 title: "患者:" + recommend.userinfo.realname + "呼叫急救",
                 text: "患者:" + recommend.userinfo.realname + "呼叫急救",
+
                 //firstAt: monday_9_am,
                 //every: "week",
                 //sound: "file://sounds/reminder.mp3",
