@@ -391,6 +391,7 @@ Ext.define('DoctorApp.controller.Doctors', {
                 }
             }
         });
+
         d.delay(500);
 
         /*this.listView.on({
@@ -403,7 +404,6 @@ Ext.define('DoctorApp.controller.Doctors', {
                 }, scope: this, single: true
             }
         });*/
-
 
     },
     receiveMessageProcess: function (data, e) {
