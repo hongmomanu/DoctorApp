@@ -141,7 +141,6 @@ Ext.define('DoctorApp.controller.Doctors', {
     receiveQuickApplyProcess:function(recommend,e){
         var me = this;
         try {
-
             //Ext.Msg.alert('test', cordova.plugins.notification.local.schedule , Ext.emptyFn);
             cordova.plugins.notification.local.schedule({
                 id: recommend._id,

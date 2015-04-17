@@ -21,7 +21,6 @@ Ext.define('DoctorApp.controller.Register', {
             }
         },
         refs: {
-
             doctorregisterbtn: 'registerform #doctorregister'
         }
     },
