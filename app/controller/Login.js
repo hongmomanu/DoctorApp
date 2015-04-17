@@ -115,9 +115,8 @@ Ext.define('DoctorApp.controller.Login', {
     doNewDoctor:function(btn){
         var view=this.getLoginformview();
         var registerView=Ext.create('DoctorApp.view.register.Register');
-
-        var store=registerView.getStore();
-
+        var sectionoption=registerView.down('#sectionname');
+        var store=sectionoption.getStore();
         view.push(registerView);
         store.load();
 

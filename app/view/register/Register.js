@@ -88,10 +88,11 @@ Ext.define('DoctorApp.view.register.Register', {
                             {
                                 xtype:'selectfield',
                                 label:'科室',
+                                itemId:'sectionname',
                                 name:'sectionname',
                                 valueField:'enumeratevalue',
                                 displayField :'enumeratename',
-                                store:'Sections'
+                                store:Ext.create('DoctorApp.store.register.Sections')
 
                             }
                         ]

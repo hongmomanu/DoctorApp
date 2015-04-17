@@ -30,12 +30,16 @@ Ext.define('DoctorApp.controller.Settings', {
             doctorCodepicSmallView:{
                 'tap':'showBigCode'
             },
+            logoutbtn:{
+                'tap':'logoutFunc'
+            },
             custompushconfirmbtn:{
                 'tap':'confirmPush'
             }
         },
         refs: {
             settingsformview: 'settingsform',
+            logoutbtn: 'settingsform #logoutbtn',
             pushsetbtn: 'settingsform #pushsetbtn',
             blacklistbtn: 'settingsform #blacklistbtn',
             custompushformview: 'custompushform',
@@ -49,6 +53,15 @@ Ext.define('DoctorApp.controller.Settings', {
         var list=Ext.widget('blacklist',{'title':'我的黑名单'});
         navView.push(list);
         this.initBlackList();
+    },
+    logoutFunc:function(btn){
+        Ext.Msg.confirm("提示","确定退出?",function (buttonid){
+            if(buttonid=='yes'){
+                Globle_Variable.user=null;
+                localStorage.user="";
+                window.location.reload();
+            }
+        });
     },
     showPushForm:function(btn){
          var navView=this.getSettingnavview();
@@ -126,7 +139,6 @@ Ext.define('DoctorApp.controller.Settings', {
             height		: height
         });
     },
-
 
     viewactived: function (view, item) {
 
