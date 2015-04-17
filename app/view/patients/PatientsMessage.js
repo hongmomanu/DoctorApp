@@ -23,7 +23,22 @@ Ext.define('DoctorApp.view.patients.PatientsMessage', {
             '</tpl>'
         ),
 
-        items: [{
+        items: [
+            {
+                xtype: 'button',
+                itemId:'replybtn',
+                //scrollDock: 'bottom',
+                docked: 'bottom',
+                //hidden:true,
+                iconCls:'reply',
+                text:'退回',
+                right:0,
+                style: {
+                    'border-left': '1px solid red',
+                    opacity:0.3
+                }
+            },
+            {
             xtype: 'toolbar',
             docked: 'bottom',
             items: [

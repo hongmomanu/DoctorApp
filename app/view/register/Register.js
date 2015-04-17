@@ -33,25 +33,38 @@ Ext.define('DoctorApp.view.register.Register', {
                         instructions:'请填写信息',
                         centered: true,
                         defaults:{
-                            labelWidth:'150px'
+                            labelWidth:'130px',
+                            labelAlign:'left'
                         },
                         items:[
                             {
-                                xtype: 'image',
-                                itemId: 'personpic',
-                                name:'personpic',
-                                label:'个人照片',
-                                src: 'resources/icons/noperson.gif'
-                            },
-                            {
-                            xtype:'textfield',
-                            name:'username',
-                            label:'用户名',
-                            placeHolder:'请输入用户名',
-                            required:true,
-                            clearIcon:true,
-                            labelAlign:'left'
-                        },{
+                                xtype:'panel',
+                                layout: 'hbox',
+                                items:[
+                                    {
+                                        xtype:'textfield',
+                                        name:'username',
+                                        label:'用户名',
+                                        placeHolder:'请输入用户名',
+                                        required:true,
+                                        clearIcon:true,
+                                        flex:6,
+                                        labelAlign:'left'
+                                    },
+                                    {
+
+                                        xtype: 'image',
+                                        itemId: 'personpic',
+                                        name:'personpic',
+                                        label:'个人照片',
+                                        flex:1,
+                                        src: 'resources/icons/noperson.gif'
+
+                                    }
+
+                                ]
+                            }
+                            ,{
                             xtype:'textfield',
                             name:'realname',
                             label:'姓名',
