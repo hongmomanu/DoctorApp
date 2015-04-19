@@ -4,6 +4,7 @@ Ext.define('DoctorApp.view.patients.PatientsMessage', {
 
     config: {
         disableSelection: true,
+        scrollToTopOnRefresh :false,
         title: 'Chat',
         store: Ext.create('DoctorApp.store.patients.PatientMessages'),
 
