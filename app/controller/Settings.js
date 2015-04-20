@@ -223,13 +223,16 @@ Ext.define('DoctorApp.controller.Settings', {
         var form=this.getSettingsformview();
 
         var successFunc = function (response, action) {
+
             var res=JSON.parse(response.responseText);
             if(res.success){
+
                 form.setValues({
                     money:res.money,
                     username:Globle_Variable.user.userinfo.username,
                     realname:Globle_Variable.user.userinfo.realname
                 });
+
             }else{
 
             }
@@ -255,8 +258,8 @@ Ext.define('DoctorApp.controller.Settings', {
         var cont=$('#'+id);
         cont.html('');
         cont.qrcode({
-            text	: Globle_Variable.serverurl+'download/patient.app?type=doctor&userid='+Globle_Variable.user._id
-            +'&realname='+Globle_Variable.user.userinfo.username,
+            text	: Globle_Variable.serverurl+'download/patient.apk?type=doctor&userid='+Globle_Variable.user._id
+            +'&realname='+Globle_Variable.user.userinfo.realname,
             width		: width,
             height		: height
         });

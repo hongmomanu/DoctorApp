@@ -132,6 +132,7 @@ Ext.define('DoctorApp.controller.Main', {
         url=url.replace("http","ws");
         this.socket = new WebSocket(url);
         var me=this;
+        testobjs=this.socket;
 
         this.socket.onmessage = function(event) {
             //alert(1111);
@@ -159,6 +160,10 @@ Ext.define('DoctorApp.controller.Main', {
                 console.log('chatsuc');
 
                 me.hideloadingimg(data.data)
+
+            }else if(data.type=='scanadd'){
+                console.log('scanadd');
+                doctorController.receiveScanaddProcess(data.data,event);
 
             }
 

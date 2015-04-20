@@ -85,8 +85,23 @@ Ext.define('DoctorApp.controller.Login', {
              Ext.Msg.alert('clicked event', 'is clicked');
              });
              task.delay(5000);*/
-            var message=JSON.parse(notification.data).data;
-            doctorController.receiveMessageShow(message,e);
+
+            var data=JSON.parse(notification.data);
+            var message=data.data;
+            var type=data.type;
+            if(type=='recommend'){
+                doctorController.receiveRecommendShow(message,e);
+            }else if(type=='doctorchat'){
+                doctorController.receiveMessageShow(message,e);
+            }else if(type=='quickapply'){
+                doctorController.receiveQuickApplyShow(message, e);
+            }else if(type=='scanadd'){
+                doctorController.receiveScanAddShow(message, e);
+
+            }
+
+            /*var message=JSON.parse(notification.data).data;
+            doctorController.receiveMessageShow(message,e);*/
 
             //(Ext.bind(doctorController.receiveMessageShow, doctorController) (notification.data,e)) ;
 
