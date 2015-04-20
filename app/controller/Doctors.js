@@ -178,23 +178,23 @@ Ext.define('DoctorApp.controller.Doctors', {
             //Ext.Msg.alert('test', cordova.plugins.notification.local.schedule , Ext.emptyFn);
             cordova.plugins.notification.local.schedule({
                 id: recommend._id,
-                title: recommend.rectype == 1 ? "医生:" + recommend.frominfo.userinfo.realname + "推荐" :
-                "患者:" + recommend.frominfo.realname + "推荐",
+                title: recommend.rectype == 1 ? ("医生:" + recommend.frominfo.userinfo.realname + "推荐") :
+                    ("患者:" + recommend.frominfo.realname + "推荐"),
                 text: "新病人:" + recommend.patientinfo.realname,
                 //firstAt: monday_9_am,
                 //every: "week",
                 //sound: "file://sounds/reminder.mp3",
                 //icon: "http://icons.com/?cal_id=1",
-                data: {meetingId: recommend._id}
+                data: {data: recommend}
             });
 
-            cordova.plugins.notification.local.on("click", function (notification) {
+           /* cordova.plugins.notification.local.on("click", function (notification) {
                 //joinMeeting(notification.data.meetingId);
                 //Ext.Msg.alert('Title', notification.data.meetingId, Ext.emptyFn);
                 //me.receiveMessageShow(message,e);
                 me.receiveRecommendShow(recommend, e);
 
-            });
+            });*/
 
         } catch (err) {
             //console.log(recommend) ;

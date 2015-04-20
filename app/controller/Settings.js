@@ -24,6 +24,9 @@ Ext.define('DoctorApp.controller.Settings', {
             pushsetbtn:{
                 'tap':'showPushForm'
             },
+            scanbtn:{
+                'tap':'showScan'
+            },
             blacklistbtn:{
                 'tap':'showBlackList'
             },
@@ -41,6 +44,7 @@ Ext.define('DoctorApp.controller.Settings', {
             settingsformview: 'settingsform',
             logoutbtn: 'settingsform #logoutbtn',
             pushsetbtn: 'settingsform #pushsetbtn',
+            scanbtn: 'settingsform #scanbtn',
             blacklistbtn: 'settingsform #blacklistbtn',
             custompushformview: 'custompushform',
             custompushconfirmbtn: 'custompushform #confirmbtn',
@@ -54,6 +58,22 @@ Ext.define('DoctorApp.controller.Settings', {
         navView.push(list);
         this.initBlackList();
     },
+    showScan:function(btn){
+
+        cordova.plugins.barcodeScanner.scan(
+            function (result) {
+
+               /* alert("We got a barcode\n" +
+                "Result: " + result.text + "\n" +
+                "Format: " + result.format + "\n" +
+                "Cancelled: " + result.cancelled);*/
+            },
+            function (error) {
+               // alert("Scanning failed: " + error);
+            }
+        );
+
+    },
     logoutFunc:function(btn){
         Ext.Msg.confirm("提示","确定退出?",function (buttonid){
             if(buttonid=='yes'){
@@ -63,17 +83,117 @@ Ext.define('DoctorApp.controller.Settings', {
             }
         });
     },
+    pushinterval:null,
+    initCustomPush:function(){
+        var keymaps={"week":7,'day':1,'month':30};
+        var me=this;
+        console.log("1");
+        if(localStorage.custompush){
+            var data=JSON.parse(localStorage.custompush);
+            var sendtime=new Date(data.sendtime);
+            //var lastsenttime=localStorage.lastsenttime;
+
+            var now=new Date();
+            console.log("2");
+            var proc_fun=function(){
+                var space=data.frequency;
+                var spacetime=0;
+                var lasttime=localStorage.lasttime?(new Date(localStorage.lasttime)):null;
+                console.log("222222222222");
+                if(data.frequency=='once'){
+                    if(now.getTime()>sendtime.getTime()&&!data.issend){
+                        me.makesend(data.content);
+                        data.issend=true;
+                        localStorage.custompush=JSON.stringify(data);
+
+                    }
+
+                }else {
+                    var freq=keymaps[data.frequency];
+                    console.log('lasttime');
+                    console.log(lasttime);
+                    if(!lasttime){
+                        me.makesend(data.content);
+                        localStorage.lasttime=now;
+
+                    }else if(now.getTime()>(Ext.Date.add(lasttime,Ext.Date.DAY,freq)).getTime()){
+                        me.makesend(data.content);
+                        localStorage.lasttime=now;
+
+                    }
+
+                }
+
+
+
+            };
+            proc_fun();
+            me.pushinterval = setInterval(proc_fun, 1000*3600);
+
+        }
+    },
+
+    makesend:function(content){
+        var me=this;
+        var mainController = me.getApplication().getController('Main');
+        var successFunc = function (response, action) {
+            var res=JSON.parse(response.responseText);
+                for(var i=0;i<res.length;i++){
+
+
+
+                    var socket = mainController.socket;
+                    socket.send(JSON.stringify({
+                        type: "doctorchat",
+                        from:  Globle_Variable.user._id,
+                        fromtype: 1,
+                        imgid: 'test',
+                        to: res[i].patientid,
+                        content: content
+                    }));
+
+                }
+
+
+        };
+        var failFunc=function(response, action){
+            //Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
+        }
+        var url="doctor/getmypatient";
+        var params={doctorid: Globle_Variable.user._id};
+        CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
+
+
+
+        /*var mainController = this.getApplication().getController('Main');
+
+        var socket = mainController.socket;
+        socket.send(JSON.stringify({
+            type: "doctorchat",
+            from: myinfo._id,
+            fromtype: 1,
+            imgid: imgid,
+            to: toinfo.get("_id"),
+            content: content
+        }));*/
+
+
+    },
+
     showPushForm:function(btn){
+        var me=this;
          var navView=this.getSettingnavview();
          var form=Ext.widget('CustomPushForm');
          navView.push(form);
         var successFunc = function (response, action) {
             var res=JSON.parse(response.responseText);
             if(res.success){
+                res.data.issend=false;
                 localStorage.custompush=JSON.stringify(res.data);
                 res.data.sendtime=new Date(res.data.sendtime);
 
                 form.setValues(res.data);
+
 
             }else{
                 Ext.Msg.alert('失败', '获取设置定制失败', Ext.emptyFn);
@@ -127,14 +247,16 @@ Ext.define('DoctorApp.controller.Settings', {
     initSetting:function(){
 
         this.makecode(64,64,'doctorCodepicSmall');
-        this.makeUserinfo()
+        this.makeUserinfo();
+        this.initCustomPush();
 
     },
     makecode:function(width,height,id){
         var cont=$('#'+id);
         cont.html('');
         cont.qrcode({
-            text	: Globle_Variable.user.userinfo.username,
+            text	: Globle_Variable.serverurl+'download/patient.app?type=doctor&userid='+Globle_Variable.user._id
+            +'&realname='+Globle_Variable.user.userinfo.username,
             width		: width,
             height		: height
         });
@@ -153,6 +275,7 @@ Ext.define('DoctorApp.controller.Settings', {
         });
     },
     confirmPush:function(btn){
+        var me=this;
         var navView=this.getSettingnavview();
         var form=btn.up('formpanel');
 
@@ -163,7 +286,12 @@ Ext.define('DoctorApp.controller.Settings', {
                 var successFunc = function (response, action) {
                     var res=JSON.parse(response.responseText);
                     if(res.success){
-                        Ext.Msg.alert('成功', '设置定制成功', Ext.emptyFn);
+                        Ext.Msg.alert('成功', '设置定制成功', function(){
+                            if(me.pushinterval)clearInterval(me.pushinterval);
+                            localStorage.lasttime='';
+                            me.initCustomPush();
+
+                        });
                         navView.pop();
 
                     }else{

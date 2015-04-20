@@ -29,8 +29,8 @@ Ext.define('DoctorApp.controller.Main', {
         ],
         control: {
             nav: {
-                initialize: 'initRender',
-                mapinit: 'initMap'
+                initialize: 'initRender'/*,
+                mapinit: 'initMap'*/
             },
 
             imgbtn: {
