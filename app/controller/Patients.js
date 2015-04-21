@@ -36,6 +36,9 @@ Ext.define('DoctorApp.controller.Patients', {
             sendmessagebtn: {
                 tap: 'sendMessage'
             },
+            replybtn: {
+                tap: 'makereply'
+            },
             'patientmessagelistview': {
                 initialize: function (list) {
                     var me = this,
@@ -60,6 +63,7 @@ Ext.define('DoctorApp.controller.Patients', {
         refs: {
 
             sendmessagebtn: 'patientmessagelist #sendmessage',
+            replybtn: 'patientmessagelist #replybtn',
             messagecontent: 'patientmessagelist #messagecontent',
             patientmessagelistview:'patientmessagelist',
             patientssview: '#patientsnavigationview #patientlist',
@@ -72,6 +76,10 @@ Ext.define('DoctorApp.controller.Patients', {
         var me=this;
         (Ext.bind(doctorCotroller.sendMessage, me) (btn));
         //doctorCotroller.sendMessage(btn);
+
+    },
+    makereply:function(btn){
+
 
     },
     scrollMsgList:function(){
