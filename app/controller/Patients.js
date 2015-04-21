@@ -80,6 +80,90 @@ Ext.define('DoctorApp.controller.Patients', {
     },
     makereply:function(btn){
 
+        Ext.Msg.alert('test','123');
+        var listview = btn.up('list');
+        var myinfo = listview.mydata;
+        var toinfo = listview.data;
+
+        var patientid=toinfo.get('_id');
+        var doctorid=myinfo._id;
+
+
+        var successFunc = function (response, action) {
+            var res=JSON.parse(response.responseText);
+            if(res.success){
+
+                //Ext.Msg.alert('成功', '退回成功', Ext.emptyFn);
+
+                Ext.Msg.confirm('消息','确定退款',function(buttonId){
+
+                    if(buttonId=='yes'){
+
+                        var successFunc = function (response, action) {
+
+                            var res=JSON.parse(response.responseText);
+
+                            if(res.success){
+
+                                Ext.Msg.show({
+                                    title:'成功',
+                                    message: '费用已退回',
+                                    buttons: Ext.MessageBox.OK,
+                                    fn:Ext.emptyFn
+                                });
+
+
+                            }else{
+                                Ext.Msg.alert('失败', res.message,function(){});
+                            }
+
+                        };
+                        var failFunc=function(response, action){
+                            Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', function(){
+
+                            });
+                            //Ext.Msg.alert('test', 'test', Ext.emptyFn);
+                        }
+                        var url="patient/backmoneybydoctorwithapply";
+                        var params={
+                            patientid:patientid,
+                            doctorid:doctorid
+                        };
+                        CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
+
+
+
+                    }else{
+
+                        //view.pop();
+                    }
+
+
+                })
+
+
+
+
+
+            }else{
+                Ext.Msg.alert('失败', res.msg, Ext.emptyFn);
+            }
+
+
+        };
+        var failFunc=function(response, action){
+            Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
+        }
+        var url="patient/ispatientinapplybydoctorid";
+        var params={doctorid: doctorid,patientid:patientid};
+        CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
+
+
+
+
+
+
+
 
     },
     scrollMsgList:function(){
