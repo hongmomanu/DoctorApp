@@ -412,6 +412,13 @@ Ext.define('DoctorApp.controller.Doctors', {
         for (var i = 0; i < data.length; i++) {
             var message = data[i];
             message.message = message.content;
+
+            if(message.type=='image'){
+                message.message='<img height="200" width="200" src="'+Globle_Variable.serverurl+'files/'+message.content+'">';
+            }else if(message.type=='voice'){
+                message.message='<audio  src="'+Globle_Variable.serverurl+'files/'+message.content+'" controls>';
+            }
+
             this.receiveMessageNotification(message, e);
         }
         //listView.select(1);
