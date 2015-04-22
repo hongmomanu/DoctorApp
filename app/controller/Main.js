@@ -150,6 +150,7 @@ Ext.define('DoctorApp.controller.Main', {
             }else if(data.type=='recommendconfirm'){
 
                 console.log('recommendconfirm')
+                doctorController.recommendConfirmProcess(data.data,event);
             }else if(data.type=='patientquickapply'){
 
                 console.log('patientquickapply');

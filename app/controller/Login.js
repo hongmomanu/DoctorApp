@@ -96,8 +96,12 @@ Ext.define('DoctorApp.controller.Login', {
             }else if(type=='quickapply'){
                 doctorController.receiveQuickApplyShow(message, e);
             }else if(type=='scanadd'){
-                doctorController.receiveScanAddShow(message, e);
+                doctorController.receiveScanaddShow(message, e);
 
+
+            }else if(type=='recommendconfirm'){
+
+                doctorController.receiverecommendConfirmShow(message, e);
             }
 
             /*var message=JSON.parse(notification.data).data;

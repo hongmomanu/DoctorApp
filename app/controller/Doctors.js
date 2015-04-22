@@ -108,7 +108,7 @@ Ext.define('DoctorApp.controller.Doctors', {
     },
     onMainPush: function (view, item) {
         //alert(2);
-        this.getDoctorsnavview().deselectAll();
+        //this.getDoctorsnavview().deselectAll();
 
     },
     listShow: function (event) {
@@ -164,6 +164,39 @@ Ext.define('DoctorApp.controller.Doctors', {
         } catch (err) {
 
             me.receiveQuickApplyShow(recommend, e);
+
+        } finally {
+
+
+        }
+
+    },
+
+    recommendConfirmProcess:function(recommend,e){
+        var me = this;
+        try {
+            //Ext.Msg.alert('test', cordova.plugins.notification.local.schedule , Ext.emptyFn);
+            cordova.plugins.notification.local.schedule({
+                id: recommend._id,
+                title: "新患者",
+                text:  patientinfo.realname ,
+
+                //firstAt: monday_9_am,
+                //every: "week",
+                //sound: "file://sounds/reminder.mp3",
+                //icon: "http://icons.com/?cal_id=1",
+                data: {data: recommend,type:'recommendconfirm'}
+            });
+
+            /*cordova.plugins.notification.local.on("click", function (notification) {
+
+                me.receiveQuickApplyShow(notification.data.data, e);
+
+            });*/
+
+        } catch (err) {
+
+            me.receiverecommendConfirmShow(recommend, e);
 
         } finally {
 
@@ -293,6 +326,14 @@ Ext.define('DoctorApp.controller.Doctors', {
 
     },
 
+    receiverecommendConfirmShow:function(recommend, e){
+        var mainView = this.getMainview();
+        mainView.setActiveItem(1);
+        var patientCotroller=this.getApplication().getController('Patients');
+        patientCotroller.initPatientList();
+
+    },
+
 
     receiveRecommendShow: function (recommend, e) {
 
@@ -311,7 +352,10 @@ Ext.define('DoctorApp.controller.Doctors', {
                             message: (recommend.isdoctoraccepted || recommend.ispatientaccepted) ? '已成功添加患者' :
                                 '已接受推荐，等待对方同意',
                             buttons: Ext.MessageBox.OK,
-                            fn: Ext.emptyFn
+                            fn: function(){
+
+
+                            }
                         });
                         //Ext.Msg.alert('成功', '已接受推荐，等待对方同意', Ext.emptyFn);
 
