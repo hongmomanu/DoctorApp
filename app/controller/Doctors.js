@@ -485,7 +485,6 @@ Ext.define('DoctorApp.controller.Doctors', {
         }
 
 
-
     },
     receiveScanaddShow:function(data){
 
