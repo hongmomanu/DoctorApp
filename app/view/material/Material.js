@@ -15,7 +15,9 @@ Ext.define('DoctorApp.view.material.Material', {
         items:[
             {
                 title:'医学咨询',
-                html:'医学咨询'
+                xtype : 'panel',
+                html:'医学咨询',
+                html: '<iframe style="width:100%;height:500px;" src="http://med-home.net/wap.asp">Your device does not support iframes.</iframe>'
 
             },
             {
@@ -24,15 +26,14 @@ Ext.define('DoctorApp.view.material.Material', {
                 xtype : 'panel',
                 scrollable : true,
                 //layout : 'fit',
-
-
-                html: '<iframe style="width:100%;height:500px;" src="http://www.sww.com.cn/cme/index.shtml">Your device does not support iframes.</iframe>'
-                //html:'文献库查询'
+                html: '<iframe style="width:100%;height:500px;" src="http://www.ncbi.nlm.nih.gov/Entrez">Your device does not support iframes.</iframe>'
 
             },
             {
                 title:'CME',
-                html:'CME'
+                xtype : 'panel',
+                scrollable : true,
+                html: '<iframe style="width:100%;height:500px;" src="http://www.sww.com.cn/cme/index.shtml">Your device does not support iframes.</iframe>'
 
             }
 
