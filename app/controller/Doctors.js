@@ -456,8 +456,8 @@ Ext.define('DoctorApp.controller.Doctors', {
             //Ext.Msg.alert('test', cordova.plugins.notification.local.schedule , Ext.emptyFn);
             cordova.plugins.notification.local.schedule({
                 id: data._id,
-                title: '有一个新病人',
-                text: "新添加的病人:" + data.realname,
+                title: data.fromtype==0?'添加了一个新患者':'添加了一个新医生',
+                text:  data.realname,
                 //firstAt: monday_9_am,
                 //every: "week",
                 //sound: "file://sounds/reminder.mp3",
@@ -487,12 +487,20 @@ Ext.define('DoctorApp.controller.Doctors', {
 
 
     },
-    receiveScanaddShow:function(){
+    receiveScanaddShow:function(data){
 
         var mainView = this.getMainview();
-        mainView.setActiveItem(1);
-        var patientCotroller=this.getApplication().getController('Patients');
-        patientCotroller.initPatientList();
+        if(data.fromtype==0){
+            mainView.setActiveItem(1);
+            var patientCotroller=this.getApplication().getController('Patients');
+            patientCotroller.initPatientList();
+
+        }else{
+            mainView.setActiveItem(0);
+            var doctorCotroller=this.getApplication().getController('Doctors');
+            doctorCotroller.initDoctorList();
+        }
+
     },
     messageView: {},
     scrollMsgList:function(){

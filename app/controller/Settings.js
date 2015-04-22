@@ -91,7 +91,7 @@ Ext.define('DoctorApp.controller.Settings', {
                         //Ext.Msg.alert('test', 'test', Ext.emptyFn);
                         //view.pop();
 
-                    }
+                    };
                     var url="doctor/adddoctorbyid";
                     var params={
                         from:Globle_Variable.user._id,
@@ -131,12 +131,9 @@ Ext.define('DoctorApp.controller.Settings', {
 
                 }
 
-
-
             },
             function (error) {
                 Ext.Msg.alert('失败', "Scanning failed: " + error, Ext.emptyFn);
-                // alert("Scanning failed: " + error);
             }
         );
 
