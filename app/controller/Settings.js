@@ -62,14 +62,81 @@ Ext.define('DoctorApp.controller.Settings', {
 
         cordova.plugins.barcodeScanner.scan(
             function (result) {
+                var url=result.text.split('?');
+                var params=Ext.urlDecode(url[1]);
+                var type=params.type;
+                var realname=params.realname;
+                var userid=params.userid;
 
-               /* alert("We got a barcode\n" +
-                "Result: " + result.text + "\n" +
-                "Format: " + result.format + "\n" +
-                "Cancelled: " + result.cancelled);*/
+                if(type=='doctor'){
+
+                    var successFunc = function (response, action) {
+                        var res=JSON.parse(response.responseText);
+                        if(res.success){
+                            Ext.Msg.alert('成功', '添加医生:'+realname+'成功', function(){
+                                var doctorCotroller=me.getApplication().getController('Doctor');
+                                var mainView = doctorCotroller.getMainview();
+                                mainView.setActiveItem(0);
+                                doctorCotroller.initDoctorList();
+                            });
+
+                        }else{
+                            Ext.Msg.alert('提示', res.message, Ext.emptyFn);
+                        }
+                        //view.pop();
+
+                    };
+                    var failFunc=function(response, action){
+                        Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
+                        //Ext.Msg.alert('test', 'test', Ext.emptyFn);
+                        //view.pop();
+
+                    }
+                    var url="doctor/adddoctorbyid";
+                    var params={
+                        from:Globle_Variable.user._id,
+                        to:userid
+
+                    };
+                    CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
+
+                }else{
+                    var successFunc = function (response, action) {
+
+                        var res=JSON.parse(response.responseText);
+                        if(res.success){
+                            Ext.Msg.alert('成功', '添加患者:'+realname+'成功', function(){
+                                var patientCotroller=me.getApplication().getController('Patients');
+                                var mainView = patientCotroller.getMainview();
+                                mainView.setActiveItem(1);
+                                patientCotroller.initPatientList();
+                            });
+
+                        }else{
+                            Ext.Msg.alert('提示', res.message, Ext.emptyFn);
+                        }
+                    };
+
+                    var failFunc=function(response, action){
+                        Ext.Msg.alert('失败', '服务器连接异常，请稍后再试', Ext.emptyFn);
+                    };
+
+                    var url="patient/adddoctorbyid";
+
+                    var params={
+                        doctorid:Globle_Variable.user._id,
+                        patientid:userid
+                    };
+                    CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
+
+                }
+
+
+
             },
             function (error) {
-               // alert("Scanning failed: " + error);
+                Ext.Msg.alert('失败', "Scanning failed: " + error, Ext.emptyFn);
+                // alert("Scanning failed: " + error);
             }
         );
 

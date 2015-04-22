@@ -12,7 +12,7 @@ Ext.define('DoctorApp.view.Main', {
 
             {
                 title: '医生圈',
-                iconCls: 'action',
+                iconCls: 'patients',
                 layout: 'fit',
                 items: [
                    /* {
@@ -42,7 +42,7 @@ Ext.define('DoctorApp.view.Main', {
     },
             {
                 title:'我的患者',
-                iconCls: 'action',
+                iconCls: 'doctors',
                 layout: 'fit',
                 items:[
                     /*{

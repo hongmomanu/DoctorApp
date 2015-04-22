@@ -67,6 +67,7 @@ Ext.define('DoctorApp.controller.Patients', {
             messagecontent: 'patientmessagelist #messagecontent',
             patientmessagelistview:'patientmessagelist',
             patientssview: '#patientsnavigationview #patientlist',
+            mainview: 'main',
             patientsnavview:'main #patientsnavigationview'
         }
     },
