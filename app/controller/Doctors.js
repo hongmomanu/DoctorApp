@@ -145,7 +145,8 @@ Ext.define('DoctorApp.controller.Doctors', {
             cordova.plugins.notification.local.schedule({
                 id: recommend._id,
                 title: "患者:" + recommend.userinfo.realname + "呼叫急救",
-                text: "患者:" + recommend.userinfo.realname + "呼叫急救",
+                text: "患者:" + recommend.userinfo.realname + "呼叫急救"
+                +(recommend.addmoney>0?"("+recommend.addmoney+"元加急)":""),
 
                 //firstAt: monday_9_am,
                 //every: "week",
@@ -276,6 +277,7 @@ Ext.define('DoctorApp.controller.Doctors', {
                 var url = "doctor/acceptquickapply";
                 var params = {
                     aid: recommend._id,
+                    addmoney:recommend.addmoney,
                     doctorid: recommend.doctorid,
                     patientid :recommend.patientid
                 };
