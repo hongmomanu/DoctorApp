@@ -374,8 +374,8 @@ Ext.define('DoctorApp.controller.Doctors', {
                 };
                 CommonUtil.ajaxSend(params, url, successFunc, failFunc, 'POST');
             } else {
-                var view = me.getDoctorsnavview();
-                view.pop();
+                //var view = me.getDoctorsnavview();
+                //view.pop();
             }
 
 
@@ -408,6 +408,23 @@ Ext.define('DoctorApp.controller.Doctors', {
             try {
 
                 var store = me.listView.getStore();
+
+                var flag=true;
+                //console.log(store.data);
+                for(var i=0;i<store.data.items.length;i++){
+
+                    if(message.fromid==store.data.items[i].get("_id")){
+                        flag=false;
+                        break;
+                    }
+                }
+                if(flag){
+                    message.userinfo.realname="<div style='color: #176982'>(New)</div>"+message.userinfo.realname;
+                    store.add(recommend);
+                }
+
+
+
 
                 //alert(-1);
                 var index = me.filterReceiveIndex(message, store);

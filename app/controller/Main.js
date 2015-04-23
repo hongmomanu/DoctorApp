@@ -114,16 +114,21 @@ Ext.define('DoctorApp.controller.Main', {
     },
     hideloadingimg:function(data){
         //console.log(imgid);
-        var doctorController=this.getApplication().getController('Doctors');
-        var patientController=this.getApplication().getController('Patients');
-        var store=doctorController.messageView[data["toid"]]?doctorController.messageView[data["toid"]].getStore():
-            patientController.messageView[data["toid"]].getStore();
-        //var store=Ext.getStore('PatientMessages');
-        store.data.each(function(a){
-            if(a.get('imgid')==data["imgid"]){
-                a.set('issend','none');
-            }
-        });
+        if(data["imgid"]!=-1){
+            var doctorController=this.getApplication().getController('Doctors');
+            var patientController=this.getApplication().getController('Patients');
+            var store=doctorController.messageView[data["toid"]]?doctorController.messageView[data["toid"]].getStore():
+                patientController.messageView[data["toid"]].getStore();
+            //var store=Ext.getStore('PatientMessages');
+            store.data.each(function(a){
+                if(a.get('imgid')==data["imgid"]){
+                    a.set('issend','none');
+                }
+            });
+
+
+        }
+
     },
     websocketInit:function(){
         var url=Globle_Variable.serverurl;
