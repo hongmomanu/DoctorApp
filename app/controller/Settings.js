@@ -74,7 +74,7 @@ Ext.define('DoctorApp.controller.Settings', {
                         var res=JSON.parse(response.responseText);
                         if(res.success){
                             Ext.Msg.alert('成功', '添加医生:'+realname+'成功', function(){
-                                var doctorCotroller=me.getApplication().getController('Doctor');
+                                var doctorCotroller=me.getApplication().getController('Doctors');
                                 var mainView = doctorCotroller.getMainview();
                                 mainView.setActiveItem(0);
                                 doctorCotroller.initDoctorList();
@@ -331,15 +331,14 @@ Ext.define('DoctorApp.controller.Settings', {
 
     viewactived: function (view, item) {
 
-        //alert(111);
-        /*var pic_view=this.getDoctorCodepicSmallView();
-        console.log(pic_view);*/
-        $('#doctorCodepicSmall').html('');
+        this.makeUserinfo();
+
+        /*$('#doctorCodepicSmall').html('');
         $('#doctorCodepicSmall').qrcode({
             text	: "http://jetienne.com",
             width		: 64,
             height		: 64
-        });
+        });*/
     },
     confirmPush:function(btn){
         var me=this;
