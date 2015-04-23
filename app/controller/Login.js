@@ -200,8 +200,8 @@ Ext.define('DoctorApp.controller.Login', {
         function onError(error) {
 
             //Ext.Msg.alert('警告', error.message, Ext.emptyFn);
-            localStorage.lat=30.0;
-            localStorage.lon=120.0;
+            if(!localStorage.lat)localStorage.lat=30.0111;
+            if(!localStorage.lon)localStorage.lon=120.0111;
             me.updateLocationAjax(localStorage.lat,localStorage.lon);
         }
         // Options: throw an error if no update is received every 30 seconds.
