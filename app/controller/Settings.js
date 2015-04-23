@@ -63,10 +63,10 @@ Ext.define('DoctorApp.controller.Settings', {
         cordova.plugins.barcodeScanner.scan(
             function (result) {
                 var url=result.text.split('?');
-                var params=Ext.urlDecode(url[1]);
-                var type=params.type;
-                var realname=params.realname;
-                var userid=params.userid;
+                var urlparams=Ext.urlDecode(url[1]);
+                var type=urlparams.type;
+                var realname=urlparams.realname;
+                var userid=urlparams.userid;
 
                 if(type=='doctor'){
 
@@ -323,7 +323,7 @@ Ext.define('DoctorApp.controller.Settings', {
         cont.html('');
         cont.qrcode({
             text	: Globle_Variable.serverurl+'download/patient.apk?type=doctor&userid='+Globle_Variable.user._id
-            +'&realname='+Globle_Variable.user.userinfo.realname,
+            +'&realname='+encodeURI(Globle_Variable.user.userinfo.realname),
             width		: width,
             height		: height
         });

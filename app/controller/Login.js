@@ -57,6 +57,7 @@ Ext.define('DoctorApp.controller.Login', {
     initFunc:function (item,e){
         this.autoLogin();
         //this.makeLocationListener();
+        this.backbuttonListener();
         this.pauseListener();
         this.resumeListener();
         this.initNotificationClick(e);
@@ -67,7 +68,7 @@ Ext.define('DoctorApp.controller.Login', {
 
         ///Ext.Msg.alert('clicked event0', 'is clicked');
 
-        var doctorController=this.getApplication().getController('Doctor');
+        var doctorController=this.getApplication().getController('Doctors');
         cordova.plugins.notification.local.on("click", function (notification) {
             //joinMeeting(notification.data.meetingId);
             //Ext.Msg.alert('Title', notification.data.meetingId, Ext.emptyFn);
@@ -86,9 +87,12 @@ Ext.define('DoctorApp.controller.Login', {
              });
              task.delay(5000);*/
 
+
+
             var data=JSON.parse(notification.data);
             var message=data.data;
             var type=data.type;
+
             if(type=='recommend'){
                 doctorController.receiveRecommendShow(message,e);
             }else if(type=='doctorchat'){
@@ -111,7 +115,7 @@ Ext.define('DoctorApp.controller.Login', {
 
         });
 
-        cordova.plugins.notification.local.on('trigger', function (notification) {
+       /* cordova.plugins.notification.local.on('trigger', function (notification) {
 
             //Ext.Msg.alert('clicked event', '22222');
             //Ext.Msg.alert('clicked event', JSON.stringify(notification.data));
@@ -119,13 +123,25 @@ Ext.define('DoctorApp.controller.Login', {
             doctorController.receiveMessageShow(message,e);
             //doctorController.receiveMessageShow, doctorController) (notification.data,e))
             //Ext.Msg.alert('clicked eventrr', 'is clicked');
-        });
+        });*/
 
         //Ext.Msg.alert('clicked event1', 'is clicked');
 
 
 
 
+
+    },
+
+    backbuttonListener:function(){
+        document.addEventListener("backbutton", onBackKeyDown, false);
+        function onBackKeyDown() {
+            navigator.Backbutton.goHome(function() {
+                //console.log('success')
+            }, function() {
+                //console.log('fail')
+            });
+        }
 
     },
 
@@ -190,7 +206,7 @@ Ext.define('DoctorApp.controller.Login', {
         }
         // Options: throw an error if no update is received every 30 seconds.
         //
-        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { timeout: 3000 });
+        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
 
     },
     autoLogin:function(){

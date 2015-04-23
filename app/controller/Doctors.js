@@ -248,8 +248,32 @@ Ext.define('DoctorApp.controller.Doctors', {
 
         var me = this;
         try {
+            if(Globle_Variable.isactived){
+                me.receiveMessageShow(message,e);
 
-            cordova.plugins.notification.local.schedule({
+            }else{
+
+                (function(message){
+
+                    cordova.plugins.notification.local.schedule({
+                        id: message._id,
+                        title: (message.fromtype==0?'病友 ':'医生 ')+
+                        message.userinfo.realname+' 来消息啦!' ,
+                        text: message.message,
+                        //firstAt: monday_9_am,
+                        //every: "week",
+                        //sound: "file://sounds/reminder.mp3",
+                        //icon: "http://icons.com/?cal_id=1",
+                        data: { data: message ,type:'doctorchat'}
+                    });
+
+
+                } )(message)  ;
+
+            }
+
+
+           /* cordova.plugins.notification.local.schedule({
                 id: message._id,
                 title: (message.fromtype == 0 ? '病友 ' : '医生 ') +
                 message.userinfo.realname + ' 来消息啦!',
@@ -259,7 +283,7 @@ Ext.define('DoctorApp.controller.Doctors', {
                 //sound: "file://sounds/reminder.mp3",
                 //icon: "http://icons.com/?cal_id=1",
                 data: {data:message,type:'doctorchat'}
-            });
+            });*/
 
             /*cordova.plugins.notification.local.on("click", function (notification) {
                 //joinMeeting(notification.data.meetingId);
@@ -385,7 +409,10 @@ Ext.define('DoctorApp.controller.Doctors', {
     },
     receiveMessageShow: function (message, e) {
 
+        //Ext.Msg.alert('clicked',message.fromtype);
+
         var mainView = this.getMainview();
+        //Ext.Msg.alert('clicked end ',message.fromtype);
         this.listView = null;
         var messagestore = null;
 
@@ -400,6 +427,7 @@ Ext.define('DoctorApp.controller.Doctors', {
             this.listView = this.getPatientsview();
 
         }
+        //Ext.Msg.alert('clicked',message.fromtype);
        //alert('begin 121');
 
         var me = this;
@@ -420,7 +448,7 @@ Ext.define('DoctorApp.controller.Doctors', {
                 }
                 if(flag){
                     message.userinfo.realname="<div style='color: #176982'>(New)</div>"+message.userinfo.realname;
-                    store.add(recommend);
+                    store.insert(0,[message]);
                 }
 
 
@@ -569,7 +597,7 @@ Ext.define('DoctorApp.controller.Doctors', {
         var task = Ext.create('Ext.util.DelayedTask', function() {
             scroller.scrollToEnd(true);
         });
-        task.delay(20);
+        task.delay(500);
     },
     sendMessage: function (btn) {
 
