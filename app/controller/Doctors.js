@@ -578,6 +578,7 @@ Ext.define('DoctorApp.controller.Doctors', {
     receiveScanaddShow:function(data){
 
         var mainView = this.getMainview();
+        //Ext.Msg.alert('added',JSON.stringify(data));
         if(data.fromtype==0){
             mainView.setActiveItem(1);
             var patientCotroller=this.getApplication().getController('Patients');
