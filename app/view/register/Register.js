@@ -37,7 +37,7 @@ Ext.define('DoctorApp.view.register.Register', {
                             labelAlign:'left'
                         },
                         items:[
-                            {
+                            /*{
                                 xtype:'panel',
                                 layout: 'hbox',
                                 items:[
@@ -63,6 +63,16 @@ Ext.define('DoctorApp.view.register.Register', {
                                     }
 
                                 ]
+                            }*/
+                            {
+                                xtype:'textfield',
+                                name:'username',
+                                label:'用户名',
+                                placeHolder:'请输入用户名',
+                                required:true,
+                                clearIcon:true,
+                                flex:6,
+                                labelAlign:'left'
                             }
                             ,{
                             xtype:'textfield',

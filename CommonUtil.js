@@ -2,6 +2,7 @@
 
 Ext.define('CommonUtil', {
     statics: {
+        loadmask:null,
         /*为Ext.Viewport添加一个消息提示组件*/
         addMessage: function () {
             Ext.Viewport.setMasked({
@@ -52,13 +53,18 @@ Ext.define('CommonUtil', {
         },
         ajaxSend: function (params, url, sucFun, failFunc, method) {
             var me = this;
+            if(!me.loadmask)me.loadmask=new Ext.LoadMask(Ext.getBody(), {msg:"加载中..."});
+            me.loadmask.show();
             Ext.Ajax.request({
                 url: Globle_Variable.serverurl + url,
                 method: method,
                 timeout: 5000,//default 5000 milliseconds
                 params: params,
                 success: sucFun,
-                failure: failFunc
+                failure: failFunc,
+                callback:function(){
+                    me.loadmask.hide();
+                }
             });
 
         }
