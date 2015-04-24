@@ -206,7 +206,7 @@ Ext.define('DoctorApp.controller.Login', {
         }
         // Options: throw an error if no update is received every 30 seconds.
         //
-        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
+        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { maximumAge: 30000, timeout: 5000, enableHighAccuracy: true });
 
     },
     autoLogin:function(){

@@ -65,6 +65,8 @@ Ext.define('DoctorApp.controller.Register', {
 
             var params=formpanel.getValues();
 
+            params.loc= JSON.stringify({ "type" : "Point", "coordinates" : [ parseFloat(localStorage.lon), parseFloat(localStorage.lat) ] })
+
             CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
 
 
