@@ -2,11 +2,17 @@ Ext.define('DoctorApp.view.patients.PatientsMessage', {
     extend: 'Ext.List',
     xtype: 'patientmessagelist',
 
+    initialize : function() {
+        var me = this;
+        me.setStore(Ext.create('DoctorApp.store.patients.PatientMessages'));
+        me.callParent(arguments);
+    },
+
     config: {
         disableSelection: true,
         scrollToTopOnRefresh :false,
         title: 'Chat',
-        store: Ext.create('DoctorApp.store.patients.PatientMessages'),
+        //store: Ext.create('DoctorApp.store.patients.PatientMessages'),
 
         itemTpl : new Ext.XTemplate(
             '<tpl if="local">',
@@ -43,8 +49,6 @@ Ext.define('DoctorApp.view.patients.PatientsMessage', {
             xtype: 'toolbar',
             docked: 'bottom',
             items: [
-
-
 
                         {
                             xtype: 'textfield',

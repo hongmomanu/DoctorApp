@@ -410,7 +410,7 @@ Ext.define('DoctorApp.controller.Doctors', {
     receiveMessageShow: function (message, e) {
 
         //Ext.Msg.alert('clicked',message.fromtype);
-
+        console.log(message);
         var mainView = this.getMainview();
         //Ext.Msg.alert('clicked end ',message.fromtype);
         this.listView = null;
@@ -438,7 +438,7 @@ Ext.define('DoctorApp.controller.Doctors', {
                 var store = me.listView.getStore();
 
                 var flag=true;
-                //console.log(store.data);
+                console.log(store.data);
                 for(var i=0;i<store.data.items.length;i++){
 
                     if(message.fromid==store.data.items[i].get("_id")){

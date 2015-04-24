@@ -1,12 +1,17 @@
 Ext.define('DoctorApp.view.doctors.DoctorMessage', {
     extend: 'Ext.List',
     xtype: 'doctormessagelist',
+    initialize : function() {
+        var me = this;
+        me.setStore(Ext.create('DoctorApp.store.doctors.DoctorMessages'));
+        me.callParent(arguments);
+    },
 
     config: {
         disableSelection: true,
         title: 'Chat',
         scrollToTopOnRefresh :false,
-        store:Ext.create('DoctorApp.store.doctors.DoctorMessages'),
+        //store:Ext.create('DoctorApp.store.doctors.DoctorMessages'),
 
         itemTpl : new Ext.XTemplate(
             '<tpl if="local">',
