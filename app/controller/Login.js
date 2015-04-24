@@ -57,10 +57,23 @@ Ext.define('DoctorApp.controller.Login', {
     initFunc:function (item,e){
         this.autoLogin();
         this.makeLocationListener();
+        this.makeBackGroundListener();
         this.backbuttonListener();
         this.pauseListener();
         this.resumeListener();
         this.initNotificationClick(e);
+
+    },
+
+    makeBackGroundListener:function(){
+        document.addEventListener('deviceready', function () {
+            // cordova.plugins.backgroundMode is now available
+
+            cordova.plugins.backgroundMode.setDefaults({ text:'e医通正在运行'});
+            // Enable background mode
+            cordova.plugins.backgroundMode.enable();
+
+        }, false);
 
     },
 
@@ -206,7 +219,7 @@ Ext.define('DoctorApp.controller.Login', {
         }
         // Options: throw an error if no update is received every 30 seconds.
         //
-        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { maximumAge: 30000, timeout: 5000, enableHighAccuracy: true });
+        var watchID = navigator.geolocation.watchPosition(onSuccess, onError, { maximumAge: 3000, timeout: 5000, enableHighAccuracy: true });
 
     },
     autoLogin:function(){
