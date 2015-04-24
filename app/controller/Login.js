@@ -56,7 +56,7 @@ Ext.define('DoctorApp.controller.Login', {
 
     initFunc:function (item,e){
         this.autoLogin();
-        //this.makeLocationListener();
+        this.makeLocationListener();
         this.backbuttonListener();
         this.pauseListener();
         this.resumeListener();
@@ -191,7 +191,7 @@ Ext.define('DoctorApp.controller.Login', {
             localStorage.lat=position.coords.latitude;
             localStorage.lon=position.coords.longitude;
 
-            me.updateLocationAjax(localStorage.lat,localStorage.lon);
+            if(!Globle_Variable.user)me.updateLocationAjax(localStorage.lat,localStorage.lon);
 
 
         }
@@ -202,7 +202,7 @@ Ext.define('DoctorApp.controller.Login', {
             //Ext.Msg.alert('警告', error.message, Ext.emptyFn);
             if(!localStorage.lat)localStorage.lat=30.0111;
             if(!localStorage.lon)localStorage.lon=120.0111;
-            me.updateLocationAjax(localStorage.lat,localStorage.lon);
+            if(!Globle_Variable.user)me.updateLocationAjax(localStorage.lat,localStorage.lon);
         }
         // Options: throw an error if no update is received every 30 seconds.
         //
@@ -246,7 +246,7 @@ Ext.define('DoctorApp.controller.Login', {
                     patientCotroller.initPatientList();
                     settingCotroller.initSetting();
                     //settingCotroller.initCustomPush();
-                    me.makeLocationListener();
+                    //me.makeLocationListener();
                     //settingCotroller.initBlackList();
 
 
