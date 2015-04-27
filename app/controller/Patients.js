@@ -40,7 +40,9 @@ Ext.define('DoctorApp.controller.Patients', {
                 tap: 'makereply'
             },
             'patientmessagelistview': {
-                initialize: function (list) {
+
+
+                /*initialize: function (list) {
                     var me = this,
                         scroller = list.getScrollable().getScroller();
 
@@ -52,7 +54,7 @@ Ext.define('DoctorApp.controller.Patients', {
                     me.setScroller(scroller);
 
                     //me.getMessage().setValue(Ext.create('Chat.ux.LoremIpsum').getSentence());
-                }
+                }*/
             },
             patientssview: {
                 itemtap: 'onPatientSelect',

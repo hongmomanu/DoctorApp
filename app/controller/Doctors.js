@@ -30,7 +30,23 @@ Ext.define('DoctorApp.controller.Doctors', {
                 tap: 'sendMessage'
             },
             'doctormessagelistview': {
-                initialize: function (list) {
+
+                initialize: function() {
+                    this.callParent(arguments);
+                    var scroller = this.getScrollable().getScroller();
+                    scroller.on('refresh', this.scrollToBottom, this);
+                },
+
+                scrollToBottom: function() {
+                    var scroller = this.getScrollable().getScroller();
+
+                    var task = Ext.create('Ext.util.DelayedTask', function() {
+                        scroller.scrollToEnd(true);
+                    });
+                    task.delay(500);
+                    //scroller.scrollToEnd(true);
+                }
+                /*initialize: function (list) {
                     var me = this,
                         scroller = list.getScrollable().getScroller();
 
@@ -42,7 +58,7 @@ Ext.define('DoctorApp.controller.Doctors', {
                     me.setScroller(scroller);
 
                     //me.getMessage().setValue(Ext.create('Chat.ux.LoremIpsum').getSentence());
-                }
+                }*/
             },
             doctorsview: {
                 itemtap: 'onDoctorSelect',
@@ -477,11 +493,11 @@ Ext.define('DoctorApp.controller.Doctors', {
                 //console.log(messagestore);
                 messagestore.add(Ext.apply({local: false}, message));
 
-                if(message.fromtype == 0){
+                /*if(message.fromtype == 0){
                     patientController.scrollMsgList();
                 }else{
                     doctorController.scrollMsgList();
-                }
+                }*/
             }
         });
 
@@ -603,6 +619,7 @@ Ext.define('DoctorApp.controller.Doctors', {
     sendMessage: function (btn) {
 
         var message=btn.up('list').down('#messagecontent');
+
         var content = Ext.String.trim(message.getValue());
 
         if (content && content != '') {
