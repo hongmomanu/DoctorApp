@@ -619,7 +619,6 @@ Ext.define('DoctorApp.controller.Doctors', {
     sendMessage: function (btn) {
 
         var message=btn.up('list').down('#messagecontent');
-
         var content = Ext.String.trim(message.getValue());
 
         if (content && content != '') {
@@ -647,8 +646,7 @@ Ext.define('DoctorApp.controller.Doctors', {
                 content: content
             }));
 
-            //var loadingObj = new htmlloading(document.getElementById('canvas'),{radius:8,circleLineWidth:3});
-            //loadingObj.show();
+
 
 
         } else {
@@ -683,10 +681,8 @@ Ext.define('DoctorApp.controller.Doctors', {
 
     showPatientList: function (record) {
 
-        //console.log(record);
         this.selectDoctor = record;
 
-        //Ext.Msg.alert('test', 'test', Ext.emptyFn);
 
         var view = this.getDoctorsnavview();
         var patientList = Ext.widget('patients', {title: '选择患者'});
