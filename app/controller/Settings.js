@@ -27,6 +27,9 @@ Ext.define('DoctorApp.controller.Settings', {
             scanbtn:{
                 'tap':'showScan'
             },
+            copybtn:{
+                'tap':'showCopy'
+            },
             blacklistbtn:{
                 'tap':'showBlackList'
             },
@@ -45,6 +48,7 @@ Ext.define('DoctorApp.controller.Settings', {
             logoutbtn: 'settingsform #logoutbtn',
             pushsetbtn: 'settingsform #pushsetbtn',
             scanbtn: 'settingsform #scanbtn',
+            copybtn: 'settingsform #copybtn',
             blacklistbtn: 'settingsform #blacklistbtn',
             custompushformview: 'custompushform',
             custompushconfirmbtn: 'custompushform #confirmbtn',
@@ -57,6 +61,14 @@ Ext.define('DoctorApp.controller.Settings', {
         var list=Ext.widget('blacklist',{'title':'我的黑名单'});
         navView.push(list);
         this.initBlackList();
+    },
+    showCopy:function(btn){
+
+        Ext.Msg.alert('成功', '下载地址成功复制到剪贴板',function(){
+            var text = Globle_Variable.serverurl+'download/patient.apk';
+            cordova.plugins.clipboard.copy(text);
+        });
+
     },
     showScan:function(btn){
 

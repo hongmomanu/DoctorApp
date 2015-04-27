@@ -154,12 +154,22 @@ Ext.define('DoctorApp.view.settings.Settings', {
                     labelWidth:'35%',
                     labelAlign:'top'
                 },
+                layout:'hbox',
                 items:[
                     {
                         xtype:'button',
+                        flex:1,
                         ui  : 'confirm',
                         itemId:'scanbtn',
                         text:'扫描二维码'
+                    },
+
+                    {
+                        xtype:'button',
+                        flex:1,
+                        ui  : 'confirm',
+                        itemId:'copybtn',
+                        text:'复制到剪切板'
                     }
                 ]
             }
