@@ -31,7 +31,7 @@ Ext.define('DoctorApp.controller.Doctors', {
             },
             'doctormessagelistview': {
 
-                initialize: function() {
+                /*initialize: function() {
                     this.callParent(arguments);
                     var scroller = this.getScrollable().getScroller();
                     scroller.on('refresh', this.scrollToBottom, this);
@@ -45,7 +45,7 @@ Ext.define('DoctorApp.controller.Doctors', {
                     });
                     task.delay(500);
                     //scroller.scrollToEnd(true);
-                }
+                }*/
                 /*initialize: function (list) {
                     var me = this,
                         scroller = list.getScrollable().getScroller();
