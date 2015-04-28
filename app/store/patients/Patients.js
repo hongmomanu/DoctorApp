@@ -4,7 +4,7 @@ Ext.define('DoctorApp.store.patients.Patients', {
     config: {
         model: 'DoctorApp.model.patients.Patient',
         autoLoad: false,
-        sorters: 'name',
+        //sorters: 'name',
         grouper: {
             groupFn: function(record) {
                 return record.get('section');

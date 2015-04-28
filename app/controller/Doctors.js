@@ -35,7 +35,7 @@ Ext.define('DoctorApp.controller.Doctors', {
                 touchstart:'voicetouchbegin'
 
 
-            },',patientmessagelistview': {
+            },'patientmessagelistview': {
 
                 touchend:'voicetouchend',
                 touchstart:'voicetouchbegin'
@@ -49,6 +49,9 @@ Ext.define('DoctorApp.controller.Doctors', {
             },
             choosepicbtn:{
                 tap:'doImgCLick'
+            },
+            choosepictopatientbtn:{
+                tap:'doImgCLick'
             }
 
 
@@ -59,6 +62,7 @@ Ext.define('DoctorApp.controller.Doctors', {
             doctormessagelistview:'doctormessagelist',
             patientmessagelistview:'patientmessagelist',
             choosepicbtn: '#doctorsnavigationview #choosepic',
+            choosepictopatientbtn: '#patientsnavigationview #choosepic',
 
             sendmessagebtn: 'doctormessagelist #sendmessage',
             messagecontent: 'doctormessagelist #messagecontent',
@@ -426,6 +430,8 @@ Ext.define('DoctorApp.controller.Doctors', {
         var doctorController = this.getApplication().getController('Doctors');
         var patientController = this.getApplication().getController('Patients');
         if (message.fromtype == 0) {
+
+
             messagestore = patientController.messageView[message.fromid].getStore()
         } else {
             messagestore = doctorController.messageView[message.fromid].getStore();
@@ -449,6 +455,9 @@ Ext.define('DoctorApp.controller.Doctors', {
 
 
         } else {
+            message=Ext.apply(message.userinfo,message);
+            console.log("muhahaa");
+            console.log(message);
             mainView.setActiveItem(1);
             this.listView = this.getPatientsview();
 
