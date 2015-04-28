@@ -60,7 +60,31 @@ Ext.define('DoctorApp.view.patients.PatientsMessage', {
             xtype: 'toolbar',
             docked: 'bottom',
             items: [
+                {
+                    xtype:'button',
+                    iconCls:'voice',
+                    listeners: {
+                        element: 'element',
+                        touchstart : function() {
 
+                            var list=this.up('list');
+                            list.fireEvent('touchstart', list);
+
+                        },
+                        touchend : function() {
+
+                            var list=this.up('list');
+                            list.fireEvent('touchend', list);
+
+                        }
+
+                    }
+                },
+                {
+                    xtype:'button',
+                    iconCls:'picture',
+                    itemId:'choosepic'
+                },
                         {
                             xtype: 'textfield',
                             itemId:'messagecontent',
