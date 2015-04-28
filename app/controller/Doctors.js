@@ -433,6 +433,19 @@ Ext.define('DoctorApp.controller.Doctors', {
 
 
     },
+
+    messageshowfinal:function(message){
+        var messagestore=null;
+        var doctorController = this.getApplication().getController('Doctors');
+        var patientController = this.getApplication().getController('Patients');
+        if (message.fromtype == 0) {
+            messagestore = patientController.messageView[message.fromid].getStore()
+        } else {
+            messagestore = doctorController.messageView[message.fromid].getStore();
+        }
+
+        messagestore.add(Ext.apply({local: false}, message));
+    },
     receiveMessageShow: function (message, e) {
 
         //Ext.Msg.alert('clicked',message.fromtype);
@@ -458,60 +471,85 @@ Ext.define('DoctorApp.controller.Doctors', {
 
         var me = this;
 
-        var d = new Ext.util.DelayedTask(function () {
-            try {
 
-                var store = me.listView.getStore();
+        try {
 
-                var flag=true;
-                console.log(store.data);
-                for(var i=0;i<store.data.items.length;i++){
+            var store = me.listView.getStore();
 
-                    if(message.fromid==store.data.items[i].get("_id")){
-                        flag=false;
-                        break;
+            var flag=true;
+            //console.log(store.data);
+            var index=0;
+            for(var i=0;i<store.data.items.length;i++){
+
+                if(message.fromid==store.data.items[i].get("_id")){
+                    flag=false;
+                    index=i;
+                    break;
+                }
+            }
+            if(flag){
+
+
+                //message.userinfo.realname="<div style='color: #176982'>(New)</div>"+message.userinfo.realname;
+                //store.insert(0,[message]);
+                //index=store.data.items.length;
+
+                message._id=message.fromid;
+                store.add(message);
+                index =me.filterReceiveIndex(message,store);
+
+            }
+
+
+
+
+            //alert(-1);
+            //var index = me.filterReceiveIndex(message, store);
+            //alert(-2);
+
+
+            var nav =me.listView.getParent();
+
+
+
+            if(nav.getItems().length==3&&message.fromid!=nav.getActiveItem().data.get('_id')){
+                nav.pop();
+                setTimeout(function(){
+                    try{
+                        me.listView.select(index);
+                        me.listView.fireEvent('itemtap',me.listView,index,me.listView.getActiveItem(),store.getAt(index),e);
+
+                    }catch(err){
+
+                    }finally{
+
+                        me.messageshowfinal(message);
                     }
-                }
-                if(flag){
-                    message.userinfo.realname="<div style='color: #176982'>(New)</div>"+message.userinfo.realname;
-                    store.insert(0,[message]);
-                }
 
+                },500);
+            }
+            else{
 
-
-
-                //alert(-1);
-                var index = me.filterReceiveIndex(message, store);
-                //alert(-2);
                 me.listView.select(index);
+                me.listView.fireEvent('itemtap',me.listView,index,me.listView.getActiveItem(),store.getAt(index),e);
 
-                me.listView.fireEvent('itemtap', me.listView, index, me.listView.getActiveItem(), store.getAt(index), e);
-            } catch (err) {
-
-                console.log(err);
             }
-            finally {
 
-                var doctorController = me.getApplication().getController('Doctors');
-                var patientController = me.getApplication().getController('Patients');
-                if (message.fromtype == 0) {
-                    messagestore = patientController.messageView[message.fromid].getStore()
-                } else {
-                    messagestore = doctorController.messageView[message.fromid].getStore();
-                }
 
-                //console.log(messagestore);
-                messagestore.add(Ext.apply({local: false}, message));
 
-                /*if(message.fromtype == 0){
-                    patientController.scrollMsgList();
-                }else{
-                    doctorController.scrollMsgList();
-                }*/
-            }
-        });
+           /* me.listView.select(index);
 
-        d.delay(500);
+            me.listView.fireEvent('itemtap', me.listView, index, me.listView.getActiveItem(), store.getAt(index), e);*/
+        } catch (err) {
+
+            console.log(err);
+        }
+        finally {
+
+           this.messageshowfinal(message);
+
+        }
+
 
         /*this.listView.on({
             painted: {
@@ -609,13 +647,13 @@ Ext.define('DoctorApp.controller.Doctors', {
         //Ext.Msg.alert('added',JSON.stringify(data));
         if(data.fromtype==0){
             mainView.setActiveItem(1);
-            var patientCotroller=this.getApplication().getController('Patients');
+            /*var patientCotroller=this.getApplication().getController('Patients');
             patientCotroller.initPatientList();
-
+*/
         }else{
             mainView.setActiveItem(0);
-            var doctorCotroller=this.getApplication().getController('Doctors');
-            doctorCotroller.initDoctorList();
+            /*var doctorCotroller=this.getApplication().getController('Doctors');
+            doctorCotroller.initDoctorList();*/
         }
 
     },
@@ -644,7 +682,7 @@ Ext.define('DoctorApp.controller.Doctors', {
             var message = Ext.apply({message: content}, myinfo);
             //console.log(imgid);
             listview.getStore().add(Ext.apply({local: true, imgid: imgid}, message));
-            this.scrollMsgList();
+            //this.scrollMsgList();
 
             var mainController = this.getApplication().getController('Main');
 
@@ -657,8 +695,6 @@ Ext.define('DoctorApp.controller.Doctors', {
                 to: toinfo.get("_id"),
                 content: content
             }));
-
-
 
 
         } else {

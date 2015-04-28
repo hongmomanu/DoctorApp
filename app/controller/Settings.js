@@ -79,7 +79,7 @@ Ext.define('DoctorApp.controller.Settings', {
 
     },
     showScan:function(btn){
-
+        var me=this;
         cordova.plugins.barcodeScanner.scan(
             function (result) {
                 var url=result.text.split('?');
@@ -121,6 +121,8 @@ Ext.define('DoctorApp.controller.Settings', {
                     CommonUtil.ajaxSend(params,url,successFunc,failFunc,'POST');
 
                 }else{
+
+                    Ext.Msg.alert('成功', '添加患者'+type);
                     var successFunc = function (response, action) {
 
                         var res=JSON.parse(response.responseText);
