@@ -10,6 +10,7 @@ Ext.define('DoctorApp.model.doctors.DoctorMessage', {
             'message',
             'imgid',
             'issend',
+            'msgtime',
             'messagetype'
         ]
     }

@@ -14,6 +14,7 @@ Ext.define('DoctorApp.model.patients.PatientMessage', {
             'imgid',
             'issend',
             'message',
+            'msgtime',
             'messagetype'
         ]
     }
