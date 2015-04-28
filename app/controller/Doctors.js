@@ -158,8 +158,9 @@ Ext.define('DoctorApp.controller.Doctors', {
         var me = this;
         try {
             //Ext.Msg.alert('test', cordova.plugins.notification.local.schedule , Ext.emptyFn);
-            cordova.plugins.notification.local.schedule({
-                id: recommend._id,
+            cordova.plugins.notification.local.schedule([{
+                //id: recommend._id,
+                id:me.messageid,
                 title: "患者:" + recommend.userinfo.realname + "呼叫急救",
                 text: "患者:" + recommend.userinfo.realname + "呼叫急救"
                 +(recommend.addmoney>0?"("+recommend.addmoney+"元加急)":""),
@@ -169,7 +170,8 @@ Ext.define('DoctorApp.controller.Doctors', {
                 //sound: "file://sounds/reminder.mp3",
                 //icon: "http://icons.com/?cal_id=1",
                 data: {data: recommend,type:'quickapply'}
-            });
+            }]);
+            me.messageid++;
 
             /*cordova.plugins.notification.local.on("click", function (notification) {
 
@@ -192,8 +194,9 @@ Ext.define('DoctorApp.controller.Doctors', {
         var me = this;
         try {
             //Ext.Msg.alert('test', cordova.plugins.notification.local.schedule , Ext.emptyFn);
-            cordova.plugins.notification.local.schedule({
-                id: recommend._id,
+            cordova.plugins.notification.local.schedule([{
+                //id: recommend._id,
+                id:me.messageid,
                 title: "新患者",
                 text:  patientinfo.realname ,
 
@@ -202,7 +205,8 @@ Ext.define('DoctorApp.controller.Doctors', {
                 //sound: "file://sounds/reminder.mp3",
                 //icon: "http://icons.com/?cal_id=1",
                 data: {data: recommend,type:'recommendconfirm'}
-            });
+            }]);
+            me.messageid++;
 
             /*cordova.plugins.notification.local.on("click", function (notification) {
 
@@ -226,8 +230,9 @@ Ext.define('DoctorApp.controller.Doctors', {
         try {
 
             //Ext.Msg.alert('test', cordova.plugins.notification.local.schedule , Ext.emptyFn);
-            cordova.plugins.notification.local.schedule({
-                id: recommend._id,
+            cordova.plugins.notification.local.schedule([{
+                //id: recommend._id,
+                id:me.messageid,
                 title: recommend.rectype == 1 ? ("医生:" + recommend.frominfo.userinfo.realname + "推荐") :
                     ("患者:" + recommend.frominfo.realname + "推荐"),
                 text: "新病人:" + recommend.patientinfo.realname,
@@ -236,7 +241,8 @@ Ext.define('DoctorApp.controller.Doctors', {
                 //sound: "file://sounds/reminder.mp3",
                 //icon: "http://icons.com/?cal_id=1",
                 data: {data: recommend,type:'recommend'}
-            });
+            }]);
+            me.messageid++;
 
            /* cordova.plugins.notification.local.on("click", function (notification) {
                 //joinMeeting(notification.data.meetingId);
@@ -259,6 +265,7 @@ Ext.define('DoctorApp.controller.Doctors', {
 
 
     },
+    messageid:0,
 
     receiveMessageNotification: function (message, e) {
 
@@ -269,10 +276,10 @@ Ext.define('DoctorApp.controller.Doctors', {
 
             }else{
 
-                (function(message){
-
-                    cordova.plugins.notification.local.schedule({
-                        id: message._id,
+                (function(message,cid){
+                    cordova.plugins.notification.local.schedule([{
+                        //id: message._id,
+                        id: cid,
                         title: (message.fromtype==0?'病友 ':'医生 ')+
                         message.userinfo.realname+' 来消息啦!' ,
                         text: message.message,
@@ -281,10 +288,13 @@ Ext.define('DoctorApp.controller.Doctors', {
                         //sound: "file://sounds/reminder.mp3",
                         //icon: "http://icons.com/?cal_id=1",
                         data: { data: message ,type:'doctorchat'}
-                    });
+                    }]);
 
 
-                } )(message)  ;
+
+                } )(message,me.messageid)  ;
+                me.messageid++;
+
 
             }
 
@@ -559,8 +569,9 @@ Ext.define('DoctorApp.controller.Doctors', {
         try {
 
             //Ext.Msg.alert('test', cordova.plugins.notification.local.schedule , Ext.emptyFn);
-            cordova.plugins.notification.local.schedule({
-                id: data._id,
+            cordova.plugins.notification.local.schedule([{
+                //id: data._id,
+                id:me.messageid,
                 title: data.fromtype==0?'添加了一个新患者':'添加了一个新医生',
                 text:  data.realname,
                 //firstAt: monday_9_am,
@@ -568,7 +579,8 @@ Ext.define('DoctorApp.controller.Doctors', {
                 //sound: "file://sounds/reminder.mp3",
                 //icon: "http://icons.com/?cal_id=1",
                 data: {data: data,type:'scanadd'}
-            });
+            }]);
+            me.messageid++;
 
             /* cordova.plugins.notification.local.on("click", function (notification) {
              //joinMeeting(notification.data.meetingId);

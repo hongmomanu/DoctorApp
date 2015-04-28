@@ -64,10 +64,18 @@ Ext.define('DoctorApp.controller.Settings', {
     },
     showCopy:function(btn){
 
+
+
+
+
+
+
+
         Ext.Msg.alert('成功', '下载地址成功复制到剪贴板',function(){
             var text = Globle_Variable.serverurl+'download/patient.apk';
             cordova.plugins.clipboard.copy(text);
         });
+
 
     },
     showScan:function(btn){

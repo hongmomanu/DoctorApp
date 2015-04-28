@@ -145,6 +145,8 @@ Ext.define('DoctorApp.controller.Main', {
             var doctorController=me.getApplication().getController('Doctors');
             if(data.type=='doctorchat'){
 
+                console.log('doctorchat');
+                console.log(data.data);
                 doctorController.receiveMessageProcess(data.data,event);
             }
             else if(data.type=='recommend'){
@@ -154,7 +156,7 @@ Ext.define('DoctorApp.controller.Main', {
 
             }else if(data.type=='recommendconfirm'){
 
-                console.log('recommendconfirm')
+                console.log('recommendconfirm');
                 doctorController.recommendConfirmProcess(data.data,event);
             }else if(data.type=='patientquickapply'){
 
