@@ -17,8 +17,8 @@ Ext.define('DoctorApp.view.material.Material', {
                 title:'医学咨询',
                 xtype : 'panel',
                 scrollable : true,
-                html:'医学咨询',
-                html: '<iframe style="width:100%;height:100%;" src="http://med-home.net/wap.asp">Your device does not support iframes.</iframe>'
+                //html:'医学咨询',
+                html: '<iframe id="doctoraskhtml" width="100%" height="100%"  src="http://med-home.net/wap.asp">Your device does not support iframes.</iframe>'
 
             },
             {
@@ -27,14 +27,14 @@ Ext.define('DoctorApp.view.material.Material', {
                 xtype : 'panel',
                 scrollable : true,
                 //layout : 'fit',
-                html: '<iframe style="width:100%;height:100%;" src="http://www.ncbi.nlm.nih.gov/Entrez">Your device does not support iframes.</iframe>'
+                html: '<iframe id="doctordochtml" width="100%" height="100%"   src="http://www.ncbi.nlm.nih.gov/Entrez">Your device does not support iframes.</iframe>'
 
             },
             {
                 title:'CME',
                 xtype : 'panel',
                 scrollable : true,
-                html: '<iframe style="width:100%;height:100%;" src="http://www.sww.com.cn/cme/index.shtml">Your device does not support iframes.</iframe>'
+                html: '<iframe id="doctorcmehtml" width="100%" height="100%"   src="http://www.sww.com.cn/cme/index.shtml">Your device does not support iframes.</iframe>'
 
             }
 
