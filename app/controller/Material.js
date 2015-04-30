@@ -27,7 +27,7 @@ Ext.define('DoctorApp.controller.Material', {
     initRender:function(){
 
        var me=this;
-        setTimeout(me.makeiframesize,500);
+        setTimeout(me.makeiframesize,2000);
         //this.makeiframesize();
         Ext.Viewport.on('orientationchange', function(){
             me.makeiframesize();
