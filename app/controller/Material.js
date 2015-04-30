@@ -27,7 +27,7 @@ Ext.define('DoctorApp.controller.Material', {
     initRender:function(){
 
        var me=this;
-        setTimeout(me.makeiframesize,1000);
+        setTimeout(me.makeiframesize,500);
         //this.makeiframesize();
         Ext.Viewport.on('orientationchange', function(){
             me.makeiframesize();
@@ -36,9 +36,9 @@ Ext.define('DoctorApp.controller.Material', {
 
     },
     makeiframesize:function(){
-        Ext.get('doctoraskhtml').setHeight((Ext.getBody().getHeight()-70));
-        Ext.get('doctordochtml').setHeight((Ext.getBody().getHeight()-70));
-        Ext.get('doctorcmehtml').setHeight((Ext.getBody().getHeight()-70));
+        Ext.get('doctoraskhtml').setHeight((Ext.getBody().getHeight()-75));
+        Ext.get('doctordochtml').setHeight((Ext.getBody().getHeight()-75));
+        Ext.get('doctorcmehtml').setHeight((Ext.getBody().getHeight()-75));
     }
 
 });
