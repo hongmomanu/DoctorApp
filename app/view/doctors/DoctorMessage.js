@@ -47,6 +47,11 @@ Ext.define('DoctorApp.view.doctors.DoctorMessage', {
 
                 {
                     xtype:'button',
+                    itemId:'makevideo',
+                    iconCls:'video'
+                },
+                {
+                    xtype:'button',
                     iconCls:'voice',
                     listeners: {
                         element: 'element',

@@ -37,33 +37,33 @@ Ext.define('DoctorApp.view.register.Register', {
                             labelAlign:'left'
                         },
                         items:[
-                            /*{
-                                xtype:'panel',
-                                layout: 'hbox',
-                                items:[
-                                    {
-                                        xtype:'textfield',
-                                        name:'username',
-                                        label:'用户名',
-                                        placeHolder:'请输入用户名',
-                                        required:true,
-                                        clearIcon:true,
-                                        flex:6,
-                                        labelAlign:'left'
-                                    },
-                                    {
+                                /*{
+                                    xtype:'panel',
+                                    layout: 'hbox',
+                                    items:[
+                                        {
+                                            xtype:'textfield',
+                                            name:'username',
+                                            label:'用户名',
+                                            placeHolder:'请输入用户名',
+                                            required:true,
+                                            clearIcon:true,
+                                            flex:6,
+                                            labelAlign:'left'
+                                        },
+                                        {
 
-                                        xtype: 'image',
-                                        itemId: 'personpic',
-                                        name:'personpic',
-                                        label:'个人照片',
-                                        flex:1,
-                                        src: 'resources/icons/noperson.gif'
+                                            xtype: 'image',
+                                            itemId: 'personpic',
+                                            name:'personpic',
+                                            label:'个人照片',
+                                            flex:1,
+                                            src: 'resources/icons/noperson.gif'
 
-                                    }
+                                        }
 
-                                ]
-                            }*/
+                                    ]
+                                }*/
                             {
                                 xtype:'textfield',
                                 name:'username',

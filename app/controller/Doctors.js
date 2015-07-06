@@ -52,6 +52,9 @@ Ext.define('DoctorApp.controller.Doctors', {
             },
             choosepictopatientbtn:{
                 tap:'doImgCLick'
+            },
+            makevideobtn:{
+                tap:'makevideobtn'
             }
 
 
@@ -64,11 +67,22 @@ Ext.define('DoctorApp.controller.Doctors', {
             choosepicbtn: '#doctorsnavigationview #choosepic',
             choosepictopatientbtn: '#patientsnavigationview #choosepic',
 
+            makevideobtn: 'doctormessagelist #makevideo',
+
             sendmessagebtn: 'doctormessagelist #sendmessage',
             messagecontent: 'doctormessagelist #messagecontent',
             mainview: 'main',
             doctorsnavview: 'main #doctorsnavigationview'
         }
+    },
+
+    makevideobtn:function(btn){
+
+
+        //var me=this;
+        var patientController=this.getApplication().getController('Patients');
+        patientController.makevideobtn(btn);
+
     },
     onPatientSelect: function (list, index, node, record) {
         var me = this;

@@ -36,6 +36,10 @@ Ext.define('DoctorApp.controller.Patients', {
             sendmessagebtn: {
                 tap: 'sendMessage'
             },
+
+            makevideobtn:{
+                tap:'makevideobtn'
+            },
             replybtn: {
                 tap: 'makereply'
             },
@@ -65,8 +69,10 @@ Ext.define('DoctorApp.controller.Patients', {
         refs: {
 
             sendmessagebtn: 'patientmessagelist #sendmessage',
+            makevideobtn: 'patientmessagelist #makevideo',
             replybtn: 'patientmessagelist #replybtn',
             messagecontent: 'patientmessagelist #messagecontent',
+
             patientmessagelistview:'patientmessagelist',
             patientssview: '#patientsnavigationview #patientlist',
             mainview: 'main',
@@ -81,6 +87,106 @@ Ext.define('DoctorApp.controller.Patients', {
         //doctorCotroller.sendMessage(btn);
 
     },
+
+    makevideobtn:function(item){
+
+        var listview=item.up('list');
+        var myinfo= listview.mydata;
+
+        var toinfo=listview.data;
+
+        //console.log(myinfo);
+
+        var videorurl=Globle_Variable.serverurl.replace(/(:\d+)/g,":4450");
+
+        var mainController=this.getApplication().getController('Main');
+
+        var socket=mainController.socket;
+
+
+        var me=this;
+        this.overlay = Ext.Viewport.add({
+            xtype: 'panel',
+
+            // We give it a left and top property to make it floating by default
+            left: 0,
+            top: 0,
+            padding:0,
+
+            // Make it modal so you can click the mask to hide the overlay
+            modal: true,
+            hideOnMaskTap: false,
+
+            // Make it hidden by default
+            hidden: true,
+
+            // Set the width and height of the panel
+            width: '100%',
+            height: '100%',
+            /*masked: {
+             xtype: 'loadmask',
+             message: '加载数据中....'
+             },*/
+            // Here we specify the #id of the element we created in `index.html`
+            contentEl: 'content',
+
+            // Style the content and make it scrollable
+            styleHtmlContent: true,
+            scrollable: true,
+
+            // Insert a title docked at the top with a title
+            items: [
+                {
+                    //docked: 'top',
+                    xtype: 'panel',
+                    html:'<iframe name="chatframe" id="chatframe" style="height: '
+                    +(Ext.getBody().getHeight()-15)+'px;width: 100%;"  width="100%" height="100%"  src="'
+                    +videorurl+'?handle='+myinfo._id+'&touser='+(toinfo.get("patientinfo")?toinfo.get("patientinfo")._id:toinfo.get("_id"))+'">Your device does not support iframes.</iframe>',
+                    title: '聊天'
+                },
+                {
+                    docked: 'bottom',
+                    itemId:'closechatwin',
+                    xtype: 'button',
+                    handler:function(){
+                        //me.overlay.hide();
+
+                        Ext.Viewport.remove(me.overlay);
+                        Ext.Viewport.remove(mainController.overlay);
+
+                        socket.send(JSON.stringify({
+                            type:"videochatend",
+                            /*from:from,
+                             fromuser:fromuser,
+                             touser:touser,*/
+                            userid :(toinfo.get("patientinfo")?toinfo.get("patientinfo")._id:toinfo.get("_id"))
+                        }));
+
+
+                    },
+                    text:'关闭'
+                }
+            ]
+        });
+        this.overlay.showBy(item);
+
+
+
+
+        socket.send(JSON.stringify({
+            type:"videochat",
+            from:myinfo._id,
+            fromuser:myinfo._id,
+            touser:toinfo.get("patientinfo")?toinfo.get("patientinfo")._id:toinfo.get("_id"),
+            to :toinfo.get("patientinfo")?toinfo.get("patientinfo")._id:toinfo.get("_id")
+        }));
+
+
+
+        //alert(1);
+
+    },
+
     makereply:function(btn){
 
         Ext.Msg.alert('test','123');

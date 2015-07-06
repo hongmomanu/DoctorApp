@@ -42,6 +42,8 @@ Ext.define('DoctorApp.view.patients.PatientsMessage', {
         ),
 
         items: [
+
+
             {
                 xtype: 'button',
                 itemId:'replybtn',
@@ -60,6 +62,11 @@ Ext.define('DoctorApp.view.patients.PatientsMessage', {
             xtype: 'toolbar',
             docked: 'bottom',
             items: [
+                {
+                    xtype:'button',
+                    itemId:'makevideo',
+                    iconCls:'video'
+                },
                 {
                     xtype:'button',
                     iconCls:'voice',

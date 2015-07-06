@@ -32,6 +32,8 @@ Ext.application({
 
         'Patients',
 
+        'Material',
+
         'Settings'
     ],
 
@@ -56,6 +58,22 @@ Ext.application({
     launch: function() {
         // Destroy the #appLoadingIndicator element
         Ext.fly('appLoadingIndicator').destroy();
+
+        Ext.override(Ext.MessageBox, {
+
+            hide:  function () {
+
+                if ( this .activeAnimation && this .activeAnimation._onEnd) {
+
+                    this .activeAnimation._onEnd();
+
+                }
+
+                return this .callParent(arguments);
+
+            }
+
+        });
 
         // Initialize the main view
 

@@ -29,7 +29,7 @@ Ext.define('DoctorApp.view.settings.CustomPush', {
                         xtype:'textareafield',
                         //id:'txt_textarea',
                         name:'content',
-                        label:'个人介绍',
+                        label:'推送内容',
                         placeHolder:'请输入推送内容，在100字以内',
                         maxlength:100,
                         clearIcon:true

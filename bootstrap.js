@@ -39,6 +39,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "DoctorApp.controller.Doctors": [],
   "DoctorApp.controller.Login": [],
   "DoctorApp.controller.Main": [],
+  "DoctorApp.controller.Material": [],
   "DoctorApp.controller.Patients": [],
   "DoctorApp.controller.Register": [],
   "DoctorApp.controller.Settings": [],
@@ -47,11 +48,17 @@ Ext.ClassManager.addNameAlternateMappings({
   "DoctorApp.model.doctors.DoctorMessage": [],
   "DoctorApp.model.login.Login": [],
   "DoctorApp.model.patients.Patient": [],
+  "DoctorApp.model.patients.PatientMessage": [],
   "DoctorApp.model.register.Register": [],
+  "DoctorApp.model.register.Section": [],
+  "DoctorApp.model.settings.BlackList": [],
   "DoctorApp.store.Contacts": [],
   "DoctorApp.store.doctors.DoctorMessages": [],
   "DoctorApp.store.doctors.Doctors": [],
+  "DoctorApp.store.patients.PatientMessages": [],
   "DoctorApp.store.patients.Patients": [],
+  "DoctorApp.store.register.Sections": [],
+  "DoctorApp.store.settings.BlackLists": [],
   "DoctorApp.view.Contacts": [],
   "DoctorApp.view.Main": [],
   "DoctorApp.view.contact.Edit": [],
@@ -61,7 +68,10 @@ Ext.ClassManager.addNameAlternateMappings({
   "DoctorApp.view.login.Login": [],
   "DoctorApp.view.material.Material": [],
   "DoctorApp.view.patients.Patients": [],
+  "DoctorApp.view.patients.PatientsMessage": [],
   "DoctorApp.view.register.Register": [],
+  "DoctorApp.view.settings.BlackList": [],
+  "DoctorApp.view.settings.CustomPush": [],
   "DoctorApp.view.settings.Settings": [],
   "Ext.AbstractComponent": [],
   "Ext.AbstractManager": [],
@@ -689,6 +699,7 @@ Ext.ClassManager.addNameAliasMappings({
   "DoctorApp.controller.Doctors": [],
   "DoctorApp.controller.Login": [],
   "DoctorApp.controller.Main": [],
+  "DoctorApp.controller.Material": [],
   "DoctorApp.controller.Patients": [],
   "DoctorApp.controller.Register": [],
   "DoctorApp.controller.Settings": [],
@@ -697,11 +708,17 @@ Ext.ClassManager.addNameAliasMappings({
   "DoctorApp.model.doctors.DoctorMessage": [],
   "DoctorApp.model.login.Login": [],
   "DoctorApp.model.patients.Patient": [],
+  "DoctorApp.model.patients.PatientMessage": [],
   "DoctorApp.model.register.Register": [],
+  "DoctorApp.model.register.Section": [],
+  "DoctorApp.model.settings.BlackList": [],
   "DoctorApp.store.Contacts": [],
   "DoctorApp.store.doctors.DoctorMessages": [],
   "DoctorApp.store.doctors.Doctors": [],
+  "DoctorApp.store.patients.PatientMessages": [],
   "DoctorApp.store.patients.Patients": [],
+  "DoctorApp.store.register.Sections": [],
+  "DoctorApp.store.settings.BlackLists": [],
   "DoctorApp.view.Contacts": [
     "widget.contacts"
   ],
@@ -730,9 +747,19 @@ Ext.ClassManager.addNameAliasMappings({
   "DoctorApp.view.patients.Patients": [
     "widget.patients"
   ],
+  "DoctorApp.view.patients.PatientsMessage": [
+    "widget.patientmessagelist"
+  ],
   "DoctorApp.view.register.Register": [
     "widget.RegisterPanel",
     "widget.registerform"
+  ],
+  "DoctorApp.view.settings.BlackList": [
+    "widget.blacklist"
+  ],
+  "DoctorApp.view.settings.CustomPush": [
+    "widget.CustomPushForm",
+    "widget.custompushform"
   ],
   "DoctorApp.view.settings.Settings": [
     "widget.settingsform"

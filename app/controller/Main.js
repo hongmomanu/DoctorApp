@@ -130,6 +130,151 @@ Ext.define('DoctorApp.controller.Main', {
         }
 
     },
+    showvideoreject:function(data){
+
+        Ext.Msg.alert("提示","对方已拒绝!",function(){
+
+            var btn=Ext.Viewport.down('#closechatwin');
+            btn._handler();
+
+        });
+
+    },
+    showvideochatend:function(data){
+
+        var me=this;
+        //console.log("begin showvideochatend");
+        Ext.Msg.alert("提示","对方已经断开连接!",function(){
+            //Ext.Viewport.remove(Ext.get('chatframe'));
+            var patientController=me.getApplication().getController('Patients');
+            Ext.Viewport.remove(me.overlay);
+            Ext.Viewport.remove(patientController.overlay);
+        });
+
+    },
+    showvideochatresult:function(data){
+
+        var me=this;
+        var fromuser=data.fromuser;
+        var ischating=data.ischating;
+        var touser=data.touser;
+        chatframe.autoconnect.hideloading();
+        //chatframe.autoconnect.setparentobject(window);
+        if(ischating){
+            Ext.Msg.alert("提示","对方忙,请稍后再试!",function(){
+                //
+                var patientController=me.getApplication().getController('Patients');
+                Ext.Viewport.remove(me.overlay);
+                Ext.Viewport.remove(patientController.overlay);
+            });
+        }else{
+            //Ext.Msg.alert("333",touser);
+
+            chatframe.autoconnect.makeconnect(touser);
+
+
+        }
+
+
+    },
+    showvideosuc:function(data){
+
+        var fromuser=data.fromuser;
+        var from=data.from;
+        var to=data.to;
+        var touser=data.touser;
+
+        var videourl=Globle_Variable.serverurl.replace(/(:\d+)/g,":4450");
+        var me=this;
+        var ischating=false;
+
+        if(Ext.get('chatframe')){
+
+            ischating=true;
+
+        }else{
+
+            me.overlay = Ext.Viewport.add({
+                xtype: 'panel',
+
+                // We give it a left and top property to make it floating by default
+                left: 0,
+                top: 0,
+                padding:0,
+
+                // Make it modal so you can click the mask to hide the overlay
+                modal: true,
+                hideOnMaskTap: false,
+
+                // Make it hidden by default
+                hidden: true,
+
+                // Set the width and height of the panel
+                width: '100%',
+                height: '100%',
+                /*masked: {
+                 xtype: 'loadmask',
+                 message: '加载数据中....'
+                 },*/
+                // Here we specify the #id of the element we created in `index.html`
+                contentEl: 'content',
+
+                // Style the content and make it scrollable
+                styleHtmlContent: true,
+                scrollable: true,
+
+                // Insert a title docked at the top with a title
+                items: [
+                    {
+                        //docked: 'top',
+                        xtype: 'panel',
+                        html:'<iframe name="chatframe" id="chatframe" style="height: '
+                        +(Ext.getBody().getHeight()-15)+'px;width: 100%;"  width="100%" height="100%"  src="'
+                        +videourl+'?handle='+touser+'">Your device does not support iframes.</iframe>',
+                        title: '聊天'
+                    },
+
+                    {
+                        docked: 'bottom',
+                        itemId:'closechatwin',
+                        xtype: 'button',
+                        handler:function(){
+                            Ext.Viewport.remove(me.overlay);
+
+                            me.socket.send(JSON.stringify({
+                                type:"videochatend",
+                                /*from:from,
+                                 fromuser:fromuser,
+                                 touser:touser,*/
+                                userid :from
+                            }));
+
+                            //me.overlay.hide();
+                        },
+                        text:'关闭'
+                    }
+                ]
+            });
+            me.overlay.show();
+        }
+
+        setTimeout(function(){
+
+
+
+            me.socket.send(JSON.stringify({
+                type:"videochatresult",
+                from:from,
+                fromuser:fromuser,
+                touser:touser,
+                ischating:ischating,
+                to :to
+            }));
+
+        },2000);
+
+
+    },
     websocketInit:function(){
         var url=Globle_Variable.serverurl;
         //url=url?"ws://"+url.split("://")[1].split(":")[0]+":3001/":"ws://localhost:3001/";
@@ -163,6 +308,23 @@ Ext.define('DoctorApp.controller.Main', {
                 console.log('patientquickapply');
                 console.log(data.data);
                 doctorController.receiveQuickApplyProcess(data.data,event);
+            }
+            else if(data.type=='videosuc'){
+                console.log('videosuc');
+                me.showvideosuc(data.data)
+
+            }else if(data.type=='videochatresult'){
+                console.log('videochatresult');
+                me.showvideochatresult(data.data)
+
+            }else if(data.type=='videochatend'){
+                console.log('videochatend');
+                me.showvideochatend(data.data)
+
+            }else if(data.type=='videoreject'){
+                console.log('videoreject');
+                me.showvideoreject(data.data)
+
             }
             else if(data.type=='chatsuc'){
                 console.log('chatsuc');
