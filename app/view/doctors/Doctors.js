@@ -12,7 +12,8 @@ Ext.define('DoctorApp.view.doctors.Doctors', {
         scrollToTopOnRefresh :true,
         grouped:true,
         //indexBar:true,
-        store: Ext.create('DoctorApp.store.doctors.Doctors'),
+        //store: Ext.create('DoctorApp.store.doctors.Doctors'),
+        store: 'Doctors',
 
         listeners: {
             painted: function(){

@@ -431,8 +431,9 @@ Ext.define('DoctorApp.controller.Patients', {
 
     },
     initPatientList:function(){
-        var patientlistview=this.getPatientssview();
-        var store=patientlistview.getStore();
+
+
+        var store=Ext.getStore('Patients');
         store.load({
             //define the parameters of the store:
             params:{
@@ -442,6 +443,18 @@ Ext.define('DoctorApp.controller.Patients', {
             callback : function(records, operation, success) {
 
             }});
+
+        /*var patientlistview=this.getPatientssview();
+        var store=patientlistview.getStore();
+        store.load({
+            //define the parameters of the store:
+            params:{
+                id : Globle_Variable.user._id
+            },
+            scope: this,
+            callback : function(records, operation, success) {
+
+            }});*/
 
     }
 

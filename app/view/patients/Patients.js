@@ -20,7 +20,8 @@ Ext.define('DoctorApp.view.patients.Patients', {
             }
         },
         
-        store: Ext.create('DoctorApp.store.patients.Patients'),
+        //store: Ext.create('DoctorApp.store.patients.Patients'),
+        store: 'Patients',
         items: [/*{
             xtype: 'button',
             scrollDock: 'bottom',

@@ -60,19 +60,19 @@ Ext.define('DoctorApp.controller.Doctors', {
 
         },
         refs: {
-            doctorsview: 'main #doctorsnavigationview #doctorlist',
-            patientsview: 'main #patientsnavigationview #patientlist',
+            doctorsview: 'main #doctorlist',
+            patientsview: 'main #patientlist',
             doctormessagelistview:'doctormessagelist',
             patientmessagelistview:'patientmessagelist',
-            choosepicbtn: '#doctorsnavigationview #choosepic',
-            choosepictopatientbtn: '#patientsnavigationview #choosepic',
+            choosepicbtn: 'doctormessagelist #choosepic',
+            choosepictopatientbtn: 'patientmessagelist #choosepic',
 
             makevideobtn: 'doctormessagelist #makevideo',
 
             sendmessagebtn: 'doctormessagelist #sendmessage',
             messagecontent: 'doctormessagelist #messagecontent',
-            mainview: 'main',
-            doctorsnavview: 'main #doctorsnavigationview'
+            mainview: 'main'/*,
+            doctorsnavview: 'main #doctorsnavigationview'*/
         }
     },
 
@@ -87,6 +87,7 @@ Ext.define('DoctorApp.controller.Doctors', {
     onPatientSelect: function (list, index, node, record) {
         var me = this;
         //Ext.Msg.alert('2323', '2323', Ext.emptyFn);
+        var view=me.getMainview();
         Ext.Msg.confirm('消息', '确定推荐患者', function (buttonId) {
 
             if (buttonId == 'yes') {
@@ -119,7 +120,7 @@ Ext.define('DoctorApp.controller.Doctors', {
                 };
                 CommonUtil.ajaxSend(params, url, successFunc, failFunc, 'POST');
             } else {
-                var view = me.getDoctorsnavview();
+                //var view = me.getDoctorsnavview();
                 view.pop();
             }
 
@@ -143,6 +144,19 @@ Ext.define('DoctorApp.controller.Doctors', {
     },
 
     initDoctorList: function () {
+
+        var store=Ext.getStore('Doctors');
+        store.load({
+            //define the parameters of the store:
+            params:{
+                id : Globle_Variable.user._id
+            },
+            scope: this,
+            callback : function(records, operation, success) {
+
+            }});
+
+        /*testobj=this;
         var doctorlistView = this.getDoctorsview();
         var store = doctorlistView.getStore();
         store.load({
@@ -154,7 +168,7 @@ Ext.define('DoctorApp.controller.Doctors', {
             callback: function (records, operation, success) {
 
             }
-        });
+        });*/
 
     },
 
@@ -973,7 +987,8 @@ Ext.define('DoctorApp.controller.Doctors', {
         this.selectDoctor = record;
 
 
-        var view = this.getDoctorsnavview();
+        //var view = this.getDoctorsnavview();
+        var view=this.getMainview();
         var patientList = Ext.widget('patients', {title: '选择患者'});
         patientList.on({
             itemtap: {fn: this.onPatientSelect, scope: this, single: true}
@@ -1040,7 +1055,7 @@ Ext.define('DoctorApp.controller.Doctors', {
             selectview.setTitle(record.get('userinfo').realname);
             selectview.data = record;
             selectview.mydata = Globle_Variable.user;
-            this.getDoctorsnavview().push(selectview);
+            this.getMainview().push(selectview);
 
 
             /*if (!this.messageView)this.messageView = Ext.create('DoctorApp.view.doctors.DoctorMessage');

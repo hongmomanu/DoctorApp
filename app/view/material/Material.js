@@ -14,12 +14,12 @@ Ext.define('DoctorApp.view.material.Material', {
         },
         items:[
             {
-                title:'医学咨询',
+                title:'CME',
                 xtype : 'panel',
-                scrollable : true,
                 //layout : 'fit',
-                //html:'医学咨询',
-                html: '<iframe id="doctoraskhtml" style="height: 100%;width: 100%;" width="100%" height="100%"  src="http://med-home.net/wap.asp">Your device does not support iframes.</iframe>'
+                scrollable : true,
+                //html: '<iframe style="height: 100%;width: 100%;"  id="doctorcmehtml" width="100%" height="100%"   src="http://www.sww.com.cn/cme/index.shtml">Your device does not support iframes.</iframe>'
+                html: '<iframe style="height: 100%;width: 100%;"  id="doctorcmehtml" width="100%" height="100%"   src="http://m.med66.com/">Your device does not support iframes.</iframe>'
 
             },
             {
@@ -33,11 +33,12 @@ Ext.define('DoctorApp.view.material.Material', {
 
             },
             {
-                title:'CME',
+                title:'医学咨询',
                 xtype : 'panel',
-                //layout : 'fit',
                 scrollable : true,
-                html: '<iframe style="height: 100%;width: 100%;"  id="doctorcmehtml" width="100%" height="100%"   src="http://www.sww.com.cn/cme/index.shtml">Your device does not support iframes.</iframe>'
+                //layout : 'fit',
+                //html:'医学咨询',
+                html: '<iframe id="doctoraskhtml" style="height: 100%;width: 100%;" width="100%" height="100%"  src="http://med-home.net/wap.asp">Your device does not support iframes.</iframe>'
 
             }
 
