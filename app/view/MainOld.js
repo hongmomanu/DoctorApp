@@ -1,7 +1,7 @@
-Ext.define('DoctorApp.view.Main', {
+Ext.define('DoctorApp.view.MainOld', {
     extend: 'Ext.tab.Panel',
-    xtype: 'main',
-    itemId: 'mainpanel',
+    xtype: 'main1',
+    itemId: 'mainpanel1',
     requires: [
         'Ext.TitleBar',
         'Ext.Video'

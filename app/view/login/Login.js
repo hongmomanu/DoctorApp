@@ -43,7 +43,7 @@ Ext.define('DoctorApp.view.login.Login', {
                                 xtype: 'fieldset',
                                 //title: '医生登录',
                                 //centered: true,
-                                instructions: '请填写信息',
+                                //instructions: '请填写信息',
                                 defaults: {
                                     //labelWidth: '150px'
                                     labelAlign: 'top'

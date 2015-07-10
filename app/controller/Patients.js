@@ -74,7 +74,7 @@ Ext.define('DoctorApp.controller.Patients', {
             messagecontent: 'patientmessagelist #messagecontent',
 
             patientmessagelistview:'patientmessagelist',
-            patientssview: '#patientsnavigationview #patientlist',
+            patientssview: 'main #patientlist',
             mainview: 'main',
             patientsnavview:'main #patientsnavigationview'
         }
@@ -306,7 +306,8 @@ Ext.define('DoctorApp.controller.Patients', {
 
         //Ext.Msg.alert('test', 'test', Ext.emptyFn);
 
-        var view=this.getPatientsnavview();
+        //var view=this.getPatientsnavview();
+        var view=this.getMainview();
         var doctorsList=Ext.widget('doctors',{title:'选择医生'});
         doctorsList.on({
             itemtap  : { fn: this.onDoctorSelect, scope: this, single: true }
@@ -317,7 +318,7 @@ Ext.define('DoctorApp.controller.Patients', {
     onDoctorSelect:function(list, index, node, record){
         var me=this;
         //Ext.Msg.alert('2323', '2323', Ext.emptyFn);
-        var view=me.getPatientsnavview();
+        var view=me.getMainview();
         Ext.Msg.confirm('消息','确定推荐医生',function(buttonId){
 
             if(buttonId=='yes'){
@@ -421,7 +422,7 @@ Ext.define('DoctorApp.controller.Patients', {
             selectview.setTitle(record.get('realname'));
             selectview.data=record;
             selectview.mydata=Globle_Variable.user;
-            this.getPatientsnavview().push(selectview);
+            this.getMainview().push(selectview);
 
         }
 

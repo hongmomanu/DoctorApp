@@ -2,7 +2,7 @@
  * Created by jack on 14-11-18.
  * main Controller used by Terminal app
  */
-Ext.define('DoctorApp.controller.Main', {
+Ext.define('DoctorApp.controller.MainOld', {
     extend: 'Ext.app.Controller',
 
     config: {

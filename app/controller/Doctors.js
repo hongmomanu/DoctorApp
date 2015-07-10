@@ -499,121 +499,140 @@ Ext.define('DoctorApp.controller.Doctors', {
 
         var mainController=this.getApplication().getController('Main');
 
-        if(((!mainView.getActiveItem().data&&mainView.getInnerItems().length>1))||(mainView.getActiveItem().data&&message.fromid!=(mainView.getActiveItem().data.get('_id')?mainView.getActiveItem().data.get('_id'):mainView.getActiveItem().data.get('patientinfo')._id))){
+        if((((!mainView.getActiveItem().data)&&mainView.getInnerItems().length>1))||(mainView.getActiveItem().data&&message.fromid!=(mainView.getActiveItem().data.get('_id')?mainView.getActiveItem().data.get('_id'):mainView.getActiveItem().data.get('patientinfo')._id))){
 
-            mainView.pop(mainView.getInnerItems().length - 1);
+
 
             //nav.pop();
-            mainController.selectindex=-1;
+            if(message.fromtype==0&&mainController.selectindex==1&&mainView.getInnerItems().length==2){
+
+            }else if(message.fromtype==1&&mainController.selectindex==0&&mainView.getInnerItems().length==2){
+
+            }else{
+                console.log("pop back");
+                mainView.pop(mainView.getInnerItems().length - 1);
+                mainController.selectindex=-1;
+            }
+
+            //alert(22);
 
         }
 
+        //setTimeout(function(){
+
+            if(message.fromtype==0){
+
+                console.log("pa");
+
+                //mainView.setActiveItem(0);
+
+
+                mainlist.select(1);
+                try{
+
+                    if(mainController.selectindex!=1||mainView.getInnerItems().length==1)mainlist.fireEvent('itemtap',mainlist,1,mainlist.getActiveItem(),mainlist.getStore().getAt(1));
+                }catch(e){
+
+                }finally{
+                    listView=this.getPatientsview();
+
+                }
 
 
 
-        if(message.fromtype==0){
+            }else{
+                //mainView.setActiveItem(1);
+                console.log("doc");
+                mainlist.select(0);
+                try{
 
-            console.log("pa");
+                    if(mainController.selectindex!=0||mainView.getInnerItems().length==1) mainlist.fireEvent('itemtap',mainlist,0,mainlist.getActiveItem(),mainlist.getStore().getAt(0));
+                }catch(e){
 
-            //mainView.setActiveItem(0);
-
-
-            mainlist.select(1);
-            try{
-
-                if(mainController.selectindex!=1||mainView.getInnerItems().length==1)mainlist.fireEvent('itemtap',mainlist,1,mainlist.getActiveItem(),mainlist.getStore().getAt(1));
-            }catch(e){
-
-            }finally{
-                listView=this.getPatientsview();
+                }finally{
+                    listView=me.getDoctorsview();
+                }
 
             }
 
 
 
-        }else{
-            //mainView.setActiveItem(1);
-            console.log("doc");
-            mainlist.select(0);
-            try{
 
-                if(mainController.selectindex!=0||mainView.getInnerItems().length==1) mainlist.fireEvent('itemtap',mainlist,0,mainlist.getActiveItem(),mainlist.getStore().getAt(0));
-            }catch(e){
 
-            }finally{
-                listView=this.getDoctorsview();
+
+            var store=listView.getStore();
+
+
+            var flag=true;
+            //console.log(store.data);
+            var index=0;
+            for(var i=0;i<store.data.items.length;i++){
+                var fromid=message.fromtype==1?store.data.items[i].get('_id'):store.data.items[i].get('patientinfo')._id
+                if(message.fromid==fromid){
+                    flag=false;
+                    index=i;
+                    break;
+                }
             }
 
-        }
 
 
+            if(flag){
+                //message.userinfo.realname="<div style='color: #176982'>(New)</div>"+message.userinfo.realname;
+                //store.insert(0,[message]);
+                //index=store.data.items.length;
+                message._id=message.fromid;
+                store.add(message);
+                index =me.filterReceiveIndex(message,store);
 
-
-
-
-        var store=listView.getStore();
-
-
-        var flag=true;
-        console.log(store.data);
-        var index=0;
-        for(var i=0;i<store.data.items.length;i++){
-            var fromid=message.fromtype==1?store.data.items[i].get('_id'):store.data.items[i].get('patientinfo')._id
-            if(message.fromid==fromid){
-                flag=false;
-                index=i;
-                break;
-            }
-        }
-
-
-
-        if(flag){
-            //message.userinfo.realname="<div style='color: #176982'>(New)</div>"+message.userinfo.realname;
-            //store.insert(0,[message]);
-            //index=store.data.items.length;
-            message._id=message.fromid;
-            store.add(message);
-            index =me.filterReceiveIndex(message,store);
-
-        }
-
-
-
-
-        //var index =this.filterReceiveIndex(message,store);
-        // var nav =listView.getParent();
-        var nav =mainView;
-
-        //console.log()
-        /*listView.select(index);
-         listView.fireEvent('itemtap',listView,index,listView.getActiveItem(),store.getAt(index),e);*/
-
-
-        /*if(nav.getActiveItem().data&&message.fromid!=(nav.getActiveItem().data.get('_id')?nav.getActiveItem().data.get('_id'):nav.getActiveItem().data.get('patientinfo')._id)){
-
-         nav.pop(nav.getInnerItems().length - 1);
-
-         //nav.pop();
-         mainController.selectindex=-1;
-
-         }*/
-
-        setTimeout(function(){
-            try{
-                //alert(11);
-                listView.select(index);
-
-                listView.fireEvent('itemtap',listView,index,listView.getActiveItem(),store.getAt(index),e);
-
-            }catch(err){
-
-            }finally{
-
-                me.messageshowfinal(message);
             }
 
-        },500);
+
+
+
+            //var index =this.filterReceiveIndex(message,store);
+            // var nav =listView.getParent();
+            var nav =mainView;
+
+            //console.log()
+            /*listView.select(index);
+             listView.fireEvent('itemtap',listView,index,listView.getActiveItem(),store.getAt(index),e);*/
+
+
+            /*if(nav.getActiveItem().data&&message.fromid!=(nav.getActiveItem().data.get('_id')?nav.getActiveItem().data.get('_id'):nav.getActiveItem().data.get('patientinfo')._id)){
+
+             nav.pop(nav.getInnerItems().length - 1);
+
+             //nav.pop();
+             mainController.selectindex=-1;
+
+             }*/
+
+            setTimeout(function(){
+                try{
+                    //alert(11);
+                    listView.select(index);
+
+                    listView.fireEvent('itemtap',listView,index,listView.getActiveItem(),store.getAt(index),e);
+
+                }catch(err){
+
+                }finally{
+
+                    me.messageshowfinal(message);
+                }
+
+            },1000);
+
+
+
+
+        //},500);
+
+
+
+
+
 
 
 

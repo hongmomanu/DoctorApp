@@ -151,13 +151,37 @@ Ext.define('DoctorApp.controller.Login', {
     },
 
     backbuttonListener:function(){
+
         document.addEventListener("backbutton", onBackKeyDown, false);
+        var me=this;
         function onBackKeyDown() {
-            navigator.Backbutton.goHome(function() {
+
+            var mainView=me.getApplication().getController('Main').getNav();
+
+
+            if(mainView.getInnerItems().length==1){
+
+                window.plugins.Suspend.suspendApp();
+               /* Ext.Msg.confirm( "提示", "是否确认退出", function(btn){
+                    if(btn==='yes'){
+                        navigator.app.exitApp();
+
+                    }else{
+
+                    }
+                })*/
+            }else{
+
+                mainView.pop();
+
+            }
+
+            //alert(1);
+            /*navigator.Backbutton.goHome(function() {
                 //console.log('success')
             }, function() {
                 //console.log('fail')
-            });
+            });*/
         }
 
     },
