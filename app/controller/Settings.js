@@ -52,12 +52,13 @@ Ext.define('DoctorApp.controller.Settings', {
             blacklistbtn: 'settingsform #blacklistbtn',
             custompushformview: 'custompushform',
             custompushconfirmbtn: 'custompushform #confirmbtn',
-            settingnavview:'main #settingnavigationview',
+            //settingnavview:'main #settingnavigationview',
+            mainview:'main',
             doctorCodepicSmallView: 'settingsform #doctorCodepicSmall'
         }
     },
     showBlackList:function(btn){
-        var navView=this.getSettingnavview();
+        var navView=this.getMainview();
         var list=Ext.widget('blacklist',{'title':'我的黑名单'});
         navView.push(list);
         this.initBlackList();
@@ -174,6 +175,7 @@ Ext.define('DoctorApp.controller.Settings', {
         var keymaps={"week":7,'day':1,'month':30};
         var me=this;
         console.log("1");
+        if(me.pushinterval)clearInterval(me.pushinterval);
         if(localStorage.custompush){
             var data=JSON.parse(localStorage.custompush);
             var sendtime=new Date(data.sendtime);
@@ -268,7 +270,8 @@ Ext.define('DoctorApp.controller.Settings', {
 
     showPushForm:function(btn){
         var me=this;
-         var navView=this.getSettingnavview();
+         //var navView=this.getSettingnavview();
+         var navView=this.getMainview();
          var form=Ext.widget('CustomPushForm');
          navView.push(form);
         var successFunc = function (response, action) {
@@ -354,7 +357,8 @@ Ext.define('DoctorApp.controller.Settings', {
 
     viewactived: function (view, item) {
 
-        this.makeUserinfo();
+        //this.makeUserinfo();
+        this.initSetting();
 
         /*$('#doctorCodepicSmall').html('');
         $('#doctorCodepicSmall').qrcode({
@@ -365,7 +369,8 @@ Ext.define('DoctorApp.controller.Settings', {
     },
     confirmPush:function(btn){
         var me=this;
-        var navView=this.getSettingnavview();
+        //var navView=this.getSettingnavview();
+        var navView=this.getMainview();
         var form=btn.up('formpanel');
 
         var values=form.getValues();

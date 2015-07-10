@@ -135,10 +135,19 @@ Ext.define('DoctorApp.controller.Main', {
          }*/
     },
 
+    initUsername:function(){
+
+      setTimeout(function(){
+          Ext.get('username').setHtml(Globle_Variable.user.userinfo.realname);
+      },100);
+    },
     initRender: function () {
         // console.log(document.getElementById('map'));
         //alert(1);
         //this.makeLonlat();
+
+        this.initUsername();
+
         this.websocketInit();
         //testobj = this;
     },

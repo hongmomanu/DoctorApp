@@ -396,8 +396,15 @@ Ext.define('DoctorApp.controller.Doctors', {
     },
 
     receiverecommendConfirmShow:function(recommend, e){
-        var mainView = this.getMainview();
+       /* var mainView = this.getMainview();
         mainView.setActiveItem(1);
+*/
+
+        var mainView = this.getMainview();
+        mainView.pop(mainView.getInnerItems().length - 1);
+        var mainlist=mainView.down('mainlist');
+        mainlist.select(1);
+
         var patientCotroller=this.getApplication().getController('Patients');
         patientCotroller.initPatientList();
 
@@ -469,110 +476,149 @@ Ext.define('DoctorApp.controller.Doctors', {
     },
     receiveMessageShow: function (message, e) {
 
-        //Ext.Msg.alert('clicked',message.fromtype);
-        console.log(message);
-        var mainView = this.getMainview();
-        //Ext.Msg.alert('clicked end ',message.fromtype);
-        this.listView = null;
-        var messagestore = null;
 
 
-        if (message.fromtype == 1) {
-            mainView.setActiveItem(0);
-            this.listView = this.getDoctorsview();
 
 
-        } else {
-            message=Ext.apply(message.userinfo,message);
-            console.log("muhahaa");
-            console.log(message);
-            mainView.setActiveItem(1);
-            this.listView = this.getPatientsview();
+
+        var me=this;
+
+
+        var mainView=this.getMainview();
+        var listView=null;
+
+        var mainlist=mainView.down('mainlist');
+
+        if(mainView.getActiveItem().data){
+            console.log(message.fromid);
+            console.log(mainView.getActiveItem().data.get('_id'));
+        }
+
+
+
+
+        var mainController=this.getApplication().getController('Main');
+
+        if(((!mainView.getActiveItem().data&&mainView.getInnerItems().length>1))||(mainView.getActiveItem().data&&message.fromid!=(mainView.getActiveItem().data.get('_id')?mainView.getActiveItem().data.get('_id'):mainView.getActiveItem().data.get('patientinfo')._id))){
+
+            mainView.pop(mainView.getInnerItems().length - 1);
+
+            //nav.pop();
+            mainController.selectindex=-1;
 
         }
-        //Ext.Msg.alert('clicked',message.fromtype);
-       //alert('begin 121');
-
-        var me = this;
 
 
-        try {
-
-            var store = me.listView.getStore();
-
-            var flag=true;
-            //console.log(store.data);
-            var index=0;
-            for(var i=0;i<store.data.items.length;i++){
-
-                if(message.fromid==store.data.items[i].get("_id")){
-                    flag=false;
-                    index=i;
-                    break;
-                }
-            }
-            if(flag){
 
 
-                //message.userinfo.realname="<div style='color: #176982'>(New)</div>"+message.userinfo.realname;
-                //store.insert(0,[message]);
-                //index=store.data.items.length;
+        if(message.fromtype==0){
 
-                message._id=message.fromid;
-                store.add(message);
-                index =me.filterReceiveIndex(message,store);
+            console.log("pa");
+
+            //mainView.setActiveItem(0);
+
+
+            mainlist.select(1);
+            try{
+
+                if(mainController.selectindex!=1||mainView.getInnerItems().length==1)mainlist.fireEvent('itemtap',mainlist,1,mainlist.getActiveItem(),mainlist.getStore().getAt(1));
+            }catch(e){
+
+            }finally{
+                listView=this.getPatientsview();
 
             }
 
 
 
+        }else{
+            //mainView.setActiveItem(1);
+            console.log("doc");
+            mainlist.select(0);
+            try{
 
-            //alert(-1);
-            //var index = me.filterReceiveIndex(message, store);
-            //alert(-2);
+                if(mainController.selectindex!=0||mainView.getInnerItems().length==1) mainlist.fireEvent('itemtap',mainlist,0,mainlist.getActiveItem(),mainlist.getStore().getAt(0));
+            }catch(e){
 
-
-            var nav =me.listView.getParent();
-
-
-
-            if(nav.getItems().length==3&&message.fromid!=nav.getActiveItem().data.get('_id')){
-                nav.pop();
-                setTimeout(function(){
-                    try{
-                        me.listView.select(index);
-                        me.listView.fireEvent('itemtap',me.listView,index,me.listView.getActiveItem(),store.getAt(index),e);
-
-                    }catch(err){
-
-                    }finally{
-
-                        me.messageshowfinal(message);
-                    }
-
-                },500);
+            }finally{
+                listView=this.getDoctorsview();
             }
-            else{
-
-                me.listView.select(index);
-                me.listView.fireEvent('itemtap',me.listView,index,me.listView.getActiveItem(),store.getAt(index),e);
-
-            }
-
-
-
-           /* me.listView.select(index);
-
-            me.listView.fireEvent('itemtap', me.listView, index, me.listView.getActiveItem(), store.getAt(index), e);*/
-        } catch (err) {
-
-            console.log(err);
-        }
-        finally {
-
-           this.messageshowfinal(message);
 
         }
+
+
+
+
+
+
+        var store=listView.getStore();
+
+
+        var flag=true;
+        console.log(store.data);
+        var index=0;
+        for(var i=0;i<store.data.items.length;i++){
+            var fromid=message.fromtype==1?store.data.items[i].get('_id'):store.data.items[i].get('patientinfo')._id
+            if(message.fromid==fromid){
+                flag=false;
+                index=i;
+                break;
+            }
+        }
+
+
+
+        if(flag){
+            //message.userinfo.realname="<div style='color: #176982'>(New)</div>"+message.userinfo.realname;
+            //store.insert(0,[message]);
+            //index=store.data.items.length;
+            message._id=message.fromid;
+            store.add(message);
+            index =me.filterReceiveIndex(message,store);
+
+        }
+
+
+
+
+        //var index =this.filterReceiveIndex(message,store);
+        // var nav =listView.getParent();
+        var nav =mainView;
+
+        //console.log()
+        /*listView.select(index);
+         listView.fireEvent('itemtap',listView,index,listView.getActiveItem(),store.getAt(index),e);*/
+
+
+        /*if(nav.getActiveItem().data&&message.fromid!=(nav.getActiveItem().data.get('_id')?nav.getActiveItem().data.get('_id'):nav.getActiveItem().data.get('patientinfo')._id)){
+
+         nav.pop(nav.getInnerItems().length - 1);
+
+         //nav.pop();
+         mainController.selectindex=-1;
+
+         }*/
+
+        setTimeout(function(){
+            try{
+                //alert(11);
+                listView.select(index);
+
+                listView.fireEvent('itemtap',listView,index,listView.getActiveItem(),store.getAt(index),e);
+
+            }catch(err){
+
+            }finally{
+
+                me.messageshowfinal(message);
+            }
+
+        },500);
+
+
+
+
+
 
 
         /*this.listView.on({
@@ -668,14 +714,20 @@ Ext.define('DoctorApp.controller.Doctors', {
     receiveScanaddShow:function(data){
 
         var mainView = this.getMainview();
+
+        mainView.pop(mainView.getInnerItems().length - 1);
+        var mainlist=mainView.down('mainlist');
+
         //Ext.Msg.alert('added',JSON.stringify(data));
         if(data.fromtype==0){
-            mainView.setActiveItem(1);
+            //mainView.setActiveItem(1);
+            mainlist.select(1);
             /*var patientCotroller=this.getApplication().getController('Patients');
             patientCotroller.initPatientList();
 */
         }else{
-            mainView.setActiveItem(0);
+            //mainView.setActiveItem(0);
+            mainlist.select(0);
             /*var doctorCotroller=this.getApplication().getController('Doctors');
             doctorCotroller.initDoctorList();*/
         }
