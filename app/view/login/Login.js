@@ -42,12 +42,18 @@ Ext.define('DoctorApp.view.login.Login', {
                             {
                                 xtype: 'fieldset',
                                 //title: '医生登录',
-                                centered: true,
+                                //centered: true,
                                 instructions: '请填写信息',
                                 defaults: {
-                                    labelWidth: '150px'
+                                    //labelWidth: '150px'
+                                    labelAlign: 'top'
                                 },
                                 items: [
+
+                                    {
+                                        xtype:'label',
+                                        html:'<div style="text-align: center;vertical-align: middle;padding: 20px;"><div style="margin:0 auto" class="circletagnew"><img width="80px;" height="80px;" src="resources/icons/user.png"></div></div>'
+                                    },
                                     {
                                         xtype: 'textfield',
 
@@ -55,8 +61,8 @@ Ext.define('DoctorApp.view.login.Login', {
                                         label: '用户名',
                                         placeHolder: '请输入用户名',
                                         required: true,
-                                        clearIcon: true,
-                                        labelAlign: 'left'
+                                        clearIcon: true/*,
+                                        labelAlign: 'left'*/
                                     },
                                     {
                                         xtype: 'passwordfield',

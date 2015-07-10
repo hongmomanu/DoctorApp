@@ -11,6 +11,8 @@ Ext.define('DoctorApp.controller.Main', {
             'MainList'
 
 
+
+
         ],
         models: [
             /*'Contact',*/
@@ -48,70 +50,37 @@ Ext.define('DoctorApp.controller.Main', {
             },
             loadmorelistbtn: {
                 tap: 'doLoadmorelistCLick'
-            },
-            mainlistview: {
-                itemtap:'onTitleSelect'
             }
 
         },
         refs: {
-
+            contacts: 'contacts',
             nav: 'main',
-
+            showContact: 'contact-show',
             map: 'main #map',
-
+            loadmorelistbtn: 'contacts #loadmorelist',
+            imgbtn: 'main #imagebtn',
+            msgbtn: 'main #msgbtn',
             //doctorloginbtn: 'loginform #doctorlogin',
             navigationview: 'main #navigationview',
-
-            mainlistview:'mainlist'
+            locationbtn: 'main #locationbtn',
+            imgpanel: 'main #imagerc'
         }
     },
-
-    selectindex:-1,
-
-    onTitleSelect:function(list,index,node,record){
-
-        //alert(11);
+    onContactSelect: function (list, index, node, record) {
+        if (!this.showContact)this.showContact = Ext.create('MyApp.view.contact.Show');
         //console.log()
-        this.selectindex=index;
-        testobjs=this;
-        if(record.get('type')==0){
+        //alert(1);
+        //this.getContacts().deselectAll();
+        //console.log(this.showContact);
+        //testobj=this.showContact;
+        // Bind the record onto the show contact view
+        this.showContact.setRecord(record);
+        this.getNavigationview().push(this.showContact);
 
-            if(!this.doctorView){
-                this.doctorView=Ext.create('DoctorApp.view.doctors.Doctors',{title:record.get('title')});
-            }
-            this.getNav().push(this.doctorView);
-
-
-
-        }else if(record.get('type')==1){
-
-            if(!this.patientView){
-                this.patientView=Ext.create('DoctorApp.view.patients.Patients',{title:record.get('title')});
-            }
-
-            this.getNav().push(this.patientView);
-
-
-        }else if(record.get('type')==2){
-            if(!this.materialView){
-                this.materialView=Ext.create('DoctorApp.view.material.Material',{title:record.get('title')});
-            }
-            this.getNav().push(this.materialView);
-
-        }else if(record.get('type')==3){
-            if(!this.settingView){
-                this.settingView=Ext.create('DoctorApp.view.settings.Settings',{title:record.get('title')});
-            }
-            this.getNav().push(this.settingView);
-
-        }
-
-        /**/
-
+        // Push the show contact view into the navigation view
 
     },
-
     doLoadmorelistCLick: function () {
         //alert(111);
         store = this.getContacts().getStore();

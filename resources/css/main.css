@@ -1,5 +1,75 @@
 /*单元格样式。*/
 
+.circletag {
+    width: 170px;
+    border-radius: 200px;
+    -webkit-transform: translateY(100px);
+    -moz-transform: translateY(100px);
+    -ms-transform: translateY(100px);
+    -o-transform: translateY(100px);
+    -webkit-transform: translateY(100px);
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.x-tab .x-button-icon.fa::before, .x-button .x-button-icon.fa::before{
+    font-family:FontAwesome;
+}
+
+.fa-color-blue{
+    color: #2A6A6B;
+}
+
+.circletagnew {
+    display: block;
+
+    width: 100px;
+    height: 100px;
+    background: #E6E7ED;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    /*background-image: url(../icons/user.png);*/
+    background-position:50% 50%;
+    background-repeat:no-repeat;
+}
+
+.circular {
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    -webkit-border-radius: 40px;
+    -moz-border-radius: 40px;
+    background: url(../icons/user.png) no-repeat;
+}
+
+.mainlist .x-list-item{
+    color:White;
+
+    /*border-top:1px solid #ff0000;*/
+
+}
+.mainlist .x-item-selected {
+
+    background-image:none;
+    background:#2D2F3B!important;
+
+    background-color:#2D2F3B!important;
+
+    /*border-top:1px solid #ff0000;*/
+
+}
+.mainlist .x-list-disclosure{
+
+    -webkit-mask: 0 0 url(../icons/chevron-right_ffffff_32.png);
+    -webkit-mask-size:100%;
+    overflow:hidden;
+    background-color:White;
+    background-image:none;
+
+}
+
+
 
 .x-tab .x-button-icon.picture:before,.x-button .x-button-icon.picture:before{position:absolute;top:0;right:0;bottom:0;left:0;text-align:center;font-family:"pictos";content:"P"}
 .x-tab .x-button-icon.voice:before,.x-button .x-button-icon.voice:before{position:absolute;top:0;right:0;bottom:0;left:0;text-align:center;font-family:"pictos";content:"m"}
