@@ -567,8 +567,9 @@ Ext.define('DoctorApp.controller.Doctors', {
             //console.log(store.data);
             var index=0;
             for(var i=0;i<store.data.items.length;i++){
-                var fromid=message.fromtype==1?store.data.items[i].get('_id'):store.data.items[i].get('patientinfo')._id
-                if(message.fromid==fromid){
+                console.log(store.data.items[i]);
+                //var fromid=message.fromtype==1?store.data.items[i].get('_id'):store.data.items[i].get('patientinfo')._id
+                if(message.fromid==store.data.items[i].get("_id")){
                     flag=false;
                     index=i;
                     break;

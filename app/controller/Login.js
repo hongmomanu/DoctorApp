@@ -56,12 +56,7 @@ Ext.define('DoctorApp.controller.Login', {
 
     initFunc:function (item,e){
         this.autoLogin();
-        this.makeLocationListener();
-        this.makeBackGroundListener();
-        this.backbuttonListener();
-        this.pauseListener();
-        this.resumeListener();
-        this.initNotificationClick(e);
+
 
     },
 
@@ -263,6 +258,21 @@ Ext.define('DoctorApp.controller.Login', {
 
     },
 
+
+    loginsucinit:function(e){
+        try{
+            this.makeLocationListener();
+            this.makeBackGroundListener();
+            this.backbuttonListener();
+            this.pauseListener();
+            this.resumeListener();
+            this.initNotificationClick(e);
+        } catch(e){
+
+        }
+    },
+
+
     //doctor app init
     doDoctorLogin:function(btn){
 
@@ -274,6 +284,8 @@ Ext.define('DoctorApp.controller.Login', {
             var successFunc = function (response, action) {
                 var res=JSON.parse(response.responseText);
                 if(res.success){
+
+                    me.loginsucinit();
                     Ext.Viewport.removeAt(0);
                     Ext.Viewport.add(Ext.create('DoctorApp.view.Main'));
                     localStorage.user=JSON.stringify(res.user);
