@@ -37,7 +37,15 @@ Ext.define('DoctorApp.controller.Register', {
                 var res=JSON.parse(response.responseText);
                 if(res.success){
 
-                    Ext.Msg.alert('注册成功',res.message, Ext.emptyFn);
+                    Ext.Msg.alert('注册成功',"成功", function(){
+                        localStorage.user=JSON.stringify(res.message);
+                        Globle_Variable.user=res.message;
+
+                        window.location.reload();
+
+
+                    });
+
 
                    /* Ext.Viewport.removeAt(0);
                     Ext.Viewport.add(Ext.create('PatientApp.view.Main'));

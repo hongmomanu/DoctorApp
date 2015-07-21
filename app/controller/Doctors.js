@@ -583,6 +583,8 @@ Ext.define('DoctorApp.controller.Doctors', {
                 //store.insert(0,[message]);
                 //index=store.data.items.length;
                 message._id=message.fromid;
+                message.username=message.userinfo.username;
+                message.realname=message.userinfo.realname;
                 store.add(message);
                 index =me.filterReceiveIndex(message,store);
 

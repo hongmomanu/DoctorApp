@@ -95,10 +95,10 @@ Ext.define('DoctorApp.controller.Settings', {
                         var res=JSON.parse(response.responseText);
                         if(res.success){
                             Ext.Msg.alert('成功', '添加医生:'+realname+'成功', function(){
-                                var doctorCotroller=me.getApplication().getController('Doctors');
+                               /* var doctorCotroller=me.getApplication().getController('Doctors');
                                 var mainView = doctorCotroller.getMainview();
                                 mainView.setActiveItem(0);
-                                doctorCotroller.initDoctorList();
+                                doctorCotroller.initDoctorList();*/
                             });
 
                         }else{
@@ -166,7 +166,8 @@ Ext.define('DoctorApp.controller.Settings', {
             if(buttonid=='yes'){
                 Globle_Variable.user=null;
                 localStorage.user="";
-                window.location.reload();
+                //window.location.reload();
+                window.location.href="index.html";
             }
         });
     },
